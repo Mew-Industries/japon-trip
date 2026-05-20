@@ -121,7 +121,7 @@
   <div id="map"></div>
   <aside class="sidebar">
     <h1>Japón + Corea · sept-oct 2026</h1>
-    <div class="subtitle">Pasá el cursor sobre cada parada para verla en el mapa. Click para abrir detalles.</div>
+    <div class="subtitle">Open jaw: entrada por Tokio, salida por Seúl. Pasá el cursor sobre cada parada para verla en el mapa.</div>
 
     <div class="section-label">Pernoctes</div>
     <div id="stops-list"></div>
@@ -134,16 +134,17 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const phases = [
-  { phase: '1',  pointId: 'tokio',    name: 'Tokio · parte 1', dates: '12–17 sept', nights: '5 noches', why: 'Recuperar jet lag. Ciudad gigante con AC absorbe el calor.' },
-  { phase: '2',  pointId: 'nikko',    name: 'Nikko',           dates: '17–19 sept', nights: '2 noches', why: 'Escape de montaña a 600-1300m. ~22 °C, fresco.' },
-  { phase: '3',  pointId: 'tokio',    name: 'Tokio · parte 2', dates: '19–24 sept', nights: '5 noches', why: 'Silver Week se aguanta acá. Day trips a Kamakura, Yokohama.' },
-  { phase: '4',  pointId: 'kanazawa', name: 'Kanazawa',        dates: '24–26 sept', nights: '2 noches', why: 'Post-Silver Week, costa fresca. Day trip a Shirakawa-go.' },
+  { phase: '1',  pointId: 'tokio',    name: 'Tokio · parte 1',   dates: '12–17 sept', nights: '5 noches', why: 'Recuperar jet lag. Ciudad gigante con AC absorbe el calor.' },
+  { phase: '2',  pointId: 'nikko',    name: 'Nikko',             dates: '17–19 sept', nights: '2 noches', why: 'Escape de montaña a 600-1300m. ~22 °C, fresco.' },
+  { phase: '3',  pointId: 'tokio',    name: 'Tokio · parte 2',   dates: '19–24 sept', nights: '5 noches', why: 'Silver Week se aguanta acá. Day trips a Kamakura, Yokohama.' },
+  { phase: '4',  pointId: 'kanazawa', name: 'Kanazawa',          dates: '24–26 sept', nights: '2 noches', why: 'Post-Silver Week, costa fresca. Day trip a Shirakawa-go.' },
   { phase: '5',  pointId: 'koyasan',  name: 'Koyasan (shukubo)', dates: '26–28 sept', nights: '2 noches', why: 'Templo budista. 800m de altura, fresco, vacío post-Silver Week.' },
-  { phase: '6',  pointId: 'kioto',    name: 'Kioto',           dates: '28 sept – 3 oct', nights: '5 noches', why: 'Ya bajó el calor ~5 °C. Hoteles a precio normal, templos respirables.' },
-  { phase: '7',  pointId: 'osaka',    name: 'Osaka',           dates: '3–7 oct',    nights: '4 noches', why: 'Base para Naoshima + Murou. Comida + castillo.' },
-  { phase: '8',  pointId: 'yufuin',   name: 'Yufuin (onsen)',  dates: '7–9 oct',    nights: '2 noches', why: 'Ryokan. Octubre = el riesgo de tifón en Kyushu ya bajó.' },
-  { phase: '9',  pointId: 'fukuoka',  name: 'Fukuoka',         dates: '9–12 oct',   nights: '3 noches', why: 'Yatais + Dazaifu. Transición a Corea.' },
-  { phase: '10', pointId: 'seul',     name: 'Seúl',            dates: '12–16 oct',  nights: '4 noches', why: 'Octubre = el mejor mes del año en Corea. Post-Chuseok, todo normal.' },
+  { phase: '6',  pointId: 'kioto',    name: 'Kioto',             dates: '28 sept – 3 oct', nights: '5 noches', why: 'Ya bajó el calor ~5 °C. Hoteles a precio normal, templos respirables.' },
+  { phase: '7',  pointId: 'osaka',    name: 'Osaka',             dates: '3–7 oct',    nights: '4 noches', why: 'Base para Naoshima + Murou. Comida + castillo.' },
+  { phase: '8',  pointId: 'yufuin',   name: 'Yufuin (onsen)',    dates: '7–9 oct',    nights: '2 noches', why: 'Ryokan. Octubre = el riesgo de tifón en Kyushu ya bajó.' },
+  { phase: '9',  pointId: 'fukuoka',  name: 'Fukuoka',           dates: '9–12 oct',   nights: '3 noches', why: 'Yatais + Dazaifu. Día previo al cruce a Corea por ferry.' },
+  { phase: '10', pointId: 'busan',    name: 'Busan + Gyeongju',  dates: '12–15 oct',  nights: '3 noches', why: 'Beetle ferry desde Hakata (3h). Mariscos, Gamcheon Village, day trip a Gyeongju.' },
+  { phase: '11', pointId: 'seul',     name: 'Seúl',              dates: '15–19 oct',  nights: '4 noches', why: 'KTX desde Busan (~2h30). Octubre = el mejor mes del año en Corea.' },
 ];
 
 const points = {
@@ -155,13 +156,15 @@ const points = {
   osaka:    { coords: [34.6937, 135.5023], label: '7' },
   yufuin:   { coords: [33.2667, 131.3667], label: '8' },
   fukuoka:  { coords: [33.5904, 130.4017], label: '9' },
-  seul:     { coords: [37.5665, 126.9780], label: '10' },
+  busan:    { coords: [35.1796, 129.0756], label: '10' },
+  seul:     { coords: [37.5665, 126.9780], label: '11' },
 };
 
 const daytrips = [
   { id: 'shirakawago', name: 'Shirakawa-go',  from: 'Kanazawa', coords: [36.2585, 136.9067] },
   { id: 'naoshima',    name: 'Naoshima',      from: 'Osaka',    coords: [34.4554, 133.9933] },
   { id: 'murou',       name: 'Murou-ji',      from: 'Osaka',    coords: [34.5378, 136.0376] },
+  { id: 'gyeongju',    name: 'Gyeongju',      from: 'Busan',    coords: [35.8562, 129.2247] },
 ];
 
 const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([35.5, 134], 5);
@@ -175,10 +178,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 const routeCoords = phases.map(p => points[p.pointId].coords);
 L.polyline(routeCoords, {
   color: '#0F6E56', weight: 3, opacity: 0.75, dashArray: '8, 8',
-}).addTo(map);
-
-L.polyline([points.seul.coords, points.tokio.coords], {
-  color: '#888', weight: 1.5, opacity: 0.5, dashArray: '2, 10',
 }).addTo(map);
 
 const markers = {};
