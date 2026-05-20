@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ruta Japón + Corea · sept-oct 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; }
+  .container { display: flex; height: 100vh; }
+  #map { flex: 1; height: 100%; }
+  .sidebar {
+    width: 340px;
+    background: #fafaf8;
+    border-left: 1px solid rgba(0,0,0,0.08);
+    overflow-y: auto;
+    padding: 18px 16px;
+    box-shadow: -2px 0 6px rgba(0,0,0,0.04);
+  }
+  .sidebar h1 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+  .sidebar .subtitle { font-size: 12px; color: #666; margin-bottom: 18px; line-height: 1.4; }
+  .section-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; margin: 14px 0 8px; font-weight: 600; }
+  .stop {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    transition: background 0.15s ease;
+    align-items: start;
+  }
+  .stop:hover { background: rgba(93, 202, 165, 0.18); }
+  .stop.active { background: rgba(93, 202, 165, 0.28); }
+  .stop-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #5DCAA5;
+    border: 2px solid #0F6E56;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: #04342C;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .stop-content { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .stop-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
+  .stop-dates { font-size: 11px; color: #666; }
+  .stop-why { font-size: 11px; color: #555; line-height: 1.45; margin-top: 4px; }
+  .daytrip {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    align-items: center;
+  }
+  .daytrip:hover { background: rgba(0,0,0,0.05); }
+  .daytrip.active { background: rgba(0,0,0,0.08); }
+  .dt-dot-wrap { display: flex; align-items: center; justify-content: center; }
+  .dt-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid #444;
+  }
+  .dt-name { font-size: 12px; color: #1a1a1a; }
+  .dt-from { font-size: 11px; color: #888; }
+
+  .marker-num {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #5DCAA5;
+    border: 2px solid #0F6E56;
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: #04342C;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .marker-num.active {
+    transform: scale(1.45);
+    background: #1D9E75;
+    color: white;
+    box-shadow: 0 4px 10px rgba(15, 110, 86, 0.45);
+    z-index: 1000 !important;
+  }
+  .marker-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid #444;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .marker-dot.active {
+    transform: scale(1.8);
+    background: #fbbf77;
+    border-color: #BA7517;
+  }
+
+  .leaflet-popup-content { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 12px 14px; }
+  .popup-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .popup-dates { font-size: 12px; color: #666; margin-bottom: 6px; }
+  .popup-why { font-size: 12px; color: #333; line-height: 1.5; }
+
+  @media (max-width: 700px) {
+    .container { flex-direction: column; }
+    #map { height: 55vh; }
+    .sidebar { width: 100%; height: 45vh; border-left: none; border-top: 1px solid rgba(0,0,0,0.08); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div id="map"></div>
+  <aside class="sidebar">
+    <h1>Japón + Corea · sept-oct 2026</h1>
+    <div class="subtitle">Pasá el cursor sobre cada parada para verla en el mapa. Click para abrir detalles.</div>
+
+    <div class="section-label">Pernoctes</div>
+    <div id="stops-list"></div>
+
+    <div class="section-label" style="margin-top: 16px;">Day trips</div>
+    <div id="daytrips-list"></div>
+  </aside>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const phases = [
+  { phase: '1',  pointId: 'tokio',    name: 'Tokio · parte 1', dates: '12–17 sept', nights: '5 noches', why: 'Recuperar jet lag. Ciudad gigante con AC absorbe el calor.' },
+  { phase: '2',  pointId: 'nikko',    name: 'Nikko',           dates: '17–19 sept', nights: '2 noches', why: 'Escape de montaña a 600-1300m. ~22 °C, fresco.' },
+  { phase: '3',  pointId: 'tokio',    name: 'Tokio · parte 2', dates: '19–24 sept', nights: '5 noches', why: 'Silver Week se aguanta acá. Day trips a Kamakura, Yokohama.' },
+  { phase: '4',  pointId: 'kanazawa', name: 'Kanazawa',        dates: '24–26 sept', nights: '2 noches', why: 'Post-Silver Week, costa fresca. Day trip a Shirakawa-go.' },
+  { phase: '5',  pointId: 'koyasan',  name: 'Koyasan (shukubo)', dates: '26–28 sept', nights: '2 noches', why: 'Templo budista. 800m de altura, fresco, vacío post-Silver Week.' },
+  { phase: '6',  pointId: 'kioto',    name: 'Kioto',           dates: '28 sept – 3 oct', nights: '5 noches', why: 'Ya bajó el calor ~5 °C. Hoteles a precio normal, templos respirables.' },
+  { phase: '7',  pointId: 'osaka',    name: 'Osaka',           dates: '3–7 oct',    nights: '4 noches', why: 'Base para Naoshima + Murou. Comida + castillo.' },
+  { phase: '8',  pointId: 'yufuin',   name: 'Yufuin (onsen)',  dates: '7–9 oct',    nights: '2 noches', why: 'Ryokan. Octubre = el riesgo de tifón en Kyushu ya bajó.' },
+  { phase: '9',  pointId: 'fukuoka',  name: 'Fukuoka',         dates: '9–12 oct',   nights: '3 noches', why: 'Yatais + Dazaifu. Transición a Corea.' },
+  { phase: '10', pointId: 'seul',     name: 'Seúl',            dates: '12–16 oct',  nights: '4 noches', why: 'Octubre = el mejor mes del año en Corea. Post-Chuseok, todo normal.' },
+];
+
+const points = {
+  tokio:    { coords: [35.6762, 139.6503], label: '1·3' },
+  nikko:    { coords: [36.7589, 139.6075], label: '2' },
+  kanazawa: { coords: [36.5613, 136.6562], label: '4' },
+  koyasan:  { coords: [34.2129, 135.5836], label: '5' },
+  kioto:    { coords: [35.0116, 135.7681], label: '6' },
+  osaka:    { coords: [34.6937, 135.5023], label: '7' },
+  yufuin:   { coords: [33.2667, 131.3667], label: '8' },
+  fukuoka:  { coords: [33.5904, 130.4017], label: '9' },
+  seul:     { coords: [37.5665, 126.9780], label: '10' },
+};
+
+const daytrips = [
+  { id: 'shirakawago', name: 'Shirakawa-go',  from: 'Kanazawa', coords: [36.2585, 136.9067] },
+  { id: 'naoshima',    name: 'Naoshima',      from: 'Osaka',    coords: [34.4554, 133.9933] },
+  { id: 'murou',       name: 'Murou-ji',      from: 'Osaka',    coords: [34.5378, 136.0376] },
+];
+
+const map = L.map('map', { zoomControl: true, scrollWheelZoom: true }).setView([35.5, 134], 5);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+  attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 19,
+}).addTo(map);
+
+const routeCoords = phases.map(p => points[p.pointId].coords);
+L.polyline(routeCoords, {
+  color: '#0F6E56', weight: 3, opacity: 0.75, dashArray: '8, 8',
+}).addTo(map);
+
+L.polyline([points.seul.coords, points.tokio.coords], {
+  color: '#888', weight: 1.5, opacity: 0.5, dashArray: '2, 10',
+}).addTo(map);
+
+const markers = {};
+Object.entries(points).forEach(([id, pt]) => {
+  const icon = L.divIcon({
+    html: '<div class="marker-num" data-id="' + id + '">' + pt.label + '</div>',
+    className: '',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
+  });
+  const marker = L.marker(pt.coords, { icon }).addTo(map);
+  markers[id] = marker;
+});
+
+const dtMarkers = {};
+daytrips.forEach(d => {
+  const icon = L.divIcon({
+    html: '<div class="marker-dot" data-id="' + d.id + '"></div>',
+    className: '',
+    iconSize: [12, 12],
+    iconAnchor: [6, 6],
+  });
+  const marker = L.marker(d.coords, { icon }).addTo(map);
+  marker.bindPopup('<div class="popup-title">' + d.name + '</div><div class="popup-dates">Day trip desde ' + d.from + '</div>');
+  dtMarkers[d.id] = marker;
+});
+
+const allCoords = routeCoords.concat(daytrips.map(d => d.coords));
+map.fitBounds(L.latLngBounds(allCoords), { padding: [40, 40] });
+
+const stopsList = document.getElementById('stops-list');
+phases.forEach(p => {
+  const el = document.createElement('div');
+  el.className = 'stop';
+  el.dataset.phase = p.phase;
+  el.dataset.pointId = p.pointId;
+  el.innerHTML =
+    '<div class="stop-num">' + p.phase + '</div>' +
+    '<div class="stop-content">' +
+      '<div class="stop-name">' + p.name + '</div>' +
+      '<div class="stop-dates">' + p.dates + ' · ' + p.nights + '</div>' +
+      '<div class="stop-why">' + p.why + '</div>' +
+    '</div>';
+  stopsList.appendChild(el);
+
+  const popupHtml =
+    '<div class="popup-title">' + p.phase + '. ' + p.name + '</div>' +
+    '<div class="popup-dates">' + p.dates + ' · ' + p.nights + '</div>' +
+    '<div class="popup-why">' + p.why + '</div>';
+
+  el.addEventListener('mouseenter', () => {
+    el.classList.add('active');
+    highlightMarker(p.pointId);
+    map.panTo(points[p.pointId].coords, { animate: true, duration: 0.6 });
+  });
+  el.addEventListener('mouseleave', () => {
+    el.classList.remove('active');
+    unhighlightMarker(p.pointId);
+  });
+  el.addEventListener('click', () => {
+    markers[p.pointId].setPopupContent(popupHtml);
+    markers[p.pointId].openPopup();
+    map.flyTo(points[p.pointId].coords, 8, { duration: 0.8 });
+  });
+
+  if (!markers[p.pointId].getPopup()) {
+    markers[p.pointId].bindPopup(popupHtml);
+  }
+});
+
+const daytripsList = document.getElementById('daytrips-list');
+daytrips.forEach(d => {
+  const el = document.createElement('div');
+  el.className = 'daytrip';
+  el.dataset.id = d.id;
+  el.innerHTML =
+    '<div class="dt-dot-wrap"><div class="dt-dot"></div></div>' +
+    '<div>' +
+      '<div class="dt-name">' + d.name + '</div>' +
+      '<div class="dt-from">desde ' + d.from + '</div>' +
+    '</div>';
+  daytripsList.appendChild(el);
+
+  el.addEventListener('mouseenter', () => {
+    el.classList.add('active');
+    highlightDaytrip(d.id);
+    map.panTo(d.coords, { animate: true, duration: 0.6 });
+  });
+  el.addEventListener('mouseleave', () => {
+    el.classList.remove('active');
+    unhighlightDaytrip(d.id);
+  });
+  el.addEventListener('click', () => {
+    dtMarkers[d.id].openPopup();
+    map.flyTo(d.coords, 9, { duration: 0.8 });
+  });
+});
+
+function highlightMarker(pointId) {
+  const el = document.querySelector('.marker-num[data-id="' + pointId + '"]');
+  if (el) el.classList.add('active');
+}
+function unhighlightMarker(pointId) {
+  const el = document.querySelector('.marker-num[data-id="' + pointId + '"]');
+  if (el) el.classList.remove('active');
+}
+function highlightDaytrip(id) {
+  const el = document.querySelector('.marker-dot[data-id="' + id + '"]');
+  if (el) el.classList.add('active');
+}
+function unhighlightDaytrip(id) {
+  const el = document.querySelector('.marker-dot[data-id="' + id + '"]');
+  if (el) el.classList.remove('active');
+}
+
+Object.entries(markers).forEach(([id, marker]) => {
+  marker.on('mouseover', () => {
+    highlightMarker(id);
+    document.querySelectorAll('.stop[data-point-id="' + id + '"]').forEach(e => e.classList.add('active'));
+  });
+  marker.on('mouseout', () => {
+    unhighlightMarker(id);
+    document.querySelectorAll('.stop[data-point-id="' + id + '"]').forEach(e => e.classList.remove('active'));
+  });
+});
+Object.entries(dtMarkers).forEach(([id, marker]) => {
+  marker.on('mouseover', () => {
+    highlightDaytrip(id);
+    const el = document.querySelector('.daytrip[data-id="' + id + '"]');
+    if (el) el.classList.add('active');
+  });
+  marker.on('mouseout', () => {
+    unhighlightDaytrip(id);
+    const el = document.querySelector('.daytrip[data-id="' + id + '"]');
+    if (el) el.classList.remove('active');
+  });
+});
+</script>
+</body>
+</html>
