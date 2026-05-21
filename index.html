@@ -7,96 +7,161 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #fafaf8; }
-  body { display: flex; flex-direction: column; height: 100vh; }
+  html, body { margin: 0; padding: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; background: #f5f4f0; }
+  body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
   /* HEADER */
   .site-header {
-    padding: 14px 24px;
+    padding: 12px 24px;
     background: white;
     border-bottom: 1px solid rgba(0,0,0,0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-shrink: 0;
     z-index: 10;
   }
-  .site-header h1 {
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0;
-    color: #1a1a1a;
+  .header-title { display: flex; align-items: baseline; gap: 10px; }
+  .header-title h1 { font-size: 16px; font-weight: 600; margin: 0; color: #1a1a1a; }
+  .header-title .subtitle { font-size: 12px; color: #888; font-weight: 400; }
+  .header-stats { display: flex; gap: 20px; font-size: 12px; color: #555; }
+  .header-stats strong { color: #1a1a1a; font-weight: 600; }
+
+  /* DASHBOARD */
+  main.dashboard {
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    overflow: hidden;
+    gap: 0;
   }
-  .site-header .meta {
-    font-size: 12px;
+
+  /* MAP PANE */
+  .map-pane {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    border-right: 1px solid rgba(0,0,0,0.08);
+  }
+  #map { height: 100%; width: 100%; }
+
+  /* CONTENT PANE */
+  .content-pane {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #f5f4f0;
+  }
+
+  /* CHART SECTION */
+  .chart-section {
+    background: white;
+    padding: 12px 16px 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+  .chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .chart-title {
+    font-size: 11px;
     color: #888;
-    margin-left: 8px;
-    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
   }
-  .tabs { display: flex; gap: 4px; }
-  .tab-btn {
-    background: transparent;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #555;
-    cursor: pointer;
-    transition: background 0.15s;
-    font-family: inherit;
-  }
-  .tab-btn:hover { background: rgba(0,0,0,0.05); }
-  .tab-btn.active { background: #0F6E56; color: white; }
+  .chart-wrap { height: 200px; position: relative; }
 
-  /* MAIN */
-  main { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-  .tab-content { flex: 1; display: none; overflow: auto; }
-  .tab-content.active { display: flex; flex-direction: column; }
-
-  /* MAP TAB */
-  #tab-map.active { flex-direction: row; overflow: hidden; }
-  #map { flex: 1; height: 100%; }
-  .sidebar {
-    width: 320px;
-    background: #fafaf8;
-    border-left: 1px solid rgba(0,0,0,0.08);
+  /* DETAILS SECTION */
+  .details-section {
+    flex: 1;
     overflow-y: auto;
-    padding: 16px;
-    box-shadow: -2px 0 6px rgba(0,0,0,0.04);
+    padding: 14px 14px 24px;
   }
-  .section-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px; font-weight: 600; }
-  .stop {
-    display: grid; grid-template-columns: 30px 1fr; gap: 10px;
-    padding: 8px 10px; border-radius: 8px; cursor: pointer;
-    margin-bottom: 2px; transition: background 0.15s ease;
-    align-items: start;
+  .details-title {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin: 4px 4px 10px;
   }
-  .stop:hover { background: rgba(93, 202, 165, 0.18); }
-  .stop.active { background: rgba(93, 202, 165, 0.28); }
-  .stop-num {
-    width: 26px; height: 26px; border-radius: 50%;
+
+  /* CARDS */
+  .dest-card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .dest-card:hover {
+    border-color: rgba(15, 110, 86, 0.3);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .dest-card.active {
+    border-color: #0F6E56;
+    box-shadow: 0 2px 12px rgba(15, 110, 86, 0.15);
+  }
+  .card-header {
+    display: grid;
+    grid-template-columns: 30px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .card-num {
+    width: 28px; height: 28px; border-radius: 50%;
     background: #5DCAA5; border: 2px solid #0F6E56;
     display: flex; align-items: center; justify-content: center;
     font-size: 11px; font-weight: 600; color: #04342C;
-    flex-shrink: 0; margin-top: 1px;
+    flex-shrink: 0;
   }
-  .stop-content { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-  .stop-name { font-size: 13px; font-weight: 500; line-height: 1.3; }
-  .stop-dates { font-size: 11px; color: #666; }
-  .daytrip {
-    display: grid; grid-template-columns: 30px 1fr; gap: 10px;
-    padding: 6px 10px; border-radius: 8px; cursor: pointer;
-    transition: background 0.15s ease; align-items: center;
+  .card-title-wrap h2 { font-size: 15px; font-weight: 600; margin: 0 0 1px; line-height: 1.2; }
+  .card-meta { font-size: 11px; color: #666; }
+  .card-temps { display: flex; gap: 6px; flex-shrink: 0; }
+  .temp-pill {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 3px 8px; border-radius: 6px; min-width: 48px;
+    font-size: 9px; line-height: 1.2;
   }
-  .daytrip:hover { background: rgba(0,0,0,0.05); }
-  .daytrip.active { background: rgba(0,0,0,0.08); }
-  .dt-dot-wrap { display: flex; align-items: center; justify-content: center; }
-  .dt-dot { width: 9px; height: 9px; border-radius: 50%; background: white; border: 1.5px solid #444; }
-  .dt-name { font-size: 12px; color: #1a1a1a; }
-  .dt-from { font-size: 11px; color: #888; }
+  .temp-max { background: rgba(216, 90, 48, 0.12); color: #993C1D; }
+  .temp-min { background: rgba(29, 158, 117, 0.12); color: #0F6E56; }
+  .temp-label { font-weight: 500; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
+  .temp-value { font-size: 11px; font-weight: 600; margin-top: 1px; }
 
+  .card-intro {
+    font-size: 12px; color: #555; line-height: 1.5;
+    margin: 0 0 10px;
+  }
+  .card-section-title {
+    font-size: 10px; color: #999; text-transform: uppercase;
+    letter-spacing: 1.5px; font-weight: 600;
+    margin: 10px 0 4px;
+  }
+  .card-list { margin: 0; padding: 0 0 0 16px; }
+  .card-list li {
+    font-size: 12px; line-height: 1.5; color: #333;
+    margin-bottom: 2px;
+  }
+  .dt-row {
+    padding: 8px 10px; background: rgba(0,0,0,0.025);
+    border-radius: 6px; margin-top: 6px;
+  }
+  .dt-row-header {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; flex-wrap: wrap; margin-bottom: 2px;
+  }
+  .dt-row-name { font-size: 12px; font-weight: 500; }
+  .dt-row-time { font-size: 10px; color: #888; }
+  .dt-row-desc { font-size: 11px; color: #555; line-height: 1.45; }
+
+  /* LEAFLET CUSTOMIZATIONS */
   .marker-num {
     width: 30px; height: 30px; border-radius: 50%;
     background: #5DCAA5; border: 2px solid #0F6E56;
@@ -117,148 +182,61 @@
     transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
   }
   .marker-dot.active { transform: scale(1.8); background: #fbbf77; border-color: #BA7517; }
-  .leaflet-popup-content { font-family: -apple-system, sans-serif; margin: 12px 14px; }
-  .popup-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-  .popup-dates { font-size: 12px; color: #666; margin-bottom: 6px; }
-  .popup-why { font-size: 12px; color: #333; line-height: 1.5; }
-
-  /* DETAILS TAB */
-  #tab-details.active { padding: 24px 16px; }
-  .details-wrap { max-width: 920px; margin: 0 auto; }
-  .details-intro {
-    font-size: 13px; color: #666; line-height: 1.5;
-    margin: 0 0 20px; padding: 14px 18px;
-    background: white; border-radius: 10px;
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .dest-card {
-    background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
-    padding: 18px 20px; margin-bottom: 14px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  }
-  .card-header {
-    display: grid; grid-template-columns: 36px 1fr auto; gap: 14px;
-    align-items: center; margin-bottom: 14px;
-    padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.06);
-  }
-  .card-num {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: #5DCAA5; border: 2px solid #0F6E56;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; color: #04342C;
-  }
-  .card-title-wrap h2 { font-size: 18px; font-weight: 600; margin: 0 0 2px; }
-  .card-meta { font-size: 12px; color: #666; }
-  .card-temps { display: flex; gap: 8px; }
-  .temp-pill {
-    display: flex; flex-direction: column; align-items: center;
-    padding: 4px 10px; border-radius: 8px; min-width: 56px;
-    font-size: 10px; line-height: 1.3;
-  }
-  .temp-max { background: rgba(216, 90, 48, 0.12); color: #993C1D; }
-  .temp-min { background: rgba(29, 158, 117, 0.12); color: #0F6E56; }
-  .temp-label { font-weight: 500; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
-  .temp-value { font-size: 13px; font-weight: 600; margin-top: 1px; }
-  .card-intro { font-size: 13px; color: #555; line-height: 1.5; margin: 0 0 12px; }
-  .card-section-title {
-    font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 1.5px;
-    font-weight: 600; margin: 14px 0 6px;
-  }
-  .card-list { margin: 0; padding: 0 0 0 18px; }
-  .card-list li {
-    font-size: 13px; line-height: 1.55; color: #333; margin-bottom: 4px;
-  }
-  .dt-row {
-    display: grid; grid-template-columns: 1fr; gap: 8px;
-    padding: 10px 12px; background: rgba(0,0,0,0.025);
-    border-radius: 8px; margin-top: 8px;
-  }
-  .dt-row-header {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 10px; flex-wrap: wrap;
-  }
-  .dt-row-name { font-size: 13px; font-weight: 500; }
-  .dt-row-time { font-size: 11px; color: #888; }
-  .dt-row-desc { font-size: 12px; color: #555; line-height: 1.5; }
-
-  /* CLIMA TAB */
-  #tab-clima.active { padding: 24px 16px; }
-  .clima-wrap { max-width: 920px; margin: 0 auto; }
-  .clima-intro {
-    font-size: 13px; color: #666; line-height: 1.5;
-    margin: 0 0 16px; padding: 14px 18px;
-    background: white; border-radius: 10px;
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .chart-card {
-    background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
-    padding: 20px; margin-bottom: 14px;
-  }
-  .chart-wrap { height: 420px; position: relative; }
-  .chart-footer { font-size: 12px; color: #666; line-height: 1.6; margin-top: 14px; }
-  .chart-footer strong { color: #1a1a1a; font-weight: 600; }
+  .leaflet-popup-content { font-family: -apple-system, sans-serif; margin: 10px 12px; }
+  .popup-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .popup-dates { font-size: 11px; color: #666; margin-bottom: 4px; }
+  .popup-why { font-size: 11px; color: #333; line-height: 1.5; }
 
   /* MOBILE */
-  @media (max-width: 720px) {
-    .site-header { padding: 10px 16px; }
-    .site-header h1 { font-size: 14px; }
-    .site-header .meta { display: none; }
-    #tab-map.active { flex-direction: column; }
-    #map { height: 55vh; }
-    .sidebar { width: 100%; height: 45vh; border-left: none; border-top: 1px solid rgba(0,0,0,0.08); }
-    .card-header { grid-template-columns: 32px 1fr; }
-    .card-temps { grid-column: 1 / -1; justify-content: flex-start; margin-top: 6px; }
+  @media (max-width: 900px) {
+    body { overflow: auto; }
+    main.dashboard {
+      grid-template-columns: 1fr;
+      grid-template-rows: 50vh auto;
+      overflow: visible;
+    }
+    .map-pane { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .content-pane { overflow: visible; }
+    .details-section { overflow: visible; }
+    .header-stats { display: none; }
   }
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  <h1>Japón + Corea <span class="meta">· sept-oct 2026 · 44 noches</span></h1>
-  <nav class="tabs">
-    <button class="tab-btn active" data-tab="map">Mapa</button>
-    <button class="tab-btn" data-tab="details">Detalles</button>
-    <button class="tab-btn" data-tab="clima">Clima</button>
-  </nav>
+  <div class="header-title">
+    <h1>Japón + Corea</h1>
+    <span class="subtitle">sept-oct 2026</span>
+  </div>
+  <div class="header-stats">
+    <span><strong>10/9</strong> salida BA</span>
+    <span><strong>44</strong> noches</span>
+    <span><strong>13</strong> destinos</span>
+    <span><strong>27/10</strong> regreso</span>
+  </div>
 </header>
 
-<main>
-  <section id="tab-map" class="tab-content active">
+<main class="dashboard">
+  <div class="map-pane">
     <div id="map"></div>
-    <aside class="sidebar">
-      <div class="section-label">Pernoctes</div>
-      <div id="stops-list"></div>
-      <div class="section-label" style="margin-top: 16px;">Day trips</div>
-      <div id="daytrips-list"></div>
-    </aside>
-  </section>
+  </div>
 
-  <section id="tab-details" class="tab-content">
-    <div class="details-wrap">
-      <div class="details-intro">
-        <strong>Plan final:</strong> 44 noches, salida BA 10/9, regreso 27/10. Norte primero (Hokkaido + Hakodate) para esquivar el calor de Tokio con jet lag. Después Silver Week absorbida en Tokio, Tohoku post-feriado y bajada por Kansai hacia Kyushu, cruce a Corea por ferry. Cada destino tiene mínimo 2 noches; lo que era 1-noche se hizo day trip.
+  <div class="content-pane">
+    <div class="chart-section">
+      <div class="chart-header">
+        <span class="chart-title">Temperatura por destino</span>
       </div>
+      <div class="chart-wrap">
+        <canvas id="weatherChart"></canvas>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <div class="details-title">Destinos · click para enfocar en el mapa</div>
       <div id="details-list"></div>
     </div>
-  </section>
-
-  <section id="tab-clima" class="tab-content">
-    <div class="clima-wrap">
-      <div class="clima-intro">
-        Temperaturas promedio históricas para cada parada. Línea naranja = máxima diurna, verde = mínima nocturna. El pico cálido sigue siendo Tokio 19-27/9 (~26-28 °C), pero ya en la segunda mitad del viaje cuando estás aclimatado. La primera semana en Hokkaido te recibe con 22-24 °C secos, mucho mejor para sobrellevar el jet lag.
-      </div>
-      <div class="chart-card">
-        <div class="chart-wrap">
-          <canvas id="weatherChart"></canvas>
-        </div>
-        <div class="chart-footer">
-          <strong>Más fresco:</strong> Koyasan y Yufuin (mountain altitude, ~18-20 °C de día), Seúl al final (8-11 °C de mínima, sweater on).<br>
-          <strong>Humedad:</strong> 70-80 % en Japón hasta principios de oct; cae a 60 % en Corea.<br>
-          <strong>Tifones:</strong> riesgo medio-alto solo el primer trimestre del viaje en Tokio (19-27/9). Para cuando llegues a Kyushu (mid-oct) ya prácticamente terminó la temporada. Hokkaido (12-19/9) está fuera de la zona casi siempre.
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -275,18 +253,18 @@ const destinations = [
     coords: [43.0642, 141.3469],
     dates: '12-17 sept', nights: 5,
     tempMax: '22-24', tempMin: '14-16',
-    intro: 'Base de Hokkaido. Llegada de Tokio mismo día por vuelo doméstico (1h30). 5 noches en un solo hotel, 3 day trips por la región.',
+    intro: 'Base de Hokkaido. Llegada de Tokio mismo día por vuelo doméstico (1h30). 5 noches, 3 day trips.',
     activities: [
       'Mercado Nijo: desayuno con mariscos (uni, ikura, cangrejo)',
       'Sapporo Beer Museum + tour de cervecería',
-      'Susukino de noche (zona de izakayas y bares)',
-      'Cena con jingisukan (cordero a la parrilla, especialidad local)',
-      'Hokkaido Shrine + parque Maruyama si queda tiempo'
+      'Susukino de noche (izakayas y bares)',
+      'Jingisukan (cordero a la parrilla, especialidad local)',
+      'Hokkaido Shrine + parque Maruyama'
     ],
     daytrips: [
       { id: 'otaru', name: 'Otaru', coords: [43.1907, 140.9947], time: '30-45 min en tren', desc: 'Pueblo de canales del siglo XIX. Talleres de cristal, sushi callejero en el muelle.' },
-      { id: 'furano', name: 'Furano + Biei', coords: [43.3525, 142.3833], time: '2-3 h vía Asahikawa', desc: 'Colinas onduladas estilo Toscana, granjas, panoramic point. La postal de Hokkaido.' },
-      { id: 'noboribetsu', name: 'Noboribetsu', coords: [42.4856, 141.1186], time: '1.5 h en JR Hokuto', desc: 'Onsens sulfurosos potentes + "Valle del Infierno" volcánico.' }
+      { id: 'furano', name: 'Furano + Biei', coords: [43.3525, 142.3833], time: '2-3 h vía Asahikawa', desc: 'Colinas onduladas estilo Toscana, panoramic point. La postal de Hokkaido.' },
+      { id: 'noboribetsu', name: 'Noboribetsu', coords: [42.4856, 141.1186], time: '1.5 h en JR Hokuto', desc: 'Onsens sulfurosos + "Valle del Infierno" volcánico.' }
     ]
   },
   {
@@ -294,16 +272,16 @@ const destinations = [
     coords: [41.7687, 140.7286],
     dates: '17-19 sept', nights: 2,
     tempMax: '21-24', tempMin: '14-17',
-    intro: 'Ciudad portuaria al sur de Hokkaido. Famosa por el atardecer desde el monte y los mariscos. Tren JR Hokuto desde Sapporo.',
+    intro: 'Ciudad portuaria al sur de Hokkaido. Famosa por el atardecer desde el monte y los mariscos.',
     activities: [
-      'Mt Hakodate al atardecer (en funicular o bus): vista de "3 millones de luces"',
-      'Mercado matutino: desayuno de uni-don, kaisendon, cangrejo de pelo',
-      'Goryokaku (fortaleza-estrella) + barrio Motomachi histórico',
-      'Beer Hall en almacenes de ladrillo de Kanemori',
-      'Cementerio de extranjeros, iglesias del siglo XIX'
+      'Mt Hakodate al atardecer ("3 millones de luces")',
+      'Mercado matutino: uni-don, kaisendon, cangrejo de pelo',
+      'Goryokaku (fortaleza-estrella) + barrio Motomachi',
+      'Beer Hall en almacenes Kanemori',
+      'Iglesias del siglo XIX y cementerio extranjero'
     ],
     daytrips: [
-      { id: 'onuma', name: 'Onuma National Park', coords: [41.9866, 140.6519], time: '30 min en JR', desc: 'Lagos, ciclismo entre 100+ islotes. Vista perfecta al monte Komagatake.' }
+      { id: 'onuma', name: 'Onuma National Park', coords: [41.9866, 140.6519], time: '30 min en JR', desc: 'Lagos, ciclismo entre 100+ islotes con vista al monte Komagatake.' }
     ]
   },
   {
@@ -311,19 +289,19 @@ const destinations = [
     coords: [35.6762, 139.6503],
     dates: '19-27 sept', nights: 8,
     tempMax: '26-28', tempMin: '20-22',
-    intro: '8 noches en un solo hotel, atraviesan Silver Week (19-23/9). Tokio absorbe la masa del feriado. Ya estás aclimatado al calor (venís bajando desde el norte).',
+    intro: '8 noches en un hotel, atraviesan Silver Week (19-23/9). Tokio absorbe el feriado. Ya aclimatados al calor.',
     activities: [
-      'Asakusa (Senso-ji) al amanecer, Sumida River, Skytree',
+      'Asakusa (Senso-ji) + Sumida River + Skytree',
       'Shibuya scramble + Harajuku + Meiji Jingu',
       'TeamLab Planets/Borderless (reservar online)',
-      'Yanaka + Nezu + Sendagi (barrios viejos)',
-      'Akihabara + Jimbocho (electrónica + libros)',
+      'Yanaka + Nezu + Sendagi (Tokio "viejo")',
+      'Akihabara + Jimbocho',
       'Tsukiji exterior, Toyosu, Ginza',
-      'Golden Gai + Omoide Yokocho en Shinjuku',
-      'Kichijoji + parque Inokashira (Museo Ghibli si conseguís entrada)'
+      'Golden Gai + Omoide Yokocho',
+      'Museo Ghibli si conseguís entrada'
     ],
     daytrips: [
-      { id: 'kamakura', name: 'Kamakura', coords: [35.3192, 139.5469], time: '1 h en JR Yokosuka', desc: 'Gran Buda, templo Hokoku-ji (bambú), playa Yuigahama. Ideal día de semana en Silver Week.' },
+      { id: 'kamakura', name: 'Kamakura', coords: [35.3192, 139.5469], time: '1 h en JR Yokosuka', desc: 'Gran Buda, templo Hokoku-ji (bambú), playa Yuigahama.' },
       { id: 'yokohama', name: 'Yokohama', coords: [35.4437, 139.6380], time: '30 min en JR', desc: 'Chinatown, puerto, Cup Noodle Museum, Sankeien Garden.' }
     ]
   },
@@ -332,9 +310,9 @@ const destinations = [
     coords: [36.7589, 139.6075],
     dates: '27-29 sept', nights: 2,
     tempMax: '19-22', tempMin: '12-15',
-    intro: 'Templos UNESCO en la montaña. Empezando los primeros colores de otoño en altitudes altas. Limited express desde Asakusa, 2 h.',
+    intro: 'Templos UNESCO en la montaña. Primeros colores de otoño en altitudes altas.',
     activities: [
-      'Toshogu shrine (mausoleo de Tokugawa Ieyasu)',
+      'Toshogu shrine (mausoleo Tokugawa Ieyasu)',
       'Rinno-ji + puente Shinkyo',
       'Lago Chuzenji + cataratas Kegon',
       'Senjogahara hike (hojas empezando a cambiar)',
@@ -347,15 +325,15 @@ const destinations = [
     coords: [38.5747, 140.5328],
     dates: '29/9-1/10', nights: 2,
     tempMax: '20-22', tempMin: '12-15',
-    intro: 'El pueblo onsen que inspiró Spirited Away. Calle de ryokans de madera a la vera del río. Día de transit incluye visita a Yamadera (templo en acantilado).',
+    intro: 'El pueblo onsen que inspiró Spirited Away. Día de transit incluye visita a Yamadera.',
     activities: [
-      'Calle principal de Ginzan al atardecer (linternas encendidas, escena mágica)',
-      'Onsen-hopping en los baños públicos de la calle',
+      'Calle principal de Ginzan al atardecer (linternas encendidas)',
+      'Onsen-hopping en baños públicos del río',
       'Cena kaiseki en el ryokan',
       'Caminata al Shirogane waterfall'
     ],
     daytrips: [
-      { id: 'yamadera', name: 'Yamadera', coords: [38.3175, 140.4358], time: 'En tránsito desde Sendai', desc: 'Templo budista trepado a la montaña, 1000 escalones. Vista épica al valle.' }
+      { id: 'yamadera', name: 'Yamadera', coords: [38.3175, 140.4358], time: 'En tránsito desde Sendai', desc: 'Templo budista en acantilado, 1000 escalones. Vista épica al valle.' }
     ]
   },
   {
@@ -363,17 +341,17 @@ const destinations = [
     coords: [36.5613, 136.6562],
     dates: '1-3 oct', nights: 2,
     tempMax: '21-23', tempMin: '14-16',
-    intro: 'Ciudad sobre el Mar de Japón, evitó los bombardeos de la WW2 y conserva barrios geisha y samurái. Sake region.',
+    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái.',
     activities: [
-      'Jardín Kenroku-en (uno de los 3 más bellos de Japón)',
+      'Jardín Kenroku-en (top 3 de Japón)',
       'Castillo de Kanazawa',
-      'Higashi Chaya (barrio geisha, casas de té)',
-      'Mercado Omicho (mariscos y sashimi)',
+      'Higashi Chaya (barrio geisha)',
+      'Mercado Omicho (mariscos)',
       'Museo del Siglo XXI (arte contemporáneo)',
       'Distrito samurái Nagamachi'
     ],
     daytrips: [
-      { id: 'shirakawago', name: 'Shirakawa-go', coords: [36.2585, 136.9067], time: '1 h 15 min en bus', desc: 'Pueblo UNESCO con casas de techo de paja estilo "manos en oración". Verde en sept, mágico.' }
+      { id: 'shirakawago', name: 'Shirakawa-go', coords: [36.2585, 136.9067], time: '1 h 15 min en bus', desc: 'Pueblo UNESCO con casas gassho-zukuri. Verde en sept, mágico.' }
     ]
   },
   {
@@ -381,14 +359,14 @@ const destinations = [
     coords: [34.2129, 135.5836],
     dates: '3-5 oct', nights: 2,
     tempMax: '18-20', tempMin: '11-13',
-    intro: 'Monte sagrado del budismo Shingon, ~800 m de altura. Dormís en un templo (shukubo) con cena vegetariana y ceremonia matutina.',
+    intro: 'Monte sagrado del budismo Shingon. Dormís en un templo con cena vegetariana.',
     activities: [
-      'Okunoin al atardecer (cementerio místico con 200.000 lápidas + linternas)',
-      'Okunoin antes del amanecer (vacío total, niebla, magia)',
+      'Okunoin al atardecer (cementerio místico con 200.000 lápidas)',
+      'Okunoin antes del amanecer (vacío total)',
       'Kongobu-ji (templo principal)',
-      'Garan (complejo central con la pagoda)',
+      'Garan (complejo central con pagoda)',
       'Cena shojin ryori (vegetariana budista)',
-      'Ceremonia matutina del templo (5:30 AM, opcional)'
+      'Ceremonia matutina del templo (5:30 AM)'
     ],
     daytrips: []
   },
@@ -397,18 +375,18 @@ const destinations = [
     coords: [35.0116, 135.7681],
     dates: '5-10 oct', nights: 5,
     tempMax: '22-24', tempMin: '14-16',
-    intro: 'La capital cultural, post-Silver Week con templos respirables. 5 noches dan tiempo a hacer cada zona sin atropello.',
+    intro: 'La capital cultural, post-Silver Week con templos respirables. 5 noches sin atropello.',
     activities: [
-      'Arashiyama al amanecer: bosque de bambú vacío, Tenryu-ji, Otagi Nenbutsuji (1200 estatuas)',
-      'Templos del este: Kiyomizu-dera, Sannenzaka, Yasaka, paseo de filósofos hasta Ginkaku-ji',
-      'Fushimi Inari al amanecer (6 AM, antes de las hordas)',
-      'Mercado Nishiki + barrio Kamishichiken',
+      'Arashiyama al amanecer: bambú, Tenryu-ji, Otagi Nenbutsuji',
+      'Templos del este: Kiyomizu, Yasaka, paseo de filósofos, Ginkaku-ji',
+      'Fushimi Inari al amanecer (6 AM)',
+      'Mercado Nishiki + Kamishichiken',
       'Kinkaku-ji o Ryoan-ji',
       'Pontocho de noche, kaiseki ryori'
     ],
     daytrips: [
-      { id: 'nara', name: 'Nara', coords: [34.6851, 135.8048], time: '45 min en JR', desc: 'Todai-ji (Buda gigante), ciervos sueltos en el parque, jardín Yoshiki-en.' },
-      { id: 'murou', name: 'Murou-ji + Hasedera', coords: [34.5378, 136.0376], time: '1 h 30 min', desc: 'Templo de mujeres + 400 escalones a Hasedera. Murou Art Forest (Dani Karavan).' }
+      { id: 'nara', name: 'Nara', coords: [34.6851, 135.8048], time: '45 min en JR', desc: 'Todai-ji (Buda gigante), ciervos sueltos, jardín Yoshiki-en.' },
+      { id: 'murou', name: 'Murou-ji + Hasedera', coords: [34.5378, 136.0376], time: '1 h 30 min', desc: 'Templo de mujeres + 400 escalones a Hasedera. Murou Art Forest.' }
     ]
   },
   {
@@ -422,12 +400,11 @@ const destinations = [
       'Shinsekai + Tsutenkaku tower',
       'Castillo de Osaka + parque',
       'Umeda Sky Building al atardecer',
-      'Tennoji + Shitenno-ji',
       'Okonomiyaki y kushikatsu de barrio'
     ],
     daytrips: [
-      { id: 'naoshima', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu Art Museum (reservar), Benesse House, calabaza de Yayoi Kusama.' },
-      { id: 'himeji', name: 'Himeji + Kobe', coords: [34.8394, 134.6939], time: '1-1.5 h en Shinkansen', desc: 'Castillo blanco UNESCO (el más bonito de Japón) + Kobe (carne, arquitectura).' }
+      { id: 'naoshima', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu, Benesse, pumpkin de Kusama.' },
+      { id: 'himeji', name: 'Himeji + Kobe', coords: [34.8394, 134.6939], time: '1-1.5 h en Shinkansen', desc: 'Castillo blanco UNESCO + Kobe (carne, arquitectura).' }
     ]
   },
   {
@@ -435,13 +412,13 @@ const destinations = [
     coords: [33.2667, 131.3667],
     dates: '14-16 oct', nights: 2,
     tempMax: '18-20', tempMin: '11-13',
-    intro: 'Pueblo onsen en Kyushu, montaña a 450 m. Ryokan con cena kaiseki + onsen privado en habitación si lo encuentran.',
+    intro: 'Pueblo onsen en Kyushu, 450m altura. Ryokan con cena kaiseki + onsen privado.',
     activities: [
       'Onsen al atardecer en el ryokan',
       'Cena kaiseki tradicional',
       'Lago Kinrin-ko al amanecer (niebla mágica)',
-      'Caminata por el pueblo + cafés artesanales',
-      'Yufuin Floral Village (kitsch-Cotswolds, opcional)'
+      'Caminata por el pueblo + cafés',
+      'Yufuin Floral Village (opcional)'
     ],
     daytrips: []
   },
@@ -450,17 +427,17 @@ const destinations = [
     coords: [33.5904, 130.4017],
     dates: '16-19 oct', nights: 3,
     tempMax: '21-24', tempMin: '14-17',
-    intro: 'Comida + transición a Corea. Cuna del ramen tonkotsu. Día final del viaje en Japón.',
+    intro: 'Cuna del ramen tonkotsu. Día final del viaje en Japón antes del cruce a Corea.',
     activities: [
-      'Yatais (puestos callejeros) en Nakasu y Tenjin de noche',
+      'Yatais (puestos callejeros) en Nakasu y Tenjin',
       'Ramen tonkotsu en Ichiran original o Hakata Issou',
       'Canal City Hakata + Ohori Park',
-      'Compras en Tenjin (zona moderna)',
-      'Hakata-ramen y motsunabe (hot pot de tripas)'
+      'Compras en Tenjin',
+      'Motsunabe (hot pot de tripas)'
     ],
     daytrips: [
       { id: 'dazaifu', name: 'Dazaifu', coords: [33.5104, 130.5417], time: '40 min en tren', desc: 'Santuario Tenmangu (dios de los estudios) + museo nacional de Kyushu.' },
-      { id: 'yanagawa', name: 'Yanagawa', coords: [33.1657, 130.4061], time: '50 min en tren', desc: 'Pueblo de canales con paseo en barca tradicional + anguila al vapor (unagi seiro).' }
+      { id: 'yanagawa', name: 'Yanagawa', coords: [33.1657, 130.4061], time: '50 min en tren', desc: 'Pueblo de canales en barca tradicional + anguila al vapor (unagi seiro).' }
     ]
   },
   {
@@ -468,17 +445,17 @@ const destinations = [
     coords: [35.1796, 129.0756],
     dates: '19-22 oct', nights: 3,
     tempMax: '19-22', tempMin: '12-15',
-    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos, ondas distintas a Seúl. Day trip a Gyeongju (capital antigua).',
+    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
     activities: [
       'Gamcheon Culture Village (favela artística colorida)',
-      'Mercado Jagalchi (el mercado de pescado más grande de Corea)',
+      'Mercado Jagalchi (pescado más grande de Corea)',
       'Haedong Yonggungsa (templo sobre el mar)',
       'Beomeosa (templo en la montaña)',
-      'Haeundae Beach + Songdo (playa urbana)',
-      'Korean BBQ + soju + jjimjilbang (bath house)'
+      'Haeundae Beach + Songdo',
+      'Korean BBQ + soju + jjimjilbang'
     ],
     daytrips: [
-      { id: 'gyeongju', name: 'Gyeongju', coords: [35.8562, 129.2247], time: '30 min en KTX', desc: 'Capital antigua de Silla (UNESCO). Bulguksa, Seokguram, tumuli de Tumuli Park, Anapji Pond al atardecer.' }
+      { id: 'gyeongju', name: 'Gyeongju', coords: [35.8562, 129.2247], time: '30 min en KTX', desc: 'Capital antigua de Silla (UNESCO). Bulguksa, Seokguram, Anapji Pond.' }
     ]
   },
   {
@@ -486,18 +463,17 @@ const destinations = [
     coords: [37.5665, 126.9780],
     dates: '22-26 oct', nights: 4,
     tempMax: '18-20', tempMin: '8-11',
-    intro: 'Cierre del viaje en el peak autumn de Corea. Crisp, seco, hojas cambiando. KTX desde Busan, ~2 h 30.',
+    intro: 'Cierre en el peak autumn de Corea. Crisp, seco. KTX desde Busan, ~2h30.',
     activities: [
-      'Palacio Gyeongbokgung (con hanbok rentado entrás gratis)',
+      'Palacio Gyeongbokgung (con hanbok gratis)',
       'Bukchon Hanok Village + Insadong',
       'Gwangjang Market (comida callejera)',
-      'Hongdae + Yeonnam-dong (barrio joven)',
-      'Seongsu (Brooklyn coreano, cafés + galerías)',
+      'Hongdae + Yeonnam-dong + Seongsu',
       'Myeongdong de noche + Korean BBQ',
       'Namsan Tower + Namdaemun'
     ],
     daytrips: [
-      { id: 'dmz', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. Joint Security Area, Dora Observatory. Reservar online con anticipación.' }
+      { id: 'dmz', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. JSA, Dora Observatory. Reservar antes.' }
     ]
   }
 ];
@@ -514,7 +490,6 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
   maxZoom: 19,
 }).addTo(map);
 
-// Route polyline
 const routeCoords = destinations.map(d => d.coords);
 L.polyline(routeCoords, {
   color: '#0F6E56', weight: 3, opacity: 0.75, dashArray: '8, 8',
@@ -524,9 +499,7 @@ const markers = {};
 destinations.forEach(d => {
   const icon = L.divIcon({
     html: '<div class="marker-num" data-id="' + d.id + '">' + d.n + '</div>',
-    className: '',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
+    className: '', iconSize: [30, 30], iconAnchor: [15, 15],
   });
   const marker = L.marker(d.coords, { icon }).addTo(map);
   const popupHtml =
@@ -542,9 +515,7 @@ destinations.forEach(d => {
   d.daytrips.forEach(dt => {
     const icon = L.divIcon({
       html: '<div class="marker-dot" data-id="' + dt.id + '"></div>',
-      className: '',
-      iconSize: [12, 12],
-      iconAnchor: [6, 6],
+      className: '', iconSize: [12, 12], iconAnchor: [6, 6],
     });
     const marker = L.marker(dt.coords, { icon }).addTo(map);
     marker.bindPopup(
@@ -562,108 +533,21 @@ const allCoords = routeCoords.concat(
 map.fitBounds(L.latLngBounds(allCoords), { padding: [40, 40] });
 
 // =========================================================================
-// SIDEBAR
-// =========================================================================
-
-const stopsList = document.getElementById('stops-list');
-destinations.forEach(d => {
-  const el = document.createElement('div');
-  el.className = 'stop';
-  el.dataset.id = d.id;
-  el.innerHTML =
-    '<div class="stop-num">' + d.n + '</div>' +
-    '<div class="stop-content">' +
-      '<div class="stop-name">' + d.short + '</div>' +
-      '<div class="stop-dates">' + d.dates + ' · ' + d.nights + 'n</div>' +
-    '</div>';
-  stopsList.appendChild(el);
-
-  el.addEventListener('mouseenter', () => {
-    el.classList.add('active');
-    highlightMarker(d.id);
-    map.panTo(d.coords, { animate: true, duration: 0.6 });
-  });
-  el.addEventListener('mouseleave', () => {
-    el.classList.remove('active');
-    unhighlightMarker(d.id);
-  });
-  el.addEventListener('click', () => {
-    markers[d.id].openPopup();
-    map.flyTo(d.coords, 8, { duration: 0.8 });
-  });
-});
-
-const daytripsList = document.getElementById('daytrips-list');
-destinations.forEach(d => {
-  d.daytrips.forEach(dt => {
-    const el = document.createElement('div');
-    el.className = 'daytrip';
-    el.dataset.id = dt.id;
-    el.innerHTML =
-      '<div class="dt-dot-wrap"><div class="dt-dot"></div></div>' +
-      '<div><div class="dt-name">' + dt.name + '</div><div class="dt-from">desde ' + d.short + '</div></div>';
-    daytripsList.appendChild(el);
-
-    el.addEventListener('mouseenter', () => {
-      el.classList.add('active');
-      highlightDaytrip(dt.id);
-      map.panTo(dt.coords, { animate: true, duration: 0.6 });
-    });
-    el.addEventListener('mouseleave', () => {
-      el.classList.remove('active');
-      unhighlightDaytrip(dt.id);
-    });
-    el.addEventListener('click', () => {
-      dtMarkers[dt.id].openPopup();
-      map.flyTo(dt.coords, 9, { duration: 0.8 });
-    });
-  });
-});
-
-function highlightMarker(id) {
-  const el = document.querySelector('.marker-num[data-id="' + id + '"]');
-  if (el) el.classList.add('active');
-}
-function unhighlightMarker(id) {
-  const el = document.querySelector('.marker-num[data-id="' + id + '"]');
-  if (el) el.classList.remove('active');
-}
-function highlightDaytrip(id) {
-  const el = document.querySelector('.marker-dot[data-id="' + id + '"]');
-  if (el) el.classList.add('active');
-}
-function unhighlightDaytrip(id) {
-  const el = document.querySelector('.marker-dot[data-id="' + id + '"]');
-  if (el) el.classList.remove('active');
-}
-
-Object.entries(markers).forEach(([id, marker]) => {
-  marker.on('mouseover', () => {
-    highlightMarker(id);
-    const el = document.querySelector('.stop[data-id="' + id + '"]');
-    if (el) el.classList.add('active');
-  });
-  marker.on('mouseout', () => {
-    unhighlightMarker(id);
-    const el = document.querySelector('.stop[data-id="' + id + '"]');
-    if (el) el.classList.remove('active');
-  });
-});
-
-// =========================================================================
-// DETAILS CARDS
+// CARDS
 // =========================================================================
 
 const detailsList = document.getElementById('details-list');
+const cards = {};
+
 destinations.forEach(d => {
   const card = document.createElement('article');
   card.className = 'dest-card';
-  card.id = 'card-' + d.id;
+  card.dataset.id = d.id;
 
   const dtHtml = d.daytrips.length > 0
-    ? '<div class="card-section-title">Day trips desde acá</div>' +
+    ? '<div class="card-section-title">Day trips</div>' +
       d.daytrips.map(dt =>
-        '<div class="dt-row">' +
+        '<div class="dt-row" data-dt-id="' + dt.id + '">' +
           '<div class="dt-row-header">' +
             '<span class="dt-row-name">' + dt.name + '</span>' +
             '<span class="dt-row-time">' + dt.time + '</span>' +
@@ -690,126 +574,201 @@ destinations.forEach(d => {
     '<ul class="card-list">' + d.activities.map(a => '<li>' + a + '</li>').join('') + '</ul>' +
     dtHtml;
   detailsList.appendChild(card);
+  cards[d.id] = card;
+
+  // Card hover/click → mapa
+  card.addEventListener('mouseenter', () => {
+    card.classList.add('active');
+    highlightMarker(d.id);
+  });
+  card.addEventListener('mouseleave', () => {
+    card.classList.remove('active');
+    unhighlightMarker(d.id);
+  });
+  card.addEventListener('click', (e) => {
+    // Don't trigger card click on day trip clicks
+    if (e.target.closest('.dt-row')) return;
+    markers[d.id].openPopup();
+    map.flyTo(d.coords, 8, { duration: 0.8 });
+  });
+
+  // Day trip clicks
+  card.querySelectorAll('.dt-row').forEach(row => {
+    const dtId = row.dataset.dtId;
+    row.addEventListener('mouseenter', (e) => {
+      e.stopPropagation();
+      highlightDaytrip(dtId);
+    });
+    row.addEventListener('mouseleave', (e) => {
+      e.stopPropagation();
+      unhighlightDaytrip(dtId);
+    });
+    row.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dtMarkers[dtId].openPopup();
+      const dt = d.daytrips.find(x => x.id === dtId);
+      map.flyTo(dt.coords, 9, { duration: 0.8 });
+    });
+  });
 });
 
-// =========================================================================
-// TABS
-// =========================================================================
+function highlightMarker(id) {
+  const el = document.querySelector('.marker-num[data-id="' + id + '"]');
+  if (el) el.classList.add('active');
+}
+function unhighlightMarker(id) {
+  const el = document.querySelector('.marker-num[data-id="' + id + '"]');
+  if (el) el.classList.remove('active');
+}
+function highlightDaytrip(id) {
+  const el = document.querySelector('.marker-dot[data-id="' + id + '"]');
+  if (el) el.classList.add('active');
+}
+function unhighlightDaytrip(id) {
+  const el = document.querySelector('.marker-dot[data-id="' + id + '"]');
+  if (el) el.classList.remove('active');
+}
 
-let chartInit = false;
-let chart = null;
-
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + target));
-    if (target === 'map') {
-      setTimeout(() => map.invalidateSize(), 50);
-    }
-    if (target === 'clima' && !chartInit) {
-      initChart();
-      chartInit = true;
+// Bidirectional: map markers → cards
+Object.entries(markers).forEach(([id, marker]) => {
+  marker.on('mouseover', () => {
+    highlightMarker(id);
+    if (cards[id]) cards[id].classList.add('active');
+  });
+  marker.on('mouseout', () => {
+    unhighlightMarker(id);
+    if (cards[id]) cards[id].classList.remove('active');
+  });
+  marker.on('click', () => {
+    // Scroll card into view
+    if (cards[id]) {
+      cards[id].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
+});
+
+Object.entries(dtMarkers).forEach(([id, marker]) => {
+  marker.on('mouseover', () => highlightDaytrip(id));
+  marker.on('mouseout', () => unhighlightDaytrip(id));
 });
 
 // =========================================================================
 // CHART
 // =========================================================================
 
-function initChart() {
-  const ctx = document.getElementById('weatherChart').getContext('2d');
+const ctx = document.getElementById('weatherChart').getContext('2d');
 
-  chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: destinations.map(d => [d.short, d.dates]),
-      datasets: [
-        {
-          label: 'Máxima diurna',
-          data: destinations.map(d => {
-            const [lo, hi] = d.tempMax.split('-').map(Number);
-            return Math.round((lo + hi) / 2);
-          }),
-          borderColor: '#D85A30',
-          backgroundColor: 'rgba(216, 90, 48, 0.10)',
-          tension: 0.35,
-          pointRadius: 4,
-          pointBackgroundColor: '#D85A30',
-          borderWidth: 2.5,
-          fill: '+1'
-        },
-        {
-          label: 'Mínima nocturna',
-          data: destinations.map(d => {
-            const [lo, hi] = d.tempMin.split('-').map(Number);
-            return Math.round((lo + hi) / 2);
-          }),
-          borderColor: '#1D9E75',
-          backgroundColor: 'rgba(29, 158, 117, 0.10)',
-          tension: 0.35,
-          pointRadius: 4,
-          pointBackgroundColor: '#1D9E75',
-          borderWidth: 2.5,
-          fill: false
+const avg = (range) => {
+  const [lo, hi] = range.split('-').map(Number);
+  return Math.round((lo + hi) / 2);
+};
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: destinations.map(d => d.short),
+    datasets: [
+      {
+        label: 'Máx',
+        data: destinations.map(d => avg(d.tempMax)),
+        borderColor: '#D85A30',
+        backgroundColor: 'rgba(216, 90, 48, 0.10)',
+        tension: 0.35,
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        pointBackgroundColor: '#D85A30',
+        borderWidth: 2,
+        fill: '+1'
+      },
+      {
+        label: 'Mín',
+        data: destinations.map(d => avg(d.tempMin)),
+        borderColor: '#1D9E75',
+        backgroundColor: 'rgba(29, 158, 117, 0.10)',
+        tension: 0.35,
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        pointBackgroundColor: '#1D9E75',
+        borderWidth: 2,
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        align: 'end',
+        labels: {
+          font: { size: 11, weight: 500 },
+          padding: 8,
+          boxWidth: 10,
+          boxHeight: 10,
+          usePointStyle: true,
+          pointStyle: 'circle'
         }
-      ]
+      },
+      tooltip: {
+        backgroundColor: 'rgba(20, 20, 20, 0.92)',
+        titleFont: { size: 12, weight: 600 },
+        bodyFont: { size: 12 },
+        padding: 8,
+        cornerRadius: 6,
+        callbacks: {
+          title: (items) => {
+            const d = destinations[items[0].dataIndex];
+            return d.short + ' · ' + d.dates;
+          },
+          label: (item) => {
+            const d = destinations[item.dataIndex];
+            const range = item.dataset.label === 'Máx' ? d.tempMax : d.tempMin;
+            return item.dataset.label + ': ' + range + '°C';
+          }
+        }
+      }
     },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top',
-          align: 'end',
-          labels: {
-            font: { size: 12, weight: 500 },
-            padding: 12,
-            boxWidth: 14,
-            boxHeight: 14,
-            usePointStyle: true,
-            pointStyle: 'circle'
-          }
-        },
-        tooltip: {
-          backgroundColor: 'rgba(20, 20, 20, 0.92)',
-          titleFont: { size: 12, weight: 600 },
-          bodyFont: { size: 12 },
-          padding: 10,
-          cornerRadius: 6,
-          callbacks: {
-            label: (item) => item.dataset.label + ': ' + item.parsed.y + ' °C'
-          }
+    onClick: (event, elements) => {
+      if (elements.length > 0) {
+        const idx = elements[0].index;
+        const d = destinations[idx];
+        if (cards[d.id]) {
+          cards[d.id].scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-      },
-      scales: {
-        y: {
-          beginAtZero: false,
-          suggestedMin: 5,
-          suggestedMax: 30,
-          ticks: {
-            callback: (v) => v + '°',
-            font: { size: 11 },
-            color: 'rgba(0,0,0,0.5)'
-          },
-          grid: { color: 'rgba(0,0,0,0.06)', drawBorder: false }
+        map.flyTo(d.coords, 7, { duration: 0.8 });
+      }
+    },
+    onHover: (event, elements) => {
+      event.native.target.style.cursor = elements.length > 0 ? 'pointer' : 'default';
+    },
+    scales: {
+      y: {
+        beginAtZero: false,
+        suggestedMin: 5,
+        suggestedMax: 30,
+        ticks: {
+          callback: (v) => v + '°',
+          font: { size: 10 },
+          color: 'rgba(0,0,0,0.5)',
+          padding: 4
         },
-        x: {
-          ticks: {
-            font: { size: 10 },
-            color: 'rgba(0,0,0,0.6)',
-            maxRotation: 0,
-            minRotation: 0,
-            autoSkip: false
-          },
-          grid: { display: false, drawBorder: false }
-        }
+        grid: { color: 'rgba(0,0,0,0.05)', drawBorder: false }
       },
-      interaction: { intersect: false, mode: 'index' }
-    }
-  });
-}
+      x: {
+        ticks: {
+          font: { size: 9 },
+          color: 'rgba(0,0,0,0.55)',
+          maxRotation: 35,
+          minRotation: 35,
+          autoSkip: false
+        },
+        grid: { display: false, drawBorder: false }
+      }
+    },
+    interaction: { intersect: false, mode: 'index' }
+  }
+});
 </script>
 </body>
 </html>
