@@ -16,3 +16,8 @@
 # Temp
 *.tmp
 *~
+
+# weather cron
+.weather-cron.log
+*.html.tmp
+.wcheck.js
