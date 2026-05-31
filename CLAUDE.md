@@ -30,7 +30,7 @@ La fuente de verdad operativa del itinerario vive en el workspace de Mew (`proje
 
 ## Stack
 
-HTML + JavaScript + Leaflet 1.9.4 + Chart.js 4.4, todo por CDN, **sin build step**. Se sirve como sitio estático (GitHub Pages: https://martriay.github.io/japon-trip/). Editás `index.html` directo y pusheás a `main`.
+HTML + JavaScript + Leaflet 1.9.4 + Chart.js 4.4, todo por CDN, **sin build step**. Se sirve como sitio estático (GitHub Pages: https://mew-industries.github.io/japon-trip/). Editás `index.html` directo y pusheás a `main`.
 
 ## Datos clave actuales (2026-05-31)
 

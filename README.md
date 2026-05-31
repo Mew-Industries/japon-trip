@@ -4,7 +4,7 @@ Sitio del viaje con mapa interactivo, detalles por destino y curva climática.
 
 ## Sitio en vivo
 
-**https://martriay.github.io/japon-trip/**
+**https://mew-industries.github.io/japon-trip/**
 
 (o abrir [`index.html`](./index.html) directamente)
 
