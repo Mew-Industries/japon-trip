@@ -65,6 +65,15 @@
   .flight-card strong { color: #1a1a1a; font-weight: 600; }
   .flight-card .flight-row { display: flex; justify-content: space-between; gap: 8px; }
   .flight-card .flight-row + .flight-row { margin-top: 4px; padding-top: 4px; border-top: 1px solid rgba(0,0,0,0.05); }
+  .flight-card .flight-leg-title { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 600; margin: 0 0 6px; }
+  .flight-card .flight-leg-title + .flight-leg-title { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.08); }
+  .flight-card a.flight-seg { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; text-decoration: none; color: #555; padding: 4px 6px; margin: 0 -6px; border-radius: 6px; transition: background 0.12s; }
+  .flight-card a.flight-seg:hover { background: rgba(15, 110, 86, 0.07); }
+  .flight-card a.flight-seg .seg-route { color: #1a1a1a; font-weight: 600; }
+  .flight-card a.flight-seg .seg-no { color: #0F6E56; font-weight: 600; font-size: 10px; }
+  .flight-card a.flight-seg .seg-time { color: #666; font-size: 10px; text-align: right; }
+  .flight-card .seg-conn { font-size: 10px; color: #aaa; padding: 2px 6px; font-style: italic; }
+  .flight-card .flight-note { font-size: 10px; color: #888; margin-top: 8px; line-height: 1.4; }
 
   .dest-card {
     background: white;
@@ -128,7 +137,7 @@
     <span><strong>8/9</strong> salida BA</span>
     <span><strong>40</strong> noches</span>
     <span><strong>13</strong> destinos</span>
-    <span><strong>21/10</strong> regreso</span>
+    <span><strong>22/10</strong> regreso</span>
   </div>
 </header>
 
@@ -148,16 +157,35 @@
     </div>
 
     <div class="details-section">
-      <div class="details-title">Vuelos</div>
+      <div class="details-title">Vuelos · United Polaris business · click para tracker</div>
       <div class="flight-card">
-        <div class="flight-row">
-          <span><strong>Ida:</strong> EZE → IAH → NRT</span>
-          <span>Sep 8, 21:00 → Sep 10, 14:00</span>
-        </div>
-        <div class="flight-row">
-          <span><strong>Vuelta:</strong> ICN → SFO → IAH → EZE</span>
-          <span>Oct 20, 11:30 → Oct 21, 8:00</span>
-        </div>
+        <div class="flight-leg-title">Ida → Tokio · 8-10 sept</div>
+        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL818" target="_blank" rel="noopener">
+          <span class="seg-route">EZE → IAH <span class="seg-no">UA818</span></span>
+          <span class="seg-time">8 sep 21:00 → 9 sep 5:15<br>B777-200 · 10h15</span>
+        </a>
+        <div class="seg-conn">escala Houston 4h55</div>
+        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL7" target="_blank" rel="noopener">
+          <span class="seg-route">IAH → NRT <span class="seg-no">UA7</span></span>
+          <span class="seg-time">9 sep 10:10 → 10 sep 14:00<br>B787-9 · 13h50</span>
+        </a>
+
+        <div class="flight-leg-title">Vuelta → Buenos Aires · 21-22 oct</div>
+        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL33" target="_blank" rel="noopener">
+          <span class="seg-route">NRT → LAX <span class="seg-no">UA33</span></span>
+          <span class="seg-time">21 oct 16:45 → 21 oct 10:45<br>B787-9 · 10h</span>
+        </a>
+        <div class="seg-conn">escala Los Ángeles 2h30</div>
+        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL2318" target="_blank" rel="noopener">
+          <span class="seg-route">LAX → IAH <span class="seg-no">UA2318</span></span>
+          <span class="seg-time">21 oct 13:15 → 18:40<br>737 MAX 9 · United First</span>
+        </a>
+        <div class="seg-conn">escala Houston 1h35</div>
+        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL819" target="_blank" rel="noopener">
+          <span class="seg-route">IAH → EZE <span class="seg-no">UA819</span></span>
+          <span class="seg-time">21 oct 20:15 → 22 oct 8:00<br>B777-200 · 9h45</span>
+        </a>
+        <div class="flight-note">Round trip Tokio NRT (ya no es open jaw). El viaje arranca y termina en Tokio para el vuelo del 21/10.</div>
       </div>
 
       <div class="details-title" style="margin-top: 16px;">Destinos · click para enfocar en el mapa</div>
@@ -172,61 +200,12 @@ import Chart from 'https://esm.sh/chart.js@4.4.0/auto';
 
 const destinations = [
   {
-    id: 'sapporo', n: 1, name: 'Sapporo + Hokkaido', short: 'Sapporo',
-    coords: [43.0642, 141.3469],
-    dates: '11-15 sept', nights: 4,
-    tempMax: '22-24', tempMin: '14-16',
-    intro: 'Base de Hokkaido. Llegada NRT 10/9 14:00 → noche de transit en Narita area → vuelo doméstico a Sapporo el 11/9 mañana. 4 noches, 2 day trips desde la ciudad.',
-    activities: [
-      'Mercado Nijo: desayuno con mariscos (uni, ikura, cangrejo)',
-      'Sapporo Beer Museum + tour de cervecería',
-      'Susukino de noche (izakayas y bares)',
-      'Jingisukan (cordero a la parrilla)',
-      'Hokkaido Shrine + parque Maruyama'
-    ],
-    daytrips: [
-      { id: 'otaru', name: 'Otaru', coords: [43.1907, 140.9947], time: '30-45 min en tren', desc: 'Canales del siglo XIX, talleres de cristal, sushi callejero en el muelle.' },
-      { id: 'furano', name: 'Furano + Biei', coords: [43.3525, 142.3833], time: '2-3 h vía Asahikawa', desc: 'Colinas onduladas, panoramic point, granjas. La postal de Hokkaido.' }
-    ]
-  },
-  {
-    id: 'noboribetsu', n: 2, name: 'Noboribetsu (onsen)', short: 'Noboribetsu',
-    coords: [42.4856, 141.1186],
-    dates: '15-17 sept', nights: 2,
-    tempMax: '20-22', tempMin: '13-15',
-    intro: 'Ryokan con onsen sulfuroso + "Valle del Infierno" volcánico. Tren JR Hokuto desde Sapporo ~1h30. Cena kaiseki incluida en la noche del ryokan.',
-    activities: [
-      'Onsen al atardecer en el ryokan (10+ tipos de baños)',
-      'Jigokudani (Valle del Infierno) al amanecer, antes de las hordas',
-      'Oyunuma River (río de agua caliente — los pies en el río)',
-      'Cena kaiseki tradicional en el ryokan',
-      'Lake Toya a 30 min como medio día opcional'
-    ],
-    daytrips: []
-  },
-  {
-    id: 'hakodate', n: 3, name: 'Hakodate', short: 'Hakodate',
-    coords: [41.7687, 140.7286],
-    dates: '17-19 sept', nights: 2,
-    tempMax: '21-24', tempMin: '14-17',
-    intro: 'Ciudad portuaria al sur de Hokkaido. Famosa por el atardecer desde el monte y los mariscos del mercado matutino.',
-    activities: [
-      'Mt Hakodate al atardecer ("3 millones de luces")',
-      'Mercado matutino: uni-don, kaisendon, cangrejo de pelo',
-      'Goryokaku (fortaleza-estrella) + barrio Motomachi',
-      'Beer Hall en almacenes Kanemori',
-      'Iglesias del siglo XIX y cementerio extranjero'
-    ],
-    daytrips: [
-      { id: 'onuma', name: 'Onuma National Park', coords: [41.9866, 140.6519], time: '30 min en JR', desc: 'Lagos, ciclismo entre 100+ islotes con vista al monte Komagatake.' }
-    ]
-  },
-  {
-    id: 'tokio', n: 4, name: 'Tokio (Silver Week)', short: 'Tokio',
+    id: 'tokio-llegada', n: 1, name: 'Tokio (llegada)', short: 'Tokio',
     coords: [35.6762, 139.6503],
-    dates: '19-24 sept', nights: 5,
+    dates: '10-13 sept', nights: 3,
+    arrival: '10 sept 14:00 (NRT, vuelo UA7)', departure: '13 sept (vuelo doméstico a Sapporo)', lodging: null,
     tempMax: '26-28', tempMin: '20-22',
-    intro: 'Llegada por Shinkansen desde Hakodate (~4h vía Seikan tunnel). Silver Week (19-23/9) absorbida en Tokio — única ciudad lo bastante grande para no volverse impracticable.',
+    intro: 'Aterrizaje en Narita el 10/9 14:00. 3 noches de aclimatación y jet lag en la ciudad antes de subir al norte. Los clásicos de Tokio al arrancar el viaje. Probablemente se vuelva a Tokio al final como noche buffer antes del vuelo del 21/10.',
     activities: [
       'Asakusa (Senso-ji) + Sumida River + Skytree',
       'Shibuya scramble + Harajuku + Meiji Jingu',
@@ -243,11 +222,65 @@ const destinations = [
     ]
   },
   {
+    id: 'sapporo', n: 2, name: 'Sapporo + Hokkaido', short: 'Sapporo',
+    coords: [43.0642, 141.3469],
+    dates: '13-17 sept', nights: 4,
+    arrival: '13 sept (vuelo doméstico desde Tokio)', departure: '17 sept (tren a Noboribetsu)', lodging: null,
+    tempMax: '22-24', tempMin: '14-16',
+    intro: 'Base de Hokkaido. Vuelo doméstico desde Tokio el 13/9 (~1h30). Clima fresco para procesar lo que quede de jet lag. 4 noches, 2 day trips desde la ciudad.',
+    activities: [
+      'Mercado Nijo: desayuno con mariscos (uni, ikura, cangrejo)',
+      'Sapporo Beer Museum + tour de cervecería',
+      'Susukino de noche (izakayas y bares)',
+      'Jingisukan (cordero a la parrilla)',
+      'Hokkaido Shrine + parque Maruyama'
+    ],
+    daytrips: [
+      { id: 'otaru', name: 'Otaru', coords: [43.1907, 140.9947], time: '30-45 min en tren', desc: 'Canales del siglo XIX, talleres de cristal, sushi callejero en el muelle.' },
+      { id: 'furano', name: 'Furano + Biei', coords: [43.3525, 142.3833], time: '2-3 h vía Asahikawa', desc: 'Colinas onduladas, panoramic point, granjas. La postal de Hokkaido.' }
+    ]
+  },
+  {
+    id: 'noboribetsu', n: 3, name: 'Noboribetsu (onsen)', short: 'Noboribetsu',
+    coords: [42.4856, 141.1186],
+    dates: '17-19 sept', nights: 2,
+    arrival: '17 sept (tren JR Hokuto desde Sapporo)', departure: '19 sept (tren a Hakodate)', lodging: null,
+    tempMax: '20-22', tempMin: '13-15',
+    intro: 'Ryokan con onsen sulfuroso + "Valle del Infierno" volcánico. Tren JR Hokuto desde Sapporo ~1h30. Cena kaiseki incluida en la noche del ryokan.',
+    activities: [
+      'Onsen al atardecer en el ryokan (10+ tipos de baños)',
+      'Jigokudani (Valle del Infierno) al amanecer, antes de las hordas',
+      'Oyunuma River (río de agua caliente — los pies en el río)',
+      'Cena kaiseki tradicional en el ryokan',
+      'Lake Toya a 30 min como medio día opcional'
+    ],
+    daytrips: []
+  },
+  {
+    id: 'hakodate', n: 4, name: 'Hakodate', short: 'Hakodate',
+    coords: [41.7687, 140.7286],
+    dates: '19-21 sept', nights: 2,
+    arrival: '19 sept (tren desde Noboribetsu)', departure: '21 sept (baja hacia el centro)', lodging: null,
+    tempMax: '21-24', tempMin: '14-17',
+    intro: 'Ciudad portuaria al sur de Hokkaido. Famosa por el atardecer desde el monte y los mariscos del mercado matutino. La Silver Week (~19-23/9) cae justo en este tramo norte/de bajada — mejor así: lo rural absorbe la multitud sin volverse impracticable.',
+    activities: [
+      'Mt Hakodate al atardecer ("3 millones de luces")',
+      'Mercado matutino: uni-don, kaisendon, cangrejo de pelo',
+      'Goryokaku (fortaleza-estrella) + barrio Motomachi',
+      'Beer Hall en almacenes Kanemori',
+      'Iglesias del siglo XIX y cementerio extranjero'
+    ],
+    daytrips: [
+      { id: 'onuma', name: 'Onuma National Park', coords: [41.9866, 140.6519], time: '30 min en JR', desc: 'Lagos, ciclismo entre 100+ islotes con vista al monte Komagatake.' }
+    ]
+  },
+  {
     id: 'nikko', n: 5, name: 'Nikko', short: 'Nikko',
     coords: [36.7589, 139.6075],
-    dates: '24-26 sept', nights: 2,
+    dates: 'fechas a confirmar', nights: 2, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '19-22', tempMin: '12-15',
-    intro: 'Templos UNESCO en la montaña. Primeros colores de otoño en altitudes altas. Limited express desde Asakusa, 2 h.',
+    intro: 'Templos UNESCO en la montaña. Primeros colores de otoño en altitudes altas. Limited express desde Asakusa, 2 h. Fechas en re-secuenciación: el tramo centro/sur/Corea todavía no está cerrado.',
     activities: [
       'Toshogu shrine (mausoleo Tokugawa Ieyasu)',
       'Rinno-ji + puente Shinkyo',
@@ -260,9 +293,10 @@ const destinations = [
   {
     id: 'kanazawa', n: 6, name: 'Kanazawa', short: 'Kanazawa',
     coords: [36.5613, 136.6562],
-    dates: '26-28 sept', nights: 2,
+    dates: 'fechas a confirmar', nights: 2, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '21-23', tempMin: '14-16',
-    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Shinkansen Hokuriku ~2h30 desde Tokio.',
+    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Shinkansen Hokuriku ~2h30 desde Tokio. Fechas en re-secuenciación.',
     activities: [
       'Jardín Kenroku-en (top 3 de Japón)',
       'Castillo de Kanazawa',
@@ -278,9 +312,10 @@ const destinations = [
   {
     id: 'koyasan', n: 7, name: 'Koyasan (shukubo)', short: 'Koyasan',
     coords: [34.2129, 135.5836],
-    dates: '28-30 sept', nights: 2,
+    dates: 'fechas a confirmar', nights: 2, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '18-20', tempMin: '11-13',
-    intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís en un templo con cena vegetariana y ceremonia matutina opcional.',
+    intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís en un templo con cena vegetariana y ceremonia matutina opcional. Fechas en re-secuenciación.',
     activities: [
       'Okunoin al atardecer (cementerio con 200.000 lápidas)',
       'Okunoin antes del amanecer (vacío total)',
@@ -294,9 +329,10 @@ const destinations = [
   {
     id: 'kioto', n: 8, name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
-    dates: '30 sept-5 oct', nights: 5,
+    dates: 'fechas a confirmar', nights: 5, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '22-24', tempMin: '14-16',
-    intro: 'Capital cultural, post-Silver Week con templos respirables. 5 noches dan tiempo a cada zona sin atropello.',
+    intro: 'Capital cultural, post-Silver Week con templos respirables. 5 noches dan tiempo a cada zona sin atropello. Fechas en re-secuenciación.',
     activities: [
       'Arashiyama al amanecer: bambú, Tenryu-ji, Otagi Nenbutsuji',
       'Templos del este: Kiyomizu, Yasaka, paseo de filósofos, Ginkaku-ji',
@@ -313,9 +349,10 @@ const destinations = [
   {
     id: 'osaka', n: 9, name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
-    dates: '5-8 oct', nights: 3,
+    dates: 'fechas a confirmar', nights: 3, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '21-23', tempMin: '14-16',
-    intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 3 noches (apretado pero alcanza con day trip a Naoshima + día Osaka).',
+    intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 3 noches (apretado pero alcanza con day trip a Naoshima + día Osaka). Fechas en re-secuenciación.',
     activities: [
       'Dotonbori (luces, takoyaki, kushikatsu)',
       'Shinsekai + Tsutenkaku tower',
@@ -330,9 +367,10 @@ const destinations = [
   {
     id: 'yufuin', n: 10, name: 'Yufuin (onsen)', short: 'Yufuin',
     coords: [33.2667, 131.3667],
-    dates: '8-10 oct', nights: 2,
+    dates: 'fechas a confirmar', nights: 2, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '18-20', tempMin: '11-13',
-    intro: 'Pueblo onsen en Kyushu, 450m altura. Ryokan + cena kaiseki. Distinto al de Noboribetsu — más boutique y montaña.',
+    intro: 'Pueblo onsen en Kyushu, 450m altura. Ryokan + cena kaiseki. Distinto al de Noboribetsu — más boutique y montaña. Fechas en re-secuenciación.',
     activities: [
       'Onsen al atardecer en el ryokan',
       'Cena kaiseki tradicional',
@@ -345,9 +383,10 @@ const destinations = [
   {
     id: 'fukuoka', n: 11, name: 'Fukuoka', short: 'Fukuoka',
     coords: [33.5904, 130.4017],
-    dates: '10-13 oct', nights: 3,
+    dates: 'fechas a confirmar', nights: 3, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '21-24', tempMin: '14-17',
-    intro: 'Cuna del ramen tonkotsu. Día final del viaje en Japón antes del cruce a Corea por ferry.',
+    intro: 'Cuna del ramen tonkotsu. Última parada en Japón antes del cruce a Corea por ferry. Fechas en re-secuenciación.',
     activities: [
       'Yatais (puestos callejeros) en Nakasu y Tenjin',
       'Ramen tonkotsu en Ichiran original o Hakata Issou',
@@ -363,9 +402,10 @@ const destinations = [
   {
     id: 'busan', n: 12, name: 'Busan + Gyeongju', short: 'Busan',
     coords: [35.1796, 129.0756],
-    dates: '13-16 oct', nights: 3,
+    dates: 'fechas a confirmar', nights: 3, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '19-22', tempMin: '12-15',
-    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
+    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip. Fechas en re-secuenciación.',
     activities: [
       'Gamcheon Culture Village (favela artística colorida)',
       'Mercado Jagalchi (pescado más grande de Corea)',
@@ -381,9 +421,10 @@ const destinations = [
   {
     id: 'seul', n: 13, name: 'Seúl', short: 'Seúl',
     coords: [37.5665, 126.9780],
-    dates: '16-20 oct', nights: 4,
+    dates: 'fechas a confirmar', nights: 4, pending: true,
+    arrival: null, departure: null, lodging: null,
     tempMax: '20-22', tempMin: '11-14',
-    intro: 'Cierre en Corea. KTX desde Busan, ~2h30. Octubre = mejor mes del año coreano. Vuelo de regreso 20/10 11:30.',
+    intro: 'Tramo coreano. KTX desde Busan, ~2h30. Octubre = mejor mes del año coreano. Fechas en re-secuenciación. PENDIENTE: el tramo de vuelta Corea→Tokio + una noche buffer en Tokio el 20/10 antes del vuelo del 21/10 todavía no está armado.',
     activities: [
       'Palacio Gyeongbokgung (con hanbok gratis)',
       'Bukchon Hanok Village + Insadong',

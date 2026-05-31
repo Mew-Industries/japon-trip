@@ -20,46 +20,70 @@ Ver [`itinerario-2026.md`](./itinerario-2026.md) para el desglose día por día,
 
 ## Vuelos confirmados
 
-| | Ruta | Salida | Llegada | Vuelos |
-|---|---|---|---|---|
-| **Ida** | EZE → IAH → NRT | 8/9 21:00 BA | 10/9 14:00 Tokio | UA 818 + UA 7 |
-| **Vuelta** | ICN → SFO → IAH → EZE | 20/10 11:30 Seúl | 21/10 8:00 BA | UA 806 + UA 1387 + UA 819 |
+United, Polaris business, pasajes ya sacados. **Round trip por Tokio NRT** (ya no es open jaw — la vuelta sale de Tokio, no de Seúl).
+
+**Ida → Tokio (8-10 sept)**
+
+| Vuelo | Ruta | Salida | Llegada | Avión | Tracker |
+|---|---|---|---|---|---|
+| UA818 | EZE → IAH | 8 sep 21:00 | 9 sep 5:15 | B777-200 (10h15) | [UAL818](https://flightaware.com/live/flight/UAL818) |
+| — | *escala Houston 4h55* | | | | |
+| UA7 | IAH → NRT | 9 sep 10:10 | 10 sep 14:00 | B787-9 (13h50) | [UAL7](https://flightaware.com/live/flight/UAL7) |
+
+**Vuelta → Buenos Aires (21-22 oct)**
+
+| Vuelo | Ruta | Salida | Llegada | Avión | Tracker |
+|---|---|---|---|---|---|
+| UA33 | NRT → LAX | 21 oct 16:45 | 21 oct 10:45 | B787-9 (10h) | [UAL33](https://flightaware.com/live/flight/UAL33) |
+| — | *escala Los Ángeles 2h30* | | | | |
+| UA2318 | LAX → IAH | 21 oct 13:15 | 21 oct 18:40 | 737 MAX 9 (United First) | [UAL2318](https://flightaware.com/live/flight/UAL2318) |
+| — | *escala Houston 1h35* | | | | |
+| UA819 | IAH → EZE | 21 oct 20:15 | 22 oct 8:00 | B777-200 (9h45) | [UAL819](https://flightaware.com/live/flight/UAL819) |
 
 ## Resumen del viaje
 
-- **40 noches en Asia** + 3 días de vuelos (= ~43 días totales)
-- **Open jaw** Tokio NRT in / Seúl ICN out
+- **40 noches en Asia** + ~3 días de vuelos
+- **Round trip Tokio NRT** (entra y sale por Narita; el viaje termina de vuelta en Tokio para el vuelo del 21/10)
 - **Pareja:** Marto + Catalina
 
 ### Destinos
 
+**Tramo confirmado** (front portion — fechas firmes):
+
 | # | Lugar | Fechas | Noches | Day trips |
 |---|-------|--------|--------|-----------|
-| — | Tokio transit (Narita) | 10-11 sept | 1 | — |
-| 1 | Sapporo + Hokkaido | 11-15 sept | 4 | Otaru, Furano + Biei |
-| 2 | Noboribetsu (onsen) | 15-17 sept | 2 | — |
-| 3 | Hakodate | 17-19 sept | 2 | Onuma |
-| 4 | Tokio (Silver Week) | 19-24 sept | 5 | Kamakura, Yokohama |
-| 5 | Nikko | 24-26 sept | 2 | — |
-| 6 | Kanazawa | 26-28 sept | 2 | Shirakawa-go |
-| 7 | Koyasan (shukubo) | 28-30 sept | 2 | — |
-| 8 | Kioto | 30 sept-5 oct | 5 | Nara, Murou-ji |
-| 9 | Osaka | 5-8 oct | 3 | Naoshima |
-| 10 | Yufuin (onsen) | 8-10 oct | 2 | — |
-| 11 | Fukuoka | 10-13 oct | 3 | Dazaifu, Yanagawa |
-| 12 | Busan + Gyeongju | 13-16 oct | 3 | Gyeongju |
-| 13 | Seúl | 16-20 oct | 4 | DMZ |
+| 1 | Tokio (llegada) | 10-13 sept | 3 | Kamakura, Yokohama |
+| 2 | Sapporo + Hokkaido | 13-17 sept | 4 | Otaru, Furano + Biei |
+| 3 | Noboribetsu (onsen) | 17-19 sept | 2 | — |
+| 4 | Hakodate | 19-21 sept | 2 | Onuma |
+
+**Tramo en re-secuenciación** (mismo orden y noches, fechas a confirmar):
+
+| # | Lugar | Noches | Day trips |
+|---|-------|--------|-----------|
+| 5 | Nikko | 2 | — |
+| 6 | Kanazawa | 2 | Shirakawa-go |
+| 7 | Koyasan (shukubo) | 2 | — |
+| 8 | Kioto | 5 | Nara, Murou-ji |
+| 9 | Osaka | 3 | Naoshima |
+| 10 | Yufuin (onsen) | 2 | — |
+| 11 | Fukuoka | 3 | Dazaifu, Yanagawa |
+| 12 | Busan + Gyeongju | 3 | Gyeongju |
+| 13 | Seúl | 4 | DMZ |
+
+> **Pendiente:** el tramo de vuelta Corea→Tokio + una noche buffer en Tokio el 20/10 (antes del vuelo del 21/10) todavía no está armado. El viaje tiene que terminar en Tokio.
 
 ### Lógica del orden
 
-Con la llegada Tokio NRT el 10/9 14:00 y salida Seúl ICN el 20/10 11:30:
+Con la llegada Tokio NRT el 10/9 14:00 y la salida también desde Tokio NRT el 21/10 16:45:
 
-1. **Norte primero (Hokkaido)** vía vuelo doméstico NRT→CTS el 11/9 (después de una noche de transit en Narita). Primera semana en clima fresco (22-24 °C) mientras se procesa el jet lag.
-2. **Silver Week japonesa (19-23/9) en Tokio** — única ciudad lo bastante grande para no volverse impracticable.
-3. **Tifones**: pico es 12-25/9. En Hokkaido (zona casi inmune) durante el pico. Kyushu queda en mid-octubre cuando ya terminó la temporada.
-4. **Open jaw Tokio→Seúl**: termina en peak autumn coreano sin loop final a Tokio.
+1. **Tokio al llegar (10-13/9)**: 3 noches de aclimatación y jet lag en la ciudad antes de subir al norte. Acá entran los clásicos de Tokio (Asakusa, Shibuya, teamLab, Yanaka, Akihabara, Tsukiji, Golden Gai, Ghibli) + day trips Kamakura/Yokohama. Probablemente se revisite Tokio al final como noche buffer.
+2. **Norte después (Hokkaido)** vía vuelo doméstico Tokio→Sapporo el 13/9. Clima fresco (22-24 °C) para terminar de procesar el jet lag.
+3. **Silver Week japonesa (~19-23/9)**: ahora cae sobre el tramo norte/de bajada (Hakodate y el descenso al centro). Mejor así: lo rural absorbe la multitud sin volverse impracticable.
+4. **Tifones**: pico 12-25/9. En Hokkaido (zona casi inmune) durante el pico. Kyushu queda en mid-octubre cuando ya terminó la temporada.
+5. **Round trip por Tokio**: ya no hay open jaw; el viaje arranca y termina en Tokio.
 
-**Sin 1-night stays** salvo la noche de transit en Narita (inevitable por horario de llegada).
+**Sin 1-night stays.** (Ya no hay noche de transit en Narita: Tokio ES la primera parada de 3 noches.)
 
 ## Stack
 

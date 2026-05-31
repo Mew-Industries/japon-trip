@@ -1,50 +1,68 @@
 # Japón + Corea — Itinerario 2026
 
-**Vuelos confirmados:**
-- **Ida:** EZE → IAH → NRT · 8/9 21:00 → 10/9 14:00 · United (UA 818 + UA 7)
-- **Vuelta:** ICN → SFO → IAH → EZE · 20/10 11:30 → 21/10 8:00 · United (UA 806 + UA 1387 + UA 819)
+**Vuelos confirmados (United, Polaris business, pasajes sacados):**
+- **Ida → Tokio:** EZE → IAH → NRT · 8/9 21:00 → 10/9 14:00
+  - UA818 · EZE 8/9 21:00 → IAH 9/9 5:15 · B777-200 (10h15) · [tracker](https://flightaware.com/live/flight/UAL818)
+  - escala Houston 4h55
+  - UA7 · IAH 9/9 10:10 → NRT 10/9 14:00 · B787-9 (13h50) · [tracker](https://flightaware.com/live/flight/UAL7)
+- **Vuelta → Buenos Aires (desde Tokio):** NRT → LAX → IAH → EZE · 21/10 16:45 → 22/10 8:00
+  - UA33 · NRT 21/10 16:45 → LAX 21/10 10:45 · B787-9 (10h) · [tracker](https://flightaware.com/live/flight/UAL33)
+  - escala Los Ángeles 2h30
+  - UA2318 · LAX 21/10 13:15 → IAH 18:40 · 737 MAX 9 (United First) · [tracker](https://flightaware.com/live/flight/UAL2318)
+  - escala Houston 1h35
+  - UA819 · IAH 21/10 20:15 → EZE 22/10 8:00 · B777-200 (9h45) · [tracker](https://flightaware.com/live/flight/UAL819)
 
-**Configuración:** open jaw — entrada Tokio NRT, salida Seúl ICN
-**Duración total:** ~43 días (40 noches en Asia + 3 días de vuelos)
+**Configuración:** round trip por Tokio NRT (ya NO es open jaw — la vuelta sale de Tokio, no de Seúl)
+**Duración total:** ~43 días (40 noches en Asia + ~3 días de vuelos)
 **Pareja:** Marto + Catalina
 
 ---
 
 ## Estrategia general
 
-Con la llegada Tokio NRT el 10/9 14:00 y salida Seúl ICN el 20/10 11:30, el viaje tiene **40 noches en Asia**. Estrategia optimizada:
+Con la llegada Tokio NRT el 10/9 14:00 y la salida también desde Tokio NRT el 21/10 16:45, el viaje tiene **40 noches en Asia**. Estrategia optimizada:
 
-1. **Norte primero**: vuelo doméstico Tokio→Sapporo apenas se pueda (mañana del 11/9 después de noche de transit en Narita area). Primera semana en clima fresco (22-24 °C, seco) procesando jet lag — esquiva la combinación brutal de Tokio caluroso + cansancio.
-2. **Silver Week (19-23/9) en Tokio**: el feriado se absorbe en la única ciudad lo bastante grande.
-3. **Tifones**: el pico es 12-25 sept, estamos en Hokkaido (zona casi inmune) y Tokio (zona moderada). Para cuando llegamos a Kyushu (8-13 oct) ya pasó la temporada.
-4. **Open jaw Tokio→Seúl**: termina en peak autumn coreano sin loop final a Tokio.
+1. **Tokio al llegar (10-13/9)**: 3 noches en la ciudad apenas se aterriza, para aclimatación y jet lag, antes de subir al norte. Acá entran los clásicos de Tokio + day trips Kamakura/Yokohama.
+2. **Norte después**: vuelo doméstico Tokio→Sapporo el 13/9. Clima fresco (22-24 °C, seco) para terminar de procesar el jet lag.
+3. **Silver Week (~19-23/9)**: ahora cae sobre el tramo norte/de bajada (Hakodate y el descenso). Mejor: lo rural absorbe la multitud sin volverse impracticable.
+4. **Tifones**: el pico es 12-25 sept, estamos en Hokkaido (zona casi inmune) durante el pico. Para cuando se llega a Kyushu (mid-oct) ya pasó la temporada.
+5. **Round trip por Tokio**: ya no hay open jaw; el viaje arranca y termina en Tokio (vuelo del 21/10).
 
-**Sin 1-night stays** (excepto la noche de transit obligada en Narita por horario de llegada).
+**Sin 1-night stays.** (Ya no hay noche de transit en Narita: Tokio ES la primera parada de 3 noches.)
+
+> **Nota de estado:** el tramo front (Tokio llegada → Hokkaido → bajada hasta Hakodate, 10-21/9) está firme. El tramo centro/sur/Corea (Nikko en adelante) mantiene su orden y noches pero está **en re-secuenciación**: las fechas exactas todavía no están cerradas. Falta armar la vuelta Corea→Tokio + una noche buffer en Tokio el 20/10 antes del vuelo. Las fechas exactas de abajo (Nikko en adelante) son del boceto viejo y hay que re-secuenciarlas.
 
 ---
 
 ## Calendario maestro
 
+**Tramo confirmado (fechas firmes):**
+
 | # | Destino | Fechas | Noches | Notas |
 |---|---------|--------|--------|-------|
 | | Vuelo ida | 8-10/9 | — | EZE→IAH (10h15) + IAH→NRT (13h50). Llegada Tokio 10/9 14:00 |
-| | Tokio transit (Narita) | 10-11/9 | 1 | Airport hotel después de aterrizar. Vuelo a Sapporo 11/9 mañana |
-| 1 | **Sapporo + Hokkaido** | 11-15/9 | 4 | Base con day trips: Otaru, Furano + Biei |
-| 2 | **Noboribetsu (onsen)** | 15-17/9 | 2 | Ryokan + Valle del Infierno volcánico |
-| 3 | **Hakodate** | 17-19/9 | 2 | Atardecer + mariscos. Day trip Onuma |
-| 4 | **Tokio (Silver Week)** | 19-24/9 | 5 | SW absorbida. Day trips: Kamakura, Yokohama, TeamLab |
-| 5 | **Nikko** | 24-26/9 | 2 | Templos UNESCO + primer foliage |
-| 6 | **Kanazawa** | 26-28/9 | 2 | Kenroku-en. Day trip Shirakawa-go |
-| 7 | **Koyasan (shukubo)** | 28-30/9 | 2 | Templo budista, 800m |
-| 8 | **Kioto** | 30/9-5/10 | 5 | Templos sin agonía térmica. Day trips: Nara, Murou |
-| 9 | **Osaka** | 5-8/10 | 3 | Day trip Naoshima |
-| 10 | **Yufuin (onsen)** | 8-10/10 | 2 | Ryokan en Kyushu |
-| 11 | **Fukuoka** | 10-13/10 | 3 | Yatais + Dazaifu, Yanagawa |
-| 12 | **Busan + Gyeongju** | 13-16/10 | 3 | Beetle ferry. Gyeongju day trip |
-| 13 | **Seúl** | 16-20/10 | 4 | Peak autumn + DMZ. Vuelo 20/10 11:30 |
-| | Vuelo vuelta | 20-21/10 | — | ICN→SFO→IAH→EZE. Llegada BA 21/10 8:00 |
+| 1 | **Tokio (llegada)** | 10-13/9 | 3 | Aclimatación + jet lag. Clásicos de Tokio. Day trips: Kamakura, Yokohama |
+| 2 | **Sapporo + Hokkaido** | 13-17/9 | 4 | Vuelo doméstico Tokio→Sapporo 13/9. Day trips: Otaru, Furano + Biei |
+| 3 | **Noboribetsu (onsen)** | 17-19/9 | 2 | Ryokan + Valle del Infierno volcánico |
+| 4 | **Hakodate** | 19-21/9 | 2 | Atardecer + mariscos. Day trip Onuma. (Silver Week ~19-23/9 cae acá/en la bajada) |
 
-**Total:** 1 (transit) + 4+2+2+5+2+2+2+5+3+2+3+3+4 = 40 noches en Asia.
+**Tramo en re-secuenciación (mismo orden y noches, fechas A CONFIRMAR — las de abajo son del boceto viejo):**
+
+| # | Destino | Noches | Notas |
+|---|---------|--------|-------|
+| 5 | **Nikko** | 2 | Templos UNESCO + primer foliage |
+| 6 | **Kanazawa** | 2 | Kenroku-en. Day trip Shirakawa-go |
+| 7 | **Koyasan (shukubo)** | 2 | Templo budista, 800m |
+| 8 | **Kioto** | 5 | Templos sin agonía térmica. Day trips: Nara, Murou |
+| 9 | **Osaka** | 3 | Day trip Naoshima |
+| 10 | **Yufuin (onsen)** | 2 | Ryokan en Kyushu |
+| 11 | **Fukuoka** | 3 | Yatais + Dazaifu, Yanagawa |
+| 12 | **Busan + Gyeongju** | 3 | Beetle ferry. Gyeongju day trip |
+| 13 | **Seúl** | 4 | Peak autumn + DMZ |
+| | **Vuelta Corea→Tokio + buffer** | pend. | PENDIENTE de armar: volver a Tokio + 1 noche buffer el 20/10 |
+| | Vuelo vuelta | 21-22/10 | NRT→LAX→IAH→EZE. Sale Tokio 21/10 16:45. Llegada BA 22/10 8:00 |
+
+**Total:** 3+4+2+2 (front) + 2+2+2+5+3+2+3+3+4 (re-secuenciación) = 40 noches en Asia (incluye la noche buffer de Tokio al final, todavía sin ubicar exacta).
 
 ---
 
@@ -57,44 +75,42 @@ Con la llegada Tokio NRT el 10/9 14:00 y salida Seúl ICN el 20/10 11:30, el via
 - **Mié 9/9 10:10 IAH** — Salida (UA 7)
 - **Jue 10/9 14:00 NRT** — Llegada Tokio Narita (cruza línea de fecha)
 
-### Tokio transit (10-11/9)
+### Tokio llegada (10-13/9)
 
-- **Jue 10/9 tarde** — Llegada NRT. Customs, baggage. Hotel cerca del aeropuerto (Narita Tobu, Marroad, o similar). Cena en el hotel o en convenience store y dormir temprano.
-- **Vie 11/9 mañana** — Train al aeropuerto, vuelo doméstico NRT→CTS (Sapporo). ~1h30 de vuelo, ANA/JAL/Peach.
+Clima: 26-28 °C, humedad alta. Tokio al arrancar el viaje: aclimatación + jet lag antes de subir al norte. Probablemente se revisite Tokio al final como noche buffer.
 
-### Semana 1 — Sapporo (11-15/9)
+- **Jue 10/9 14:00** — Llegada NRT (UA7). Customs, baggage, train al centro. Check-in central. Cena easy y dormir temprano.
+- **Vie 11/9** — Asakusa (Senso-ji) + Sumida River + Skytree atardecer. Día suave por el jet lag.
+- **Sáb 12/9** — Shibuya scramble + Harajuku + Meiji Jingu. O day trip **Kamakura/Yokohama** si el cuerpo da. TeamLab Planets de noche (reservar online).
+- **Dom 13/9** — Mañana Yanaka/Akihabara/Tsukiji según ganas. Mediodía/tarde vuelo doméstico Tokio→CTS (Sapporo), ~1h30, ANA/JAL/Peach.
 
-Clima: 22-24 °C diurna, 14-16 °C nocturna. Seco. Confort post-jet lag.
+> El resto de los clásicos de Tokio (Golden Gai, Ghibli, Tsukiji, Ginza) entran acá o en la noche buffer del final.
 
-- **Vie 11/9 mediodía/tarde** — Llegada Sapporo. Check-in hotel. Tarde Susukino + Mercado Nijo de noche.
-- **Sáb 12/9** — Day trip **Otaru** (45 min en tren). Canal, talleres de cristal, sushi en Sankaku Ichiba.
-- **Dom 13/9** — Sapporo city: Beer Museum, Hokkaido Shrine, parque Maruyama. Cena con jingisukan.
-- **Lun 14/9** — Day trip **Furano + Biei** (2-3h vía Asahikawa). Colinas onduladas, panoramic point. Larga pero icónica.
-- **Mar 15/9** — Mañana en Sapporo. Mediodía tren a Noboribetsu (~1h30 JR Hokuto).
+### Semana 1 — Sapporo (13-17/9)
 
-### Semana 2 — Noboribetsu + Hakodate (15-19/9)
+Clima: 22-24 °C diurna, 14-16 °C nocturna. Seco. Confort para terminar de procesar el jet lag.
 
-- **Mar 15/9** — Llegada Noboribetsu. Check-in ryokan. **Onsen al atardecer** + cena kaiseki.
-- **Mié 16/9** — **Jigokudani (Valle del Infierno) al amanecer** (vacío, dramático). Mañana onsen-hopping en el ryokan. Tarde Oyunuma River + lago Toya opcional.
-- **Jue 17/9** — Mañana check-out. Tren a Hakodate (~3h). Tarde **Mt Hakodate al atardecer** (3 millones de luces).
-- **Vie 18/9** — **Mercado matutino** (uni-don, kaisendon). Day trip **Onuma National Park** (30 min): ciclismo entre islotes. Tarde Goryokaku.
-- **Sáb 19/9** — Mañana barrio Motomachi. Mediodía Shinkansen Hakodate→Tokio (~4h vía Seikan tunnel).
+- **Dom 13/9 tarde** — Llegada Sapporo. Check-in hotel. Susukino + Mercado Nijo de noche.
+- **Lun 14/9** — Day trip **Otaru** (45 min en tren). Canal, talleres de cristal, sushi en Sankaku Ichiba.
+- **Mar 15/9** — Sapporo city: Beer Museum, Hokkaido Shrine, parque Maruyama. Cena con jingisukan.
+- **Mié 16/9** — Day trip **Furano + Biei** (2-3h vía Asahikawa). Colinas onduladas, panoramic point. Larga pero icónica.
+- **Mié 17/9** — Mañana en Sapporo. Mediodía tren a Noboribetsu (~1h30 JR Hokuto).
 
-### Semana 3 — Tokio Silver Week (19-24/9)
+### Semana 2 — Noboribetsu + Hakodate (17-21/9)
 
-Clima: 26-28 °C, humedad alta. Ya aclimatados al calor venimos del norte.
-⚠ **Silver Week 19-23/9** (rara, próxima en 2032). Reservar hotel con 2-3 meses.
+- **Mié 17/9** — Llegada Noboribetsu. Check-in ryokan. **Onsen al atardecer** + cena kaiseki.
+- **Jue 18/9** — **Jigokudani (Valle del Infierno) al amanecer** (vacío, dramático). Mañana onsen-hopping en el ryokan. Tarde Oyunuma River + lago Toya opcional.
+- **Vie 19/9** — Mañana check-out. Tren a Hakodate (~3h). Tarde **Mt Hakodate al atardecer** (3 millones de luces).
+- **Sáb 20/9** — **Mercado matutino** (uni-don, kaisendon). Day trip **Onuma National Park** (30 min): ciclismo entre islotes. Tarde Goryokaku.
+- **Dom 21/9** — Mañana barrio Motomachi. Bajada hacia el centro (re-secuenciación pendiente).
 
-- **Sáb 19/9** — Llegada Tokio tarde. Check-in central. Cena easy.
-- **Dom 20/9** — Asakusa (Senso-ji) + Skytree atardecer.
-- **Lun 21/9** — Feriado. Shibuya + Harajuku + Meiji Jingu.
-- **Mar 22/9** — Citizen's Holiday. Day trip **Kamakura** (gran Buda + bambú + playa). Mejor entre semana del feriado.
-- **Mié 23/9** — Equinoccio. Día tranquilo: Yanaka + Nezu + Sendagi. TeamLab Planets noche (reservar online).
-- **Jue 24/9** — Mañana Akihabara o Jimbocho. Mediodía limited express a Nikko (~2h desde Asakusa).
+> ⚠ **Silver Week ~19-23/9** (rara, próxima en 2032) cae justo en este tramo norte/de bajada. Mejor así: lo rural absorbe la multitud. Tokio quedó al principio, fuera del pico.
 
-> Notas: si quieren día extra TeamLab/Yokohama/Ghibli, considerar overnight en Hakone (Mt Fuji + onsen) durante uno de los días de feriado, o usar el 24/9 mañana antes de partir.
+---
 
-### Semana 4 — Nikko + Kanazawa (24-28/9)
+> **A partir de acá las fechas son del boceto viejo y están EN RE-SECUENCIACIÓN.** El orden de las paradas y la cantidad de noches se mantienen; las fechas exactas hay que recalcularlas una vez cerrado el tramo. Falta también armar la vuelta Corea→Tokio + 1 noche buffer en Tokio el 20/10 antes del vuelo del 21/10.
+
+### Semana 4 — Nikko + Kanazawa (fechas a confirmar)
 
 - **Jue 24/9 tarde** — Llegada Nikko. Ryokan + onsen.
 - **Vie 25/9** — Toshogu, Rinno-ji, puente Shinkyo. Tarde lago Chuzenji + cataratas Kegon.
@@ -103,7 +119,7 @@ Clima: 26-28 °C, humedad alta. Ya aclimatados al calor venimos del norte.
 - **Dom 27/9** — Kenroku-en, castillo, Higashi Chaya, museo del Siglo XXI.
 - **Lun 28/9** — Day trip **Shirakawa-go** mañana (bus 1h15). Tarde tren al sur, Koyasan vía Osaka (~5h total).
 
-### Semana 5 — Koyasan + Kioto (28/9-5/10)
+### Semana 5 — Koyasan + Kioto (fechas a confirmar)
 
 - **Lun 28/9 tarde** — Llegada Koyasan. Check-in shukubo.
 - **Mar 29/9** — Día completo Koyasan: Okunoin al atardecer + amanecer, Kongobu-ji, Garan. Cena shojin ryori.
@@ -112,7 +128,7 @@ Clima: 26-28 °C, humedad alta. Ya aclimatados al calor venimos del norte.
 - **Jue-Dom 1-4/10** — Kioto a paso completo: Arashiyama al amanecer, templos del este (Kiyomizu, Yasaka, Ginkaku-ji), Fushimi Inari al amanecer, Nara day trip un día, Kinkaku-ji, Nishiki, kaiseki una noche.
 - **Lun 5/10** — Mañana Kioto. Mediodía tren a Osaka (~30 min).
 
-### Semana 6 — Osaka + Yufuin + Fukuoka (5-13/10)
+### Semana 6 — Osaka + Yufuin + Fukuoka (fechas a confirmar)
 
 - **Lun 5/10 tarde** — Llegada Osaka. Dotonbori, Shinsekai.
 - **Mar 6/10** — Day trip **Naoshima** (3h ida vía Okayama + ferry): Chichu Art Museum (reservar), Benesse, calabaza Kusama.
@@ -125,91 +141,93 @@ Clima: 26-28 °C, humedad alta. Ya aclimatados al calor venimos del norte.
 - **Lun 12/10** — Day trip **Yanagawa** (paseo en barca + unagi seiro) o playa Itoshima.
 - **Mar 13/10** — Mañana ferry **Beetle** Hakata→Busan (~3h). Llegada Busan mediodía.
 
-### Semana 7 — Busan + Gyeongju + Seúl (13-20/10)
+### Semana 7 — Busan + Gyeongju + Seúl (fechas a confirmar)
 
 Clima Corea: 19-22 °C diurna, 11-15 °C nocturna. Seco. Sin tifones.
 
-- **Mar 13/10 tarde** — Busan: Gamcheon Culture Village, mercado Jagalchi (mariscos), cena BBQ.
-- **Mié 14/10** — Day trip **Gyeongju** (KTX 30 min): Bulguksa, Seokguram, tumuli, Anapji Pond atardecer.
-- **Jue 15/10** — Busan: Beomeosa (templo de montaña), Haedong Yonggungsa, Haeundae Beach. Jjimjilbang.
-- **Vie 16/10** — Mañana Busan. Mediodía KTX a Seúl (~2h30).
-- **Vie 16/10 tarde** — Llegada Seúl. Hotel.
-- **Sáb 17/10** — Gyeongbokgung (con hanbok rentado entrás gratis), Bukchon Hanok, Insadong.
-- **Dom 18/10** — Day trip **DMZ** (sale 7 AM, reservar antes). Tarde Gwangjang Market.
-- **Lun 19/10** — Hongdae + Yeonnam + Seongsu. Cena BBQ + jjimjilbang de despedida.
-- **Mar 20/10 mañana** — Vuelo ICN→SFO (UA 806, 11:30 AM).
+- Busan: Gamcheon Culture Village, mercado Jagalchi (mariscos), cena BBQ.
+- Day trip **Gyeongju** (KTX 30 min): Bulguksa, Seokguram, tumuli, Anapji Pond atardecer.
+- Busan: Beomeosa (templo de montaña), Haedong Yonggungsa, Haeundae Beach. Jjimjilbang.
+- KTX Busan→Seúl (~2h30).
+- Seúl: Gyeongbokgung (con hanbok rentado entrás gratis), Bukchon Hanok, Insadong.
+- Day trip **DMZ** (sale 7 AM, reservar antes). Gwangjang Market.
+- Hongdae + Yeonnam + Seongsu. Cena BBQ + jjimjilbang de despedida.
 
-### Vuelo de vuelta (20-21/10)
+### Vuelta Corea → Tokio (PENDIENTE de armar)
 
-- **Mar 20/10 11:30 ICN** — Salida Seúl (UA 806)
-- **Mar 20/10 6:20 SFO** — Llegada (cruza línea de fecha hacia atrás)
-- **Mar 20/10 12:24 SFO** — Salida (UA 1387)
-- **Mar 20/10 18:29 IAH** — Llegada Houston, escala 1h46
-- **Mar 20/10 20:15 IAH** — Salida (UA 819)
-- **Mié 21/10 8:00 EZE** — Llegada BA
+El viaje NO termina en Corea. Hay que volver desde Seúl/Busan a Tokio y meter **1 noche buffer en Tokio el 20/10** antes del vuelo del 21/10. Opciones de regreso (vuelo ICN/GMP→NRT/HND, ~2h30) a definir cuando se cierre el tramo.
+
+### Vuelo de vuelta — desde Tokio (21-22/10)
+
+- **Mar 21/10 16:45 NRT** — Salida Tokio (UA33)
+- **Mar 21/10 10:45 LAX** — Llegada Los Ángeles (cruza línea de fecha hacia atrás), escala 2h30
+- **Mar 21/10 13:15 LAX** — Salida (UA2318, United First)
+- **Mar 21/10 18:40 IAH** — Llegada Houston, escala 1h35
+- **Mar 21/10 20:15 IAH** — Salida (UA819)
+- **Mié 22/10 8:00 EZE** — Llegada BA
 
 ---
 
 ## Cambios respecto a versiones anteriores
 
-Esta versión refleja los **vuelos confirmados** (sale 8/9, llega 10/9 NRT, vuelve 20/10 ICN). Recortes vs el plan de 44n:
+Esta versión refleja los **vuelos confirmados de United** (pasajes sacados): ida 8/9 → llega 10/9 NRT, **vuelta desde Tokio NRT el 21/10** (ya no desde Seúl). Cambios estructurales vs el boceto anterior:
 
-1. **Removed Ginzan Onsen** (-2n). La experiencia onsen Tohoku se compensa con Noboribetsu overnight en Hokkaido.
-2. **Removed Tokio post-SW** (-3n). Las actividades (TeamLab, Yokohama) entran adentro de los 5 días de SW.
-3. **Added Tokio transit night** (+1n). Inevitable por horario de llegada NRT 14:00 + transit a vuelo doméstico.
-4. **Upgraded Noboribetsu** de day trip a 2n overnight (+2n). Mejor experiencia, balance con Sapporo reducido.
-5. **Reduced Sapporo** de 5n a 4n (-1n). 1n redistribuida a Noboribetsu.
-6. **Reduced Osaka** de 4n a 3n (-1n). Skipped Himeji+Kobe day trip; mantiene Naoshima.
+1. **Round trip por Tokio (NRT in / NRT out)** — antes era open jaw Tokio→Seúl. Ahora el viaje arranca y termina en Tokio.
+2. **Tokio pasa al principio, 3 noches al llegar (10-13/9)** — aclimatación + jet lag antes del norte. Reemplaza la vieja noche de transit en Narita: ya no hay transit night.
+3. **Tokio Silver Week (5n a mitad de viaje) eliminado como parada separada** — sus actividades y day trips (Kamakura, Yokohama, teamLab, etc.) se mudaron a la Tokio de llegada. La Silver Week (~19-23/9) ahora cae sobre el tramo norte/de bajada (Hakodate y el descenso), lo cual es mejor: lo rural absorbe la multitud.
+4. **Tramo centro/sur/Corea (Nikko en adelante) en re-secuenciación** — mantiene orden y noches, pero las fechas exactas todavía no están cerradas.
+5. **Pendiente: vuelta Corea→Tokio + 1 noche buffer en Tokio el 20/10** antes del vuelo del 21/10.
 
-Net: -4 noches (44 → 40).
+Recortes previos del plan de 44n que siguen vigentes: -Ginzan Onsen (-2n), Noboribetsu upgrade a 2n overnight, Sapporo 5n→4n, Osaka 4n→3n.
 
 ---
 
 ## Alertas críticas
 
 ### 🚨 Reservar urgente
-- **Hotel Tokio 19-24/9** (Silver Week). 2-3 meses antes mínimo.
-- **Vuelo NRT→CTS 11/9** (Tokio→Sapporo). ANA, JAL o Peach.
-- **Hotel airport Narita 10/9** (transit night). Narita Tobu, Marroad, Hilton Narita.
-- **Shinkansen Hakodate→Tokio 19/9** (Shinkansen Hayabusa, reserva obligatoria).
-- **Beetle ferry Hakata→Busan 13/10** (JR Kyushu Beetle online).
-- **KTX Busan→Seúl 16/10** (Korail online).
-- **Ryokans**: Noboribetsu (15-17/9), Nikko (24-25/9), Koyasan shukubo (28-29/9), Yufuin (8-9/10).
-- **Museos con cupo**: Chichu Naoshima, TeamLab Planets, Museo Ghibli (10/8 vía Lawson).
-- **DMZ Tour Seúl** (18/10).
+- **Hotel Tokio llegada 10-13/9** (3 noches al aterrizar).
+- **Vuelo doméstico Tokio→Sapporo 13/9** (NRT/HND→CTS). ANA, JAL o Peach.
+- **Hotel Hakodate ~19-21/9** (cae en Silver Week, ~19-23/9 — reservar con anticipación aunque sea zona rural).
+- **Beetle ferry Hakata→Busan** (JR Kyushu Beetle online) — fecha a confirmar.
+- **KTX Busan→Seúl** (Korail online) — fecha a confirmar.
+- **Ryokans**: Noboribetsu (17-19/9, firme), Nikko, Koyasan shukubo, Yufuin (fechas a confirmar).
+- **Museos con cupo**: Chichu Naoshima, TeamLab Planets, Museo Ghibli (vía Lawson).
+- **DMZ Tour Seúl** (fecha a confirmar).
+- **PENDIENTE**: vuelo de vuelta Corea→Tokio + 1 noche buffer en Tokio el 20/10.
 
 ### 🌪 Tifones — protocolo
-- Pico de riesgo: 12-25/9 — estamos en Hokkaido (low) y Tokio (med).
-- Yufuin/Fukuoka 8-13/10: riesgo muy bajo a esta altura.
-- Si tifón en Kyushu durante 8-13/10: alternativa = saltar Yufuin y meter más Osaka, o volar Fukuoka→Busan en lugar de ferry Beetle.
+- Pico de riesgo: 12-25/9 — estamos en Tokio (med) al llegar y Hokkaido (low) durante el pico.
+- Kyushu (Yufuin/Fukuoka, mid-oct): riesgo muy bajo a esta altura.
+- Si tifón en Kyushu: alternativa = saltar Yufuin y meter más Osaka, o volar Fukuoka→Busan en lugar de ferry Beetle.
 - **Seguro de viaje con cobertura por interrupción**: obligatorio.
 
 ### 📅 Feriados
-- **Silver Week Japón 19-23/9** — en Tokio, manejable.
-- **Chuseok Corea 24-26/9** — en Japón, perfecto.
-- **National Foundation Day Corea 3/10** — en Kioto.
-- **Hangul Day Corea 9/10** — en Yufuin/Fukuoka.
-- **Sports Day Japón 12/10** — en Fukuoka (Yanagawa day trip).
+- **Silver Week Japón ~19-23/9** — cae en el tramo norte/de bajada (Hakodate y descenso). Lo rural la absorbe.
+- **Chuseok Corea (sept)** — en Japón, perfecto.
+- **Feriados coreanos de octubre** (Foundation Day, Hangul Day) — a chequear contra el tramo re-secuenciado.
 
 ### 🚄 Transporte
-- **JR Pass 21 días** — evaluar vs tickets sueltos. NO cubre vuelo NRT→CTS pero sí Shinkansen Hakodate→Tokio y todo el resto.
+- **JR Pass 21 días** — evaluar vs tickets sueltos. NO cubre el vuelo doméstico Tokio→Sapporo pero sí los Shinkansen.
 - **T-money card** en convenience store para Corea.
 - **Beetle ferry** o vuelo Fukuoka→Incheon como backup si hay tifón.
 - **Takkyubin** (servicio de envío de valijas) entre ciudades — útil para no cargar todo en Shinkansen.
+- **Vuelo de vuelta Corea→Tokio**: a definir (ICN/GMP→NRT/HND, ~2h30) para cerrar el loop antes del 21/10.
 
 ### 🎒 Empaque
-- **Sept 10-24** (Hokkaido + Tokio): ropa de verano + sweater para noches frías de Hokkaido (14-16 °C).
-- **Sept 24+**: layers, suéter, abrigo medio. Seúl al final ~11 °C de mínima.
+- **Sept 10-17** (Tokio + Hokkaido): ropa de verano para Tokio (26-28 °C) + sweater para noches frías de Hokkaido (14-16 °C).
+- **Fines de sept en adelante**: layers, suéter, abrigo medio. Seúl ~11 °C de mínima.
 - Paraguas plegable, toalla de mano, eSIM (Airalo/Ubigi), cash (Japón es cash-heavy en ryokan).
 
 ---
 
 ## Resumen ejecutivo
 
-**40 noches en Asia.** Vuelos confirmados: 8/9 EZE → 10/9 NRT · 20/10 ICN → 21/10 EZE.
+**40 noches en Asia.** Vuelos confirmados (United, round trip por Tokio): 8/9 EZE → 10/9 NRT · **21/10 NRT → 22/10 EZE** (la vuelta sale de Tokio, no de Seúl).
 
-**Decisión clave**: vuelo doméstico Tokio→Sapporo el 11/9 mañana (después de noche de transit en Narita). Primera semana en el norte fresco hace que el jet lag se procese en confort.
+**Decisión clave**: Tokio 3 noches al llegar (10-13/9) para aclimatación + jet lag, y recién después vuelo doméstico a Sapporo el 13/9. El norte fresco termina de procesar el jet lag. El viaje termina de vuelta en Tokio para el vuelo del 21/10.
 
-**Reservas urgentes** (orden): Tokio Silver Week, hotel Narita transit, vuelo NRT→CTS, Shinkansen Hakodate-Tokio, Beetle ferry, KTX Busan-Seúl, ryokans (Noboribetsu, Nikko, Koyasan, Yufuin), museos con cupo.
+**Estado**: tramo front (Tokio → Hokkaido → Hakodate, 10-21/9) firme. Tramo centro/sur/Corea (Nikko en adelante) en re-secuenciación (mismo orden y noches, fechas a confirmar). Pendiente armar la vuelta Corea→Tokio + noche buffer del 20/10.
+
+**Reservas urgentes** (orden): hotel Tokio llegada, vuelo doméstico Tokio→Sapporo, hotel Hakodate (Silver Week), Beetle ferry, KTX Busan-Seúl, ryokans (Noboribetsu, Nikko, Koyasan, Yufuin), museos con cupo, vuelta Corea→Tokio.
 
 Mapa interactivo + detalles por destino + curva climática en [`index.html`](./index.html).
