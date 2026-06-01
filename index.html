@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japón + Corea · sept-oct 2026</title>
+<title>Japón + Corea · sept-nov 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   * { box-sizing: border-box; }
@@ -88,6 +88,12 @@
   .dest-card.active { border-color: #0F6E56; box-shadow: 0 2px 12px rgba(15, 110, 86, 0.15); }
   .card-header { display: grid; grid-template-columns: 30px 1fr auto; gap: 12px; align-items: center; margin-bottom: 10px; }
   .card-num { width: 28px; height: 28px; border-radius: 50%; background: #5DCAA5; border: 2px solid #0F6E56; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #04342C; flex-shrink: 0; }
+  .card-num.fullday { border-radius: 5px; background: #F0B84A; border-color: #B87814; color: #5A3A00; transform: rotate(45deg); }
+  .card-num.fullday span { transform: rotate(-45deg); display: block; }
+  .dest-card.fullday { border-style: dashed; border-color: rgba(184, 120, 20, 0.4); }
+  .dest-card.fullday:hover { border-color: rgba(184, 120, 20, 0.7); }
+  .dest-card.fullday.active { border-color: #B87814; box-shadow: 0 2px 12px rgba(184, 120, 20, 0.18); }
+  .fullday-tag { display: inline-block; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #8A5A0E; background: rgba(240, 184, 74, 0.22); border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
   .card-title-wrap h2 { font-size: 15px; font-weight: 600; margin: 0 0 1px; line-height: 1.2; }
   .card-meta { font-size: 11px; color: #666; }
   .card-temps { display: flex; gap: 6px; flex-shrink: 0; }
@@ -111,6 +117,12 @@
   .marker-num.active { transform: scale(1.45); background: #1D9E75; color: white; box-shadow: 0 4px 10px rgba(15, 110, 86, 0.45); z-index: 1000 !important; }
   .marker-dot { width: 12px; height: 12px; border-radius: 50%; background: white; border: 1.5px solid #444; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: transform 0.2s, background 0.2s, border-color 0.2s; }
   .marker-dot.active { transform: scale(1.8); background: #fbbf77; border-color: #BA7517; }
+
+  /* Nodo "día completo · de paso": numerado pero rombo y color distinto (no se duerme ahí) */
+  .marker-diamond-wrap { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .marker-diamond { width: 26px; height: 26px; background: #F0B84A; border: 2px solid #B87814; transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .marker-diamond span { transform: rotate(-45deg); font-family: -apple-system, sans-serif; font-size: 12px; font-weight: 700; color: #5A3A00; }
+  .marker-diamond.active { transform: rotate(45deg) scale(1.4); background: #E89B17; z-index: 1000 !important; }
 
   /* Lugares guardados de Google Maps */
   .saved-section { margin-top: 10px; }
@@ -149,13 +161,13 @@
 <header class="site-header">
   <div class="header-title">
     <h1>Japón + Corea</h1>
-    <span class="subtitle">sept-oct 2026</span>
+    <span class="subtitle">sept-nov 2026</span>
   </div>
   <div class="header-stats">
-    <span><strong>8/9</strong> salida BA</span>
+    <span><strong>26/9</strong> salida BA</span>
     <span><strong>40</strong> noches</span>
-    <span><strong>13</strong> destinos</span>
-    <span><strong>22/10</strong> regreso</span>
+    <span><strong>14</strong> nodos</span>
+    <span><strong>9/11</strong> regreso</span>
   </div>
 </header>
 
@@ -177,33 +189,33 @@
     <div class="details-section">
       <div class="details-title">Vuelos · United Polaris business · click para tracker</div>
       <div class="flight-card">
-        <div class="flight-leg-title">Ida → Tokio · 8-10 sept</div>
+        <div class="flight-leg-title">Ida → Tokio · 26-28 sept</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL818" target="_blank" rel="noopener">
           <span class="seg-route">EZE → IAH <span class="seg-no">UA818</span></span>
-          <span class="seg-time">8 sep 21:00 → 9 sep 5:15<br>B777-200 · 10h15</span>
+          <span class="seg-time">26 sep 21:00 → 27 sep 5:15<br>B777-200 · 10h15</span>
         </a>
         <div class="seg-conn">escala Houston 4h55</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL7" target="_blank" rel="noopener">
           <span class="seg-route">IAH → NRT <span class="seg-no">UA7</span></span>
-          <span class="seg-time">9 sep 10:10 → 10 sep 14:00<br>B787-9 · 13h50</span>
+          <span class="seg-time">27 sep 10:10 → 28 sep 14:00<br>B787-9 · 13h50</span>
         </a>
 
-        <div class="flight-leg-title">Vuelta → Buenos Aires · 21-22 oct</div>
+        <div class="flight-leg-title">Vuelta → Buenos Aires · 8-9 nov</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL33" target="_blank" rel="noopener">
           <span class="seg-route">NRT → LAX <span class="seg-no">UA33</span></span>
-          <span class="seg-time">21 oct 16:45 → 21 oct 10:45<br>B787-9 · 10h</span>
+          <span class="seg-time">8 nov 16:45 → 8 nov 10:45<br>B787-9 · 10h</span>
         </a>
         <div class="seg-conn">escala Los Ángeles 2h30</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL2318" target="_blank" rel="noopener">
           <span class="seg-route">LAX → IAH <span class="seg-no">UA2318</span></span>
-          <span class="seg-time">21 oct 13:15 → 18:40<br>737 MAX 9 · United First</span>
+          <span class="seg-time">8 nov 13:15 → 18:40<br>737 MAX 9 · United First</span>
         </a>
         <div class="seg-conn">escala Houston 1h35</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL819" target="_blank" rel="noopener">
           <span class="seg-route">IAH → EZE <span class="seg-no">UA819</span></span>
-          <span class="seg-time">21 oct 20:15 → 22 oct 8:00<br>B777-200 · 9h45</span>
+          <span class="seg-time">8 nov 20:15 → 9 nov 8:00<br>B777-200 · 9h45</span>
         </a>
-        <div class="flight-note">Round trip Tokio NRT (ya no es open jaw). El viaje arranca y termina en Tokio para el vuelo del 21/10.</div>
+        <div class="flight-note">Pasajes ahora reprogramables: se corrieron a una ventana de fin de sept para mejor clima de otoño. Round trip Tokio NRT — el viaje arranca y termina en Tokio para el vuelo del 8/11.</div>
       </div>
 
       <div class="details-title" style="margin-top: 16px;">Destinos · click para enfocar en el mapa</div>
@@ -218,21 +230,18 @@ import Chart from 'https://esm.sh/chart.js@4.4.0/auto';
 
 const destinations = [
   {
-    id: 'tokio-llegada', n: 1, name: 'Tokio (llegada)', short: 'Tokio',
+    id: 'tokio-llegada', n: 1, type: 'destino', name: 'Tokio (llegada)', short: 'Tokio',
     coords: [35.6762, 139.6503],
-    dates: '10-13 sept', nights: 3,
-    arrival: '10 sept 14:00 (NRT, vuelo UA7)', departure: '13 sept (vuelo doméstico a Sapporo)', lodging: null,
-    tempMax: '25-33', tempMin: '19-26', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Aterrizaje en Narita el 10/9 14:00. 3 noches de aclimatación y jet lag en la ciudad antes de subir al norte. Los clásicos de Tokio al arrancar el viaje. Probablemente se vuelva a Tokio al final como noche buffer antes del vuelo del 21/10.',
+    dates: '28 sep–2 oct', nights: 4,
+    arrival: '28 sep 14:00 (NRT, vuelo UA7)', departure: '2 oct (vuelo doméstico a Sapporo)', lodging: null,
+    tempMax: '21-27', tempMin: '15-21', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Aterrizaje en Narita el 28/9 14:00. 4 noches de aclimatación y jet lag antes de subir al norte. Los clásicos de Tokio al arrancar el viaje. Tokio se revisita al final (parada 14) como buffer pre-vuelo, así que los museos/teamLab/shopping pueden quedar para esa segunda tanda.',
     activities: [
       'Asakusa (Senso-ji) + Sumida River + Skytree',
       'Shibuya scramble + Harajuku + Meiji Jingu',
-      'TeamLab Planets/Borderless (reservar online)',
-      'Yanaka + Nezu + Sendagi (Tokio "viejo")',
       'Akihabara + Jimbocho',
       'Tsukiji exterior, Toyosu, Ginza',
-      'Golden Gai + Omoide Yokocho',
-      'Museo Ghibli si conseguís entrada'
+      'Golden Gai + Omoide Yokocho'
     ],
     places: [
           { name: "Ayuntamiento de Tokio", lat: 35.689496, lon: 139.691709, url: "https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20Tokio" },
@@ -269,12 +278,12 @@ const destinations = [
     ]
   },
   {
-    id: 'sapporo', n: 2, name: 'Sapporo + Hokkaido', short: 'Sapporo',
+    id: 'sapporo', n: 2, type: 'destino', name: 'Sapporo + Hokkaido', short: 'Sapporo',
     coords: [43.0642, 141.3469],
-    dates: '13-17 sept', nights: 4,
-    arrival: '13 sept (vuelo doméstico desde Tokio)', departure: '17 sept (tren a Noboribetsu)', lodging: null,
-    tempMax: '17-27', tempMin: '8-20', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Base de Hokkaido. Vuelo doméstico desde Tokio el 13/9 (~1h30). Clima fresco para procesar lo que quede de jet lag. 4 noches, 2 day trips desde la ciudad.',
+    dates: '2-6 oct', nights: 4,
+    arrival: '2 oct (vuelo doméstico desde Tokio)', departure: '6 oct (tren a Noboribetsu)', lodging: null,
+    tempMax: '14-21', tempMin: '6-13', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Base de Hokkaido. Vuelo doméstico desde Tokio el 2/10 (~1h30). Clima fresco de otoño, con los primeros colores empezando en el norte. 4 noches, 2 day trips desde la ciudad.',
     activities: [
       'Mercado Nijo: desayuno con mariscos (uni, ikura, cangrejo)',
       'Sapporo Beer Museum + tour de cervecería',
@@ -293,11 +302,11 @@ const destinations = [
     ]
   },
   {
-    id: 'noboribetsu', n: 3, name: 'Noboribetsu (onsen)', short: 'Noboribetsu',
+    id: 'noboribetsu', n: 3, type: 'destino', name: 'Noboribetsu (onsen)', short: 'Noboribetsu',
     coords: [42.4856, 141.1186],
-    dates: '17-19 sept', nights: 2,
-    arrival: '17 sept (tren JR Hokuto desde Sapporo)', departure: '19 sept (tren a Hakodate)', lodging: null,
-    tempMax: '16-24', tempMin: '8-19', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    dates: '6-8 oct', nights: 2,
+    arrival: '6 oct (tren JR Hokuto desde Sapporo)', departure: '8 oct (tren a Hakodate)', lodging: null,
+    tempMax: '13-20', tempMin: '6-14', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Ryokan con onsen sulfuroso + "Valle del Infierno" volcánico. Tren JR Hokuto desde Sapporo ~1h30. Cena kaiseki incluida en la noche del ryokan.',
     activities: [
       'Onsen al atardecer en el ryokan (10+ tipos de baños)',
@@ -310,12 +319,12 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'hakodate', n: 4, name: 'Hakodate', short: 'Hakodate',
+    id: 'hakodate', n: 4, type: 'destino', name: 'Hakodate', short: 'Hakodate',
     coords: [41.7687, 140.7286],
-    dates: '19-21 sept', nights: 2,
-    arrival: '19 sept (tren desde Noboribetsu)', departure: '21 sept (baja hacia el centro)', lodging: null,
-    tempMax: '16-25', tempMin: '9-20', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Ciudad portuaria al sur de Hokkaido. Famosa por el atardecer desde el monte y los mariscos del mercado matutino. La Silver Week (~19-23/9) cae justo en este tramo norte/de bajada — mejor así: lo rural absorbe la multitud sin volverse impracticable.',
+    dates: '8-10 oct', nights: 2,
+    arrival: '8 oct (tren desde Noboribetsu)', departure: '10 oct (día completo en Nikko, sigue a Kanazawa)', lodging: null,
+    tempMax: '13-21', tempMin: '7-15', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Ciudad portuaria al sur de Hokkaido. Famosa por el atardecer desde el monte y los mariscos del mercado matutino. Con las nuevas fechas el viaje arranca el 28/9, así que esquiva del todo la Silver Week (~19-23/9), que cae antes de despegar.',
     activities: [
       'Mt Hakodate al atardecer ("3 millones de luces")',
       'Mercado matutino: uni-don, kaisendon, cangrejo de pelo',
@@ -329,18 +338,17 @@ const destinations = [
     ]
   },
   {
-    id: 'nikko', n: 5, name: 'Nikko', short: 'Nikko',
+    id: 'nikko', n: 5, type: 'fullday', name: 'Nikko', short: 'Nikko',
     coords: [36.7589, 139.6075],
-    dates: 'fechas a confirmar', nights: 2, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '14-24', tempMin: '10-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Templos UNESCO en la montaña. Primeros colores de otoño en altitudes altas. Limited express desde Asakusa, 2 h. Fechas en re-secuenciación: el tramo centro/sur/Corea todavía no está cerrado.',
+    dates: '10 oct', nights: 0,
+    arrival: '10 oct (de paso desde Hokkaido hacia el centro-oeste)', departure: '10 oct tarde/noche (sigue a Kanazawa)', lodging: null,
+    tempMax: '13-22', tempMin: '6-14', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Día completo de paso, sin pernocte: en el camino del norte hacia el centro-oeste se baja en Nikko para los santuarios UNESCO de Toshogu y (si da el tiempo) el lago Chuzenji + cataratas Kegon, con los primeros colores de otoño en altura. A la tarde/noche se sigue viaje a Kanazawa.',
     activities: [
       'Toshogu shrine (mausoleo Tokugawa Ieyasu)',
       'Rinno-ji + puente Shinkyo',
-      'Lago Chuzenji + cataratas Kegon',
-      'Senjogahara hike (hojas empezando)',
-      'Ryokan con onsen + cena kaiseki'
+      'Lago Chuzenji + cataratas Kegon (si da el tiempo)',
+      'Senjogahara (primeras hojas) si queda margen'
     ],
     places: [
           { name: "Nonohana", lat: 36.966132, lon: 140.030519, url: "https://www.google.com/maps/search/?api=1&query=Nonohana" },
@@ -349,12 +357,12 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'kanazawa', n: 6, name: 'Kanazawa', short: 'Kanazawa',
+    id: 'kanazawa', n: 6, type: 'destino', name: 'Kanazawa', short: 'Kanazawa',
     coords: [36.5613, 136.6562],
-    dates: 'fechas a confirmar', nights: 2, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '22-28', tempMin: '16-22', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Shinkansen Hokuriku ~2h30 desde Tokio. Fechas en re-secuenciación.',
+    dates: '11-13 oct', nights: 2,
+    arrival: '11 oct (desde Nikko)', departure: '13 oct (tren al sur, Koyasan vía Osaka)', lodging: null,
+    tempMax: '20-25', tempMin: '13-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Nikko el 11/10. Day trip a Shirakawa-go ida y vuelta.',
     activities: [
       'Jardín Kenroku-en (top 3 de Japón)',
       'Castillo de Kanazawa',
@@ -373,12 +381,12 @@ const destinations = [
     ]
   },
   {
-    id: 'koyasan', n: 7, name: 'Koyasan (shukubo)', short: 'Koyasan',
+    id: 'koyasan', n: 7, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
     coords: [34.2129, 135.5836],
-    dates: 'fechas a confirmar', nights: 2, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '19-26', tempMin: '11-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís en un templo con cena vegetariana y ceremonia matutina opcional. Fechas en re-secuenciación.',
+    dates: '13-15 oct', nights: 2,
+    arrival: '13 oct (tren desde Kanazawa vía Osaka)', departure: '15 oct (tren a Kioto)', lodging: null,
+    tempMax: '17-23', tempMin: '9-15', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís en un templo con cena vegetariana y ceremonia matutina opcional.',
     activities: [
       'Okunoin al atardecer (cementerio con 200.000 lápidas)',
       'Okunoin antes del amanecer (vacío total)',
@@ -391,12 +399,12 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'kioto', n: 8, name: 'Kioto', short: 'Kioto',
+    id: 'kioto', n: 8, type: 'destino', name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
-    dates: 'fechas a confirmar', nights: 5, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '24-32', tempMin: '12-20', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Capital cultural, post-Silver Week con templos respirables. 5 noches dan tiempo a cada zona sin atropello. Fechas en re-secuenciación.',
+    dates: '15-20 oct', nights: 5,
+    arrival: '15 oct (tren desde Koyasan)', departure: '20 oct (tren a Osaka)', lodging: null,
+    tempMax: '20-26', tempMin: '11-17', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Capital cultural. Mediados de octubre: clima templado y los primeros tonos de otoño. 5 noches dan tiempo a cada zona sin atropello.',
     activities: [
       'Arashiyama al amanecer: bambú, Tenryu-ji, Otagi Nenbutsuji',
       'Templos del este: Kiyomizu, Yasaka, paseo de filósofos, Ginkaku-ji',
@@ -420,12 +428,12 @@ const destinations = [
     ]
   },
   {
-    id: 'osaka', n: 9, name: 'Osaka', short: 'Osaka',
+    id: 'osaka', n: 9, type: 'destino', name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
-    dates: 'fechas a confirmar', nights: 3, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '18-30', tempMin: '12-22', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 3 noches (apretado pero alcanza con day trip a Naoshima + día Osaka). Fechas en re-secuenciación.',
+    dates: '20-23 oct', nights: 3,
+    arrival: '20 oct (tren desde Kioto)', departure: '23 oct (Shinkansen + tren a Yufuin)', lodging: null,
+    tempMax: '19-26', tempMin: '12-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 3 noches (apretado pero alcanza con day trip a Naoshima + día Osaka).',
     activities: [
       'Dotonbori (luces, takoyaki, kushikatsu)',
       'Shinsekai + Tsutenkaku tower',
@@ -445,12 +453,12 @@ const destinations = [
     ]
   },
   {
-    id: 'yufuin', n: 10, name: 'Yufuin (onsen)', short: 'Yufuin',
+    id: 'yufuin', n: 10, type: 'destino', name: 'Yufuin (onsen)', short: 'Yufuin',
     coords: [33.2667, 131.3667],
-    dates: 'fechas a confirmar', nights: 2, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '15-25', tempMin: '11-20', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Pueblo onsen en Kyushu, 450m altura. Ryokan + cena kaiseki. Distinto al de Noboribetsu — más boutique y montaña. Fechas en re-secuenciación.',
+    dates: '23-25 oct', nights: 2,
+    arrival: '23 oct (Shinkansen + tren desde Osaka)', departure: '25 oct (tren a Fukuoka)', lodging: null,
+    tempMax: '18-24', tempMin: '11-17', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Pueblo onsen en Kyushu, 450m altura. Ryokan + cena kaiseki. Distinto al de Noboribetsu — más boutique y montaña.',
     activities: [
       'Onsen al atardecer en el ryokan',
       'Cena kaiseki tradicional',
@@ -464,12 +472,12 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'fukuoka', n: 11, name: 'Fukuoka', short: 'Fukuoka',
+    id: 'fukuoka', n: 11, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
     coords: [33.5904, 130.4017],
-    dates: 'fechas a confirmar', nights: 3, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '17-30', tempMin: '12-22', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Cuna del ramen tonkotsu. Última parada en Japón antes del cruce a Corea por ferry. Fechas en re-secuenciación.',
+    dates: '25-28 oct', nights: 3,
+    arrival: '25 oct (tren desde Yufuin)', departure: '28 oct (ferry Beetle a Busan)', lodging: null,
+    tempMax: '19-26', tempMin: '13-19', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Cuna del ramen tonkotsu. Última parada en Japón antes del cruce a Corea por ferry.',
     activities: [
       'Yatais (puestos callejeros) en Nakasu y Tenjin',
       'Ramen tonkotsu en Ichiran original o Hakata Issou',
@@ -486,12 +494,12 @@ const destinations = [
     ]
   },
   {
-    id: 'busan', n: 12, name: 'Busan + Gyeongju', short: 'Busan',
+    id: 'busan', n: 12, type: 'destino', name: 'Busan + Gyeongju', short: 'Busan',
     coords: [35.1796, 129.0756],
-    dates: 'fechas a confirmar', nights: 3, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '20-25', tempMin: '9-19', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip. Fechas en re-secuenciación.',
+    dates: '28-31 oct', nights: 3,
+    arrival: '28 oct (ferry Beetle desde Fukuoka, ~3h)', departure: '31 oct (KTX a Seúl)', lodging: null,
+    tempMax: '18-23', tempMin: '10-16', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
     activities: [
       'Gamcheon Culture Village (favela artística colorida)',
       'Mercado Jagalchi (pescado más grande de Corea)',
@@ -506,12 +514,12 @@ const destinations = [
     ]
   },
   {
-    id: 'seul', n: 13, name: 'Seúl', short: 'Seúl',
+    id: 'seul', n: 13, type: 'destino', name: 'Seúl', short: 'Seúl',
     coords: [37.5665, 126.9780],
-    dates: 'fechas a confirmar', nights: 4, pending: true,
-    arrival: null, departure: null, lodging: null,
-    tempMax: '8-24', tempMin: '0-17', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
-    intro: 'Tramo coreano. KTX desde Busan, ~2h30. Octubre = mejor mes del año coreano. Fechas en re-secuenciación. PENDIENTE: el tramo de vuelta Corea→Tokio + una noche buffer en Tokio el 20/10 antes del vuelo del 21/10 todavía no está armado.',
+    dates: '31 oct–4 nov', nights: 4,
+    arrival: '31 oct (KTX desde Busan, ~2h30)', departure: '4 nov (vuelo ICN/GMP → Tokio NRT/HND)', lodging: null,
+    tempMax: '11-19', tempMin: '3-11', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Tramo coreano. KTX desde Busan, ~2h30. Fin de octubre / principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Tokio (parada 14) para cerrar el loop antes del vuelo del 8/11.',
     activities: [
       'Palacio Gyeongbokgung (con hanbok gratis)',
       'Bukchon Hanok Village + Insadong',
@@ -538,6 +546,26 @@ const destinations = [
         ],
     daytrips: [
       { id: 'dmz', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. JSA, Dora Observatory. Reservar antes.' }
+    ]
+  },
+  {
+    id: 'tokio-final', n: 14, type: 'destino', name: 'Tokio (final, pre-vuelo)', short: 'Tokio fin',
+    coords: [35.6895, 139.7000],
+    dates: '4-8 nov', nights: 4,
+    arrival: '4 nov (vuelo desde Seúl ICN/GMP → NRT/HND)', departure: '8 nov 16:45 (NRT, vuelo UA33 de vuelta)', lodging: null,
+    tempMax: '15-19', tempMin: '8-12', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Cierre del viaje: 4 noches de vuelta en Tokio antes del vuelo del 8/11, como buffer pre-vuelo. A principios de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
+    activities: [
+      'Ginkgos de Meiji Jingu Gaien + koyo en Rikugien / Koishikawa Korakuen',
+      'TeamLab Planets/Borderless (reservar online)',
+      'Yanaka + Nezu + Sendagi (Tokio "viejo")',
+      'Museo Ghibli si conseguís entrada',
+      'Compras finales: Nakano Broadway, Harajuku, Ginza',
+      'Última cena: Golden Gai u Omoide Yokocho'
+    ],
+    places: [],
+    daytrips: [
+      { id: 'hakone', name: 'Hakone', coords: [35.2324, 139.1069], time: '1 h 30 en Romancecar', desc: 'Onsen + Museo al Aire Libre + Owakudani. Koyo de noviembre en su punto.' }
     ]
   }
 ];
@@ -583,14 +611,23 @@ L.polyline(routeCoords, {
 
 const markers = {};
 destinations.forEach(d => {
-  const icon = L.divIcon({
-    html: '<div class="marker-num" data-id="' + d.id + '">' + d.n + '</div>',
-    className: '', iconSize: [30, 30], iconAnchor: [15, 15],
-  });
+  const isFullday = d.type === 'fullday';
+  const icon = isFullday
+    ? L.divIcon({
+        html: '<div class="marker-diamond-wrap"><div class="marker-diamond" data-id="' + d.id + '"><span>' + d.n + '</span></div></div>',
+        className: '', iconSize: [34, 34], iconAnchor: [17, 17],
+      })
+    : L.divIcon({
+        html: '<div class="marker-num" data-id="' + d.id + '">' + d.n + '</div>',
+        className: '', iconSize: [30, 30], iconAnchor: [15, 15],
+      });
   const marker = L.marker(d.coords, { icon }).addTo(map);
+  const datesLine = isFullday
+    ? d.dates + ' · día completo · de paso'
+    : d.dates + ' · ' + d.nights + ' noches';
   marker.bindPopup(
     '<div class="popup-title">' + d.n + '. ' + d.short + '</div>' +
-    '<div class="popup-dates">' + d.dates + ' · ' + d.nights + ' noches</div>' +
+    '<div class="popup-dates">' + datesLine + '</div>' +
     '<div class="popup-why">' + d.intro + '</div>'
   );
   markers[d.id] = marker;
@@ -653,8 +690,9 @@ const detailsList = document.getElementById('details-list');
 const cards = {};
 
 destinations.forEach(d => {
+  const isFullday = d.type === 'fullday';
   const card = document.createElement('article');
-  card.className = 'dest-card';
+  card.className = 'dest-card' + (isFullday ? ' fullday' : '');
   card.dataset.id = d.id;
 
   const dtHtml = d.daytrips.length > 0
@@ -682,12 +720,22 @@ destinations.forEach(d => {
       '</div>'
     : '';
 
+  const numHtml = isFullday
+    ? '<div class="card-num fullday"><span>' + d.n + '</span></div>'
+    : '<div class="card-num">' + d.n + '</div>';
+  const titleHtml = isFullday
+    ? '<h2>' + d.name + '<span class="fullday-tag">día completo</span></h2>'
+    : '<h2>' + d.name + '</h2>';
+  const metaHtml = isFullday
+    ? '<div class="card-meta">' + d.dates + ' · día completo · de paso</div>'
+    : '<div class="card-meta">' + d.dates + ' · ' + d.nights + ' noches</div>';
+
   card.innerHTML =
     '<div class="card-header">' +
-      '<div class="card-num">' + d.n + '</div>' +
+      numHtml +
       '<div class="card-title-wrap">' +
-        '<h2>' + d.name + '</h2>' +
-        '<div class="card-meta">' + d.dates + ' · ' + d.nights + ' noches</div>' +
+        titleHtml +
+        metaHtml +
       '</div>' +
       '<div class="card-temps">' +
         '<div class="temp-pill temp-max"><span class="temp-label">Máx</span><span class="temp-value">' + d.tempMax + '°</span></div>' +
@@ -755,8 +803,8 @@ if (orphanPlaces.length > 0) {
   });
 }
 
-function highlightMarker(id) { const el = document.querySelector('.marker-num[data-id="' + id + '"]'); if (el) el.classList.add('active'); }
-function unhighlightMarker(id) { const el = document.querySelector('.marker-num[data-id="' + id + '"]'); if (el) el.classList.remove('active'); }
+function highlightMarker(id) { const el = document.querySelector('.marker-num[data-id="' + id + '"], .marker-diamond[data-id="' + id + '"]'); if (el) el.classList.add('active'); }
+function unhighlightMarker(id) { const el = document.querySelector('.marker-num[data-id="' + id + '"], .marker-diamond[data-id="' + id + '"]'); if (el) el.classList.remove('active'); }
 function highlightDaytrip(id) { const el = document.querySelector('.marker-dot[data-id="' + id + '"]'); if (el) el.classList.add('active'); }
 function unhighlightDaytrip(id) { const el = document.querySelector('.marker-dot[data-id="' + id + '"]'); if (el) el.classList.remove('active'); }
 

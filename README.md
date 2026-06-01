@@ -1,4 +1,4 @@
-# Japón + Corea · sept-oct 2026
+# Japón + Corea · sept-nov 2026
 
 Sitio del viaje con mapa interactivo, detalles por destino y curva climática.
 
@@ -10,7 +10,7 @@ Sitio del viaje con mapa interactivo, detalles por destino y curva climática.
 
 Dashboard único con 3 secciones siempre visibles:
 
-- **Mapa** (izquierda) — 13 destinos numerados sobre tiles reales + day trips marcados aparte + ruta del viaje. Hover/click bidireccional con las cards.
+- **Mapa** (izquierda) — 14 nodos numerados sobre tiles reales (13 destinos redondos donde se duerme + 1 nodo "día completo" en rombo ámbar: Nikko, de paso) + day trips marcados aparte + ruta del viaje. Hover/click bidireccional con las cards.
 - **Curva climática** (arriba a la derecha) — máxima y mínima por destino. Click en un punto enfoca esa ciudad.
 - **Cards de destinos** (abajo a la derecha, scrollable) — tarjeta por parada con fechas, temperatura, qué hacer, day trips.
 
@@ -18,72 +18,76 @@ Dashboard único con 3 secciones siempre visibles:
 
 Ver [`itinerario-2026.md`](./itinerario-2026.md) para el desglose día por día, alertas críticas (Silver Week, tifones), reservas urgentes y tips de transporte.
 
-## Vuelos confirmados
+## Vuelos
 
-United, Polaris business, pasajes ya sacados. **Round trip por Tokio NRT** (ya no es open jaw — la vuelta sale de Tokio, no de Seúl).
+United, Polaris business. Pasajes ahora **reprogramables**: se corrieron a una ventana de fin de septiembre para mejor clima de otoño (mismos números de vuelo y rutas, solo cambian las fechas). **Round trip por Tokio NRT** (la vuelta sale de Tokio, no de Seúl).
 
-**Ida → Tokio (8-10 sept)**
+**Ida → Tokio (26-28 sept)**
 
 | Vuelo | Ruta | Salida | Llegada | Avión | Tracker |
 |---|---|---|---|---|---|
-| UA818 | EZE → IAH | 8 sep 21:00 | 9 sep 5:15 | B777-200 (10h15) | [UAL818](https://flightaware.com/live/flight/UAL818) |
+| UA818 | EZE → IAH | 26 sep 21:00 | 27 sep 5:15 | B777-200 (10h15) | [UAL818](https://flightaware.com/live/flight/UAL818) |
 | — | *escala Houston 4h55* | | | | |
-| UA7 | IAH → NRT | 9 sep 10:10 | 10 sep 14:00 | B787-9 (13h50) | [UAL7](https://flightaware.com/live/flight/UAL7) |
+| UA7 | IAH → NRT | 27 sep 10:10 | 28 sep 14:00 | B787-9 (13h50) | [UAL7](https://flightaware.com/live/flight/UAL7) |
 
-**Vuelta → Buenos Aires (21-22 oct)**
+**Vuelta → Buenos Aires (8-9 nov)**
 
 | Vuelo | Ruta | Salida | Llegada | Avión | Tracker |
 |---|---|---|---|---|---|
-| UA33 | NRT → LAX | 21 oct 16:45 | 21 oct 10:45 | B787-9 (10h) | [UAL33](https://flightaware.com/live/flight/UAL33) |
+| UA33 | NRT → LAX | 8 nov 16:45 | 8 nov 10:45 | B787-9 (10h) | [UAL33](https://flightaware.com/live/flight/UAL33) |
 | — | *escala Los Ángeles 2h30* | | | | |
-| UA2318 | LAX → IAH | 21 oct 13:15 | 21 oct 18:40 | 737 MAX 9 (United First) | [UAL2318](https://flightaware.com/live/flight/UAL2318) |
+| UA2318 | LAX → IAH | 8 nov 13:15 | 8 nov 18:40 | 737 MAX 9 (United First) | [UAL2318](https://flightaware.com/live/flight/UAL2318) |
 | — | *escala Houston 1h35* | | | | |
-| UA819 | IAH → EZE | 21 oct 20:15 | 22 oct 8:00 | B777-200 (9h45) | [UAL819](https://flightaware.com/live/flight/UAL819) |
+| UA819 | IAH → EZE | 8 nov 20:15 | 9 nov 8:00 | B777-200 (9h45) | [UAL819](https://flightaware.com/live/flight/UAL819) |
 
 ## Resumen del viaje
 
 - **40 noches en Asia** + ~3 días de vuelos
-- **Round trip Tokio NRT** (entra y sale por Narita; el viaje termina de vuelta en Tokio para el vuelo del 21/10)
+- **Round trip Tokio NRT** (entra y sale por Narita; el viaje termina de vuelta en Tokio para el vuelo del 8/11)
+- **Tokio partido**: 4 noches al llegar + 4 noches al final pre-vuelo
 - **Pareja:** Marto + Catalina
 
-### Destinos
+### Nodos del recorrido
 
-**Tramo confirmado** (front portion — fechas firmes):
+Todas las fechas son firmes. Los nodos se numeran en orden de viaje: 13 **destinos** (se duerme ahí) + 1 nodo **día completo** (Nikko, de paso, sin pernocte).
 
-| # | Lugar | Fechas | Noches | Day trips |
-|---|-------|--------|--------|-----------|
-| 1 | Tokio (llegada) | 10-13 sept | 3 | Kamakura, Yokohama |
-| 2 | Sapporo + Hokkaido | 13-17 sept | 4 | Otaru, Furano + Biei |
-| 3 | Noboribetsu (onsen) | 17-19 sept | 2 | — |
-| 4 | Hakodate | 19-21 sept | 2 | Onuma |
+| # | Lugar | Tipo | Fechas | Noches | Day trips |
+|---|-------|------|--------|--------|-----------|
+| 1 | Tokio (llegada) | destino | 28 sep–2 oct | 4 | Kamakura, Yokohama |
+| 2 | Sapporo + Hokkaido | destino | 2-6 oct | 4 | Otaru, Furano + Biei |
+| 3 | Noboribetsu (onsen) | destino | 6-8 oct | 2 | — |
+| 4 | Hakodate | destino | 8-10 oct | 2 | Onuma |
+| 5 | **Nikko** | **día completo** | 10 oct | 0 | — |
+| 6 | Kanazawa | destino | 11-13 oct | 2 | Shirakawa-go |
+| 7 | Koyasan (shukubo) | destino | 13-15 oct | 2 | — |
+| 8 | Kioto | destino | 15-20 oct | 5 | Nara, Murou-ji |
+| 9 | Osaka | destino | 20-23 oct | 3 | Naoshima |
+| 10 | Yufuin (onsen) | destino | 23-25 oct | 2 | — |
+| 11 | Fukuoka | destino | 25-28 oct | 3 | Dazaifu, Yanagawa |
+| 12 | Busan + Gyeongju | destino | 28-31 oct | 3 | Gyeongju |
+| 13 | Seúl | destino | 31 oct–4 nov | 4 | DMZ |
+| 14 | Tokio (final, pre-vuelo) | destino | 4-8 nov | 4 | Hakone |
 
-**Tramo en re-secuenciación** (mismo orden y noches, fechas a confirmar):
+**Total: 40 noches** (Nikko aporta 0 — es día de paso).
 
-| # | Lugar | Noches | Day trips |
-|---|-------|--------|-----------|
-| 5 | Nikko | 2 | — |
-| 6 | Kanazawa | 2 | Shirakawa-go |
-| 7 | Koyasan (shukubo) | 2 | — |
-| 8 | Kioto | 5 | Nara, Murou-ji |
-| 9 | Osaka | 3 | Naoshima |
-| 10 | Yufuin (onsen) | 2 | — |
-| 11 | Fukuoka | 3 | Dazaifu, Yanagawa |
-| 12 | Busan + Gyeongju | 3 | Gyeongju |
-| 13 | Seúl | 4 | DMZ |
+### Tipos de nodo
 
-> **Pendiente:** el tramo de vuelta Corea→Tokio + una noche buffer en Tokio el 20/10 (antes del vuelo del 21/10) todavía no está armado. El viaje tiene que terminar en Tokio.
+- **destino** — se duerme ahí. Marcador redondo verde numerado.
+- **día completo (fullday)** — se pasa un día entero, sin pernocte; se sigue viaje esa misma tarde/noche. Rompe la cadena de transporte (A → [día en X] → B). Marcador en rombo ámbar, numerado. Único caso: **Nikko**.
+- **day trip** — ida y vuelta desde una base (base → X → base), no rompe la cadena. Sub-ítem sin numerar bajo su destino (ej. Shirakawa-go desde Kanazawa).
 
 ### Lógica del orden
 
-Con la llegada Tokio NRT el 10/9 14:00 y la salida también desde Tokio NRT el 21/10 16:45:
+Con la llegada Tokio NRT el 28/9 14:00 y la salida también desde Tokio NRT el 8/11 16:45:
 
-1. **Tokio al llegar (10-13/9)**: 3 noches de aclimatación y jet lag en la ciudad antes de subir al norte. Acá entran los clásicos de Tokio (Asakusa, Shibuya, teamLab, Yanaka, Akihabara, Tsukiji, Golden Gai, Ghibli) + day trips Kamakura/Yokohama. Probablemente se revisite Tokio al final como noche buffer.
-2. **Norte después (Hokkaido)** vía vuelo doméstico Tokio→Sapporo el 13/9. Clima fresco (22-24 °C) para terminar de procesar el jet lag.
-3. **Silver Week japonesa (~19-23/9)**: ahora cae sobre el tramo norte/de bajada (Hakodate y el descenso al centro). Mejor así: lo rural absorbe la multitud sin volverse impracticable.
-4. **Tifones**: pico 12-25/9. En Hokkaido (zona casi inmune) durante el pico. Kyushu queda en mid-octubre cuando ya terminó la temporada.
-5. **Round trip por Tokio**: ya no hay open jaw; el viaje arranca y termina en Tokio.
+1. **Tokio al llegar (28 sep–2 oct)**: 4 noches de aclimatación y jet lag antes de subir al norte. Clásicos de Tokio (Asakusa, Shibuya, Tsukiji, Golden Gai) + day trips Kamakura/Yokohama. Los museos/teamLab/Yanaka/compras quedan para la Tokio del final.
+2. **Norte después (Hokkaido)** vía vuelo doméstico Tokio→Sapporo el 2/10. Otoño fresco, con los primeros colores empezando.
+3. **Nikko de paso (10 oct)**: día completo en los santuarios UNESCO entre Hokkaido y el centro-oeste, sin dormir; se sigue a Kanazawa esa noche.
+4. **Silver Week japonesa (~19-23/9)**: queda ANTES del viaje (arranca 28/9). El viaje la esquiva por completo.
+5. **Tifones**: la temporada baja hacia fin de septiembre/octubre. Kyushu (Yufuin/Fukuoka) en mid-octubre, ya fuera del pico.
+6. **Tokio al final (4-8 nov)**: buffer pre-vuelo + pico de ginkgo amarillo y koyo en Tokio. El viaje arranca y termina en Tokio.
 
-**Sin 1-night stays.** (Ya no hay noche de transit en Narita: Tokio ES la primera parada de 3 noches.)
+**Sin 1-night stays.** Tokio es la primera parada de 4 noches y también la última.
 
 ## Stack
 
