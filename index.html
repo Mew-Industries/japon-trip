@@ -167,7 +167,7 @@
     <span><strong>26/9</strong> salida BA</span>
     <span><strong>40</strong> noches</span>
     <span><strong>14</strong> nodos</span>
-    <span><strong>9/11</strong> regreso</span>
+    <span><strong>8/11</strong> regreso</span>
   </div>
 </header>
 
@@ -203,7 +203,7 @@
         <div class="flight-leg-title">Vuelta → Buenos Aires · 8-9 nov</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL33" target="_blank" rel="noopener">
           <span class="seg-route">NRT → LAX <span class="seg-no">UA33</span></span>
-          <span class="seg-time">8 nov 16:45 → 8 nov 10:45<br>B787-9 · 10h</span>
+          <span class="seg-time">7 nov 16:45 → 8 nov 10:45<br>B787-9 · 10h</span>
         </a>
         <div class="seg-conn">escala Los Ángeles 2h30</div>
         <a class="flight-seg" href="https://flightaware.com/live/flight/UAL2318" target="_blank" rel="noopener">
@@ -341,7 +341,7 @@ const destinations = [
     id: 'nikko', n: 5, type: 'fullday', name: 'Nikko', short: 'Nikko',
     coords: [36.7589, 139.6075],
     dates: '10 oct', nights: 0,
-    arrival: '10 oct (de paso desde Hokkaido hacia el centro-oeste)', departure: '10 oct tarde/noche (sigue a Kanazawa)', lodging: null,
+    arrival: '10 oct (de paso desde Hokkaido hacia el centro-oeste)', departure: '10 oct tarde (sigue a Kanazawa; duerme allí esta noche)', lodging: null,
     tempMax: '13-22', tempMin: '6-14', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Día completo de paso, sin pernocte: en el camino del norte hacia el centro-oeste se baja en Nikko para los santuarios UNESCO de Toshogu y (si da el tiempo) el lago Chuzenji + cataratas Kegon, con los primeros colores de otoño en altura. A la tarde/noche se sigue viaje a Kanazawa.',
     activities: [
@@ -359,8 +359,8 @@ const destinations = [
   {
     id: 'kanazawa', n: 6, type: 'destino', name: 'Kanazawa', short: 'Kanazawa',
     coords: [36.5613, 136.6562],
-    dates: '11-13 oct', nights: 2,
-    arrival: '11 oct (desde Nikko)', departure: '13 oct (tren al sur, Koyasan vía Osaka)', lodging: null,
+    dates: '10-12 oct', nights: 2,
+    arrival: '10 oct (noche; llega de Nikko, primera noche acá)', departure: '12 oct (tren al sur)', lodging: null,
     tempMax: '20-25', tempMin: '13-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Nikko el 11/10. Day trip a Shirakawa-go ida y vuelta.',
     activities: [
@@ -383,8 +383,8 @@ const destinations = [
   {
     id: 'koyasan', n: 7, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
     coords: [34.2129, 135.5836],
-    dates: '13-15 oct', nights: 2,
-    arrival: '13 oct (tren desde Kanazawa vía Osaka)', departure: '15 oct (tren a Kioto)', lodging: null,
+    dates: '12-14 oct', nights: 2,
+    arrival: '12 oct', departure: '14 oct', lodging: null,
     tempMax: '17-23', tempMin: '9-15', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís en un templo con cena vegetariana y ceremonia matutina opcional.',
     activities: [
@@ -401,8 +401,8 @@ const destinations = [
   {
     id: 'kioto', n: 8, type: 'destino', name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
-    dates: '15-20 oct', nights: 5,
-    arrival: '15 oct (tren desde Koyasan)', departure: '20 oct (tren a Osaka)', lodging: null,
+    dates: '14-19 oct', nights: 5,
+    arrival: '14 oct', departure: '19 oct', lodging: null,
     tempMax: '20-26', tempMin: '11-17', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Capital cultural. Mediados de octubre: clima templado y los primeros tonos de otoño. 5 noches dan tiempo a cada zona sin atropello.',
     activities: [
@@ -430,8 +430,8 @@ const destinations = [
   {
     id: 'osaka', n: 9, type: 'destino', name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
-    dates: '20-23 oct', nights: 3,
-    arrival: '20 oct (tren desde Kioto)', departure: '23 oct (Shinkansen + tren a Yufuin)', lodging: null,
+    dates: '19-22 oct', nights: 3,
+    arrival: '19 oct', departure: '22 oct', lodging: null,
     tempMax: '19-26', tempMin: '12-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 3 noches (apretado pero alcanza con day trip a Naoshima + día Osaka).',
     activities: [
@@ -455,8 +455,8 @@ const destinations = [
   {
     id: 'yufuin', n: 10, type: 'destino', name: 'Yufuin (onsen)', short: 'Yufuin',
     coords: [33.2667, 131.3667],
-    dates: '23-25 oct', nights: 2,
-    arrival: '23 oct (Shinkansen + tren desde Osaka)', departure: '25 oct (tren a Fukuoka)', lodging: null,
+    dates: '22-24 oct', nights: 2,
+    arrival: '22 oct', departure: '24 oct', lodging: null,
     tempMax: '18-24', tempMin: '11-17', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Pueblo onsen en Kyushu, 450m altura. Ryokan + cena kaiseki. Distinto al de Noboribetsu — más boutique y montaña.',
     activities: [
@@ -474,8 +474,8 @@ const destinations = [
   {
     id: 'fukuoka', n: 11, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
     coords: [33.5904, 130.4017],
-    dates: '25-28 oct', nights: 3,
-    arrival: '25 oct (tren desde Yufuin)', departure: '28 oct (ferry Beetle a Busan)', lodging: null,
+    dates: '24-27 oct', nights: 3,
+    arrival: '24 oct', departure: '27 oct', lodging: null,
     tempMax: '19-26', tempMin: '13-19', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Cuna del ramen tonkotsu. Última parada en Japón antes del cruce a Corea por ferry.',
     activities: [
@@ -496,8 +496,8 @@ const destinations = [
   {
     id: 'busan', n: 12, type: 'destino', name: 'Busan + Gyeongju', short: 'Busan',
     coords: [35.1796, 129.0756],
-    dates: '28-31 oct', nights: 3,
-    arrival: '28 oct (ferry Beetle desde Fukuoka, ~3h)', departure: '31 oct (KTX a Seúl)', lodging: null,
+    dates: '27-30 oct', nights: 3,
+    arrival: '27 oct', departure: '30 oct', lodging: null,
     tempMax: '18-23', tempMin: '10-16', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
     activities: [
@@ -516,8 +516,8 @@ const destinations = [
   {
     id: 'seul', n: 13, type: 'destino', name: 'Seúl', short: 'Seúl',
     coords: [37.5665, 126.9780],
-    dates: '31 oct–4 nov', nights: 4,
-    arrival: '31 oct (KTX desde Busan, ~2h30)', departure: '4 nov (vuelo ICN/GMP → Tokio NRT/HND)', lodging: null,
+    dates: '30 oct–3 nov', nights: 4,
+    arrival: '30 oct', departure: '3 nov', lodging: null,
     tempMax: '11-19', tempMin: '3-11', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Tramo coreano. KTX desde Busan, ~2h30. Fin de octubre / principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Tokio (parada 14) para cerrar el loop antes del vuelo del 8/11.',
     activities: [
@@ -551,8 +551,8 @@ const destinations = [
   {
     id: 'tokio-final', n: 14, type: 'destino', name: 'Tokio (final, pre-vuelo)', short: 'Tokio fin',
     coords: [35.6895, 139.7000],
-    dates: '4-8 nov', nights: 4,
-    arrival: '4 nov (vuelo desde Seúl ICN/GMP → NRT/HND)', departure: '8 nov 16:45 (NRT, vuelo UA33 de vuelta)', lodging: null,
+    dates: '3-7 nov', nights: 4,
+    arrival: '3 nov', departure: '7 nov 16:45 (vuelo UA33 desde NRT)', lodging: null,
     tempMax: '15-19', tempMin: '8-12', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Cierre del viaje: 4 noches de vuelta en Tokio antes del vuelo del 8/11, como buffer pre-vuelo. A principios de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
     activities: [
