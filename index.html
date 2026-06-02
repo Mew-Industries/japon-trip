@@ -113,6 +113,8 @@
   .qh-toggle.open .qh-caret { transform: rotate(90deg); }
   .qh-body { display: none; }
   .qh-body.open { display: block; }
+  .seg-date { background: rgba(255,255,255,0.92); border: 1px solid #cfe3db; color: #0F6E56; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 8px; white-space: nowrap; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.12); cursor: pointer; transition: background 0.12s, color 0.12s; }
+  .seg-date:hover { background: #0F6E56; color: #fff; border-color: #0F6E56; }
   .leg-row { display: flex; align-items: center; gap: 8px; margin: 3px 0 3px 16px; padding: 3px 0 3px 12px; border-left: 2px dashed #d3cdbf; font-size: 11px; color: #888; }
   .leg-mode { font-size: 14px; line-height: 1; }
   .leg-text strong { color: #555; font-weight: 600; }
@@ -853,6 +855,28 @@ Object.entries(dtMarkers).forEach(([id, marker]) => {
   marker.on('mouseover', () => highlightDaytrip(id));
   marker.on('mouseout', () => unhighlightDaytrip(id));
 });
+
+// Labels de fecha en cada segmento de la ruta. La fecha = día en que se hace ese
+// tramo (= fecha de inicio del nodo de destino). Click → abre la card del destino,
+// donde la fila de transporte (leg) está justo arriba.
+function segStartDate(s) {
+  const day = s.match(/^\s*(\d{1,2})/);
+  const mon = s.match(/(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/i);
+  return day && mon ? day[1] + ' ' + mon[1] : s;
+}
+for (let i = 0; i < destinations.length - 1; i++) {
+  const a = destinations[i], b = destinations[i + 1];
+  const mid = [(a.coords[0] + b.coords[0]) / 2, (a.coords[1] + b.coords[1]) / 2];
+  const segIcon = L.divIcon({
+    html: '<div class="seg-date">' + segStartDate(b.dates) + '</div>',
+    className: '', iconSize: [40, 16], iconAnchor: [20, 8],
+  });
+  L.marker(mid, { icon: segIcon, keyboard: false, zIndexOffset: -100 }).addTo(map)
+    .on('click', () => {
+      const card = cards[b.id];
+      if (card) { card.classList.add('open'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    });
+}
 
 // CHART
 const ctx = document.getElementById('weatherChart').getContext('2d');
