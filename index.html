@@ -615,7 +615,7 @@ destinations.forEach(d => {
       });
   const marker = L.marker(d.coords, { icon }).addTo(map);
   const datesLine = isFullday
-    ? d.dates + ' · de paso (por el día)'
+    ? d.dates + ' · pasar el día'
     : d.dates + ' · ' + d.nights + ' noches';
   marker.bindPopup(
     '<div class="popup-title">' + d.n + '. ' + d.short + '</div>' +
@@ -726,7 +726,7 @@ destinations.forEach(d => {
     ? '<h2>' + d.name + '<span class="fullday-tag">de paso</span></h2>'
     : '<h2>' + d.name + '</h2>';
   const metaHtml = isFullday
-    ? '<div class="card-meta">' + d.dates + ' · de paso (por el día)</div>'
+    ? '<div class="card-meta">' + d.dates + ' · pasar el día</div>'
     : '<div class="card-meta">' + d.dates + ' · ' + d.nights + ' noches</div>';
 
   // Fila de transporte: cómo se llega a este nodo desde el anterior (va ANTES de la card).
@@ -758,8 +758,8 @@ destinations.forEach(d => {
       tempsHtml +
       '<p class="card-intro">' + d.intro + '</p>' +
       (d.activities.length > 0
-        ? '<button type="button" class="qh-toggle"><span class="card-section-title">Qué hacer · ' + d.activities.length + '</span><span class="qh-caret">▸</span></button>' +
-          '<div class="qh-body">' +
+        ? '<button type="button" class="qh-toggle open"><span class="card-section-title">Qué hacer · ' + d.activities.length + '</span><span class="qh-caret">▸</span></button>' +
+          '<div class="qh-body open">' +
             CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
               '<div class="cat-group">' +
                 '<div class="cat-head">' + (CAT_LABELS[c] || c) + '</div>' +
