@@ -107,6 +107,12 @@
   .card-section-title { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 10px 0 4px; }
   .card-list { margin: 0 0 6px; padding: 0 0 0 2px; list-style: none; }
   .card-list li { font-size: 12px; line-height: 1.5; color: #333; margin-bottom: 1px; }
+  .qh-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; padding: 6px 0 2px; cursor: pointer; gap: 6px; }
+  .qh-toggle .card-section-title { margin: 0; }
+  .qh-caret { font-size: 10px; color: #999; transition: transform 0.15s; }
+  .qh-toggle.open .qh-caret { transform: rotate(90deg); }
+  .qh-body { display: none; }
+  .qh-body.open { display: block; }
   .cat-group { margin: 6px 0 2px; }
   .cat-head { font-size: 11px; font-weight: 600; color: #0F6E56; margin: 6px 0 3px; }
   .act-row { display: inline-block; width: 100%; text-align: left; font: inherit; font-size: 12px; line-height: 1.45; color: #1a6b54; background: none; border: none; padding: 1px 0; cursor: pointer; border-radius: 4px; transition: color 0.12s; }
@@ -238,9 +244,7 @@ const destinations = [
       { text: 'Tsukiji exterior, Toyosu, Ginza', cat: 'compras' },
       { text: 'Golden Gai + Omoide Yokocho', cat: 'barrios' },
       { text: 'Ayuntamiento de Tokio (mirador gratis)', cat: 'miradores', coords: [35.689496, 139.691709], url: "https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20Tokio" },
-      { text: 'Socarrat al Mar', cat: 'comida', coords: [35.6304, 139.7799], url: "https://www.google.com/maps/search/?api=1&query=Socarrat%20al%20Mar" },
       { text: '2 Chome-13-4 Uenosakuragi (Yanaka)', cat: 'miradores', coords: [35.722088, 139.770589], url: "https://www.google.com/maps/search/?api=1&query=2%20Chome-13-4%20Uenosakuragi" },
-      { text: '国境を越えて・祈り', cat: 'museos', coords: [34.468246, 134.069626], url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
       { text: 'Ohjo Building', cat: 'miradores', coords: [35.694404, 139.702496], url: "https://www.google.com/maps/search/?api=1&query=Ohjo%20Building" },
       { text: 'Neo Tokyo Kart', cat: 'ocio', coords: [35.688742, 139.68794], url: "https://www.google.com/maps/search/?api=1&query=Neo%20Tokyo%20Kart" },
       { text: 'STREET KART Tokyo', cat: 'ocio', coords: [35.637995, 139.824304], url: "https://www.google.com/maps/search/?api=1&query=STREET%20KART%20Tokyo" },
@@ -251,8 +255,6 @@ const destinations = [
       { text: '21_21 Design Sight', cat: 'museos', coords: [35.667525, 139.730521], url: "https://www.google.com/maps/search/?api=1&query=21_21%20Design%20Sight" },
       { text: 'Tokyo Joypolis', cat: 'ocio', coords: [35.62866, 139.775364], url: "https://www.google.com/maps/search/?api=1&query=Tokyo%20Joypolis" },
       { text: 'Shimokitazawa リバーストーンビル b1f', cat: 'compras', coords: [35.660843, 139.667667], url: "https://www.google.com/maps/search/?api=1&query=%E3%80%92155-0031%20Tokyo%2C%20Setagaya%20City%2C%20Kitazawa%2C%202-ch%C5%8Dme%E2%88%9212%E2%88%926%20%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3%E3%83%93%E3%83%AB%20b1f" },
-      { text: 'Oretachino-curry ya', cat: 'comida', coords: [34.663269, 135.503521], url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
-      { text: 'Ramen Horiuchi Shinbashi Ten', cat: 'comida', coords: [35.6665, 139.7585], url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Horiuchi%20Shinbashi%20Ten" },
       { text: 'Ramen Kagetsu Arashi', cat: 'comida', coords: [35.690173, 139.707069], url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kagetsu%20Arashi" },
       { text: 'Ramen Kamo to Negi Shinjuku', cat: 'comida', coords: [35.690854, 139.700377], url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kamo%20to%20Negi%20Shinjuku" },
       { text: 'Rokurinsha (Tokyo Ramen Street)', cat: 'comida', coords: [35.680036, 139.767847], url: "https://www.google.com/maps/search/?api=1&query=Rokurinsha%20Tokyo%20Ramen%20Street" },
@@ -288,12 +290,12 @@ const destinations = [
     ]
   },
   {
-    id: 'sendai', n: 3, type: 'destino', name: 'Sendai (Tohoku)', short: 'Sendai',
+    id: 'sendai', n: 3, type: 'destino', name: 'Tohoku (Sendai / Towada-Oirase, TBD)', short: 'Tohoku',
     coords: [38.2682, 140.8694],
-    dates: '13-14 oct', nights: 1,
-    arrival: '13 oct (de paso por Nikko desde Tokio)', departure: '14 oct (sigue a Sapporo)', lodging: null,
+    dates: '13-15 oct', nights: 2,
+    arrival: '13 oct (de paso por Nikko desde Tokio)', departure: '15 oct (sigue a Sapporo)', lodging: null,
     tempMax: '16-24', tempMin: '7-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
-    intro: 'Escala en Tohoku camino al norte, en pleno arranque del otoño. Sendai es la capital de la región: lengua de res a la parrilla (gyutan), la avenida arbolada de Jozenji y el mausoleo dorado de Date Masamune. Sirve de pivote entre Nikko y Sapporo, y deja a mano la bahía de Matsushima y los zorros de Zao. El koyo de Tohoku está en plena subida a mediados/fines de octubre.',
+    intro: '2 noches en Tohoku camino al norte, en pleno pico de otoño (foliage ~fines oct). Base TBD entre dos opciones: (a) Sendai — la capital de la región, hub fácil: gyutan, Jozenji, Zuihōden, con Matsushima y Zaō Fox Village a mano; o (b) el norte profundo — Towada/Oirase, de los mejores follajes de Japón, más remoto y de naturaleza. El nodo queda como Tohoku hasta decidir; las actividades de abajo son de Sendai (opción a), con Towada/Oirase listados como alternativa en day trips.',
     activities: [
       { text: 'Gyutan (lengua de res a la parrilla, especialidad de Sendai)', cat: 'comida' },
       { text: 'Avenida Jozenji-dori + barrio Kokubuncho', cat: 'barrios' },
@@ -302,14 +304,15 @@ const destinations = [
     ],
     daytrips: [
       { id: 'matsushima', name: 'Matsushima', coords: [38.3400, 141.0600], time: '40 min en JR', desc: 'Bahía de islas con pinos, una de las "3 vistas de Japón". Templo Zuiganji + paseo en barco.' },
-      { id: 'zao-fox', name: 'Zaō Fox Village', coords: [38.040829, 140.53036], time: '1 h 30 al sur', url: "https://www.google.com/maps/search/?api=1&query=Za%C5%8D%20Fox%20Village", desc: 'Santuario de zorros sueltos en la montaña Zao + cráter Okama (lago turquesa).' }
+      { id: 'zao-fox', name: 'Zaō Fox Village', coords: [38.040829, 140.53036], time: '1 h 30 al sur', url: "https://www.google.com/maps/search/?api=1&query=Za%C5%8D%20Fox%20Village", desc: 'Santuario de zorros sueltos en la montaña Zao + cráter Okama (lago turquesa).' },
+      { id: 'towada-oirase', name: 'Towada / Oirase (opción B de base)', coords: [40.49, 140.9525], time: 'norte profundo', url: "https://www.google.com/maps/search/?api=1&query=Oirase%20keiry%C5%AB%20Gorge", desc: 'Garganta de Oirase + lago Towada: de los mejores follajes de Japón a fines de octubre. Si la base de Tohoku se decide acá en vez de Sendai, esto pasa a ser el centro de las 2 noches.' }
     ]
   },
   {
     id: 'sapporo', n: 4, type: 'destino', name: 'Sapporo (Hokkaido)', short: 'Sapporo',
     coords: [43.0618, 141.3545],
-    dates: '14-16 oct', nights: 2,
-    arrival: '14 oct (tren/vuelo desde Sendai)', departure: '16 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
+    dates: '15-17 oct', nights: 2,
+    arrival: '15 oct (tren/vuelo desde Tohoku)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
     tempMax: '11-21', tempMin: '2-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
@@ -327,8 +330,8 @@ const destinations = [
   {
     id: 'kanazawa', n: 5, type: 'destino', name: 'Kanazawa', short: 'Kanazawa',
     coords: [36.5613, 136.6562],
-    dates: '16-18 oct', nights: 2,
-    arrival: '16 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '18 oct (vía Shirakawa-go de paso, sigue a Koyasan)', lodging: null,
+    dates: '17-19 oct', nights: 2,
+    arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Koyasan)', lodging: null,
     tempMax: '15-27', tempMin: '8-19', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
     activities: [
@@ -348,8 +351,8 @@ const destinations = [
   {
     id: 'shirakawago', n: 6, type: 'fullday', name: 'Shirakawa-go', short: 'Shirakawa-go',
     coords: [36.2585, 136.9067],
-    dates: '18 oct', nights: 0,
-    arrival: '18 oct (de paso desde Kanazawa hacia Koyasan)', departure: '18 oct tarde (sigue a Koyasan; duerme allí esta noche)', lodging: null,
+    dates: '19 oct', nights: 0,
+    arrival: '19 oct (de paso desde Kanazawa hacia Koyasan)', departure: '19 oct tarde (sigue a Koyasan; duerme allí esta noche)', lodging: null,
     tempMax: '16-26', tempMin: '6-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Día completo de paso entre Kanazawa y Koyasan. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue al sur. No se pernocta acá — la noche se duerme en Koyasan.',
     activities: [
@@ -362,8 +365,8 @@ const destinations = [
   {
     id: 'koyasan', n: 7, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
     coords: [34.2129, 135.5836],
-    dates: '18-19 oct', nights: 1,
-    arrival: '18 oct', departure: '19 oct', lodging: null,
+    dates: '19-20 oct', nights: 1,
+    arrival: '19 oct', departure: '20 oct', lodging: null,
     tempMax: '10-23', tempMin: '5-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís 1 noche en un templo con cena vegetariana y ceremonia matutina opcional. Con una sola noche, el plan ideal es llegar a la tarde para Okunoin al atardecer y madrugar para la ceremonia + Okunoin vacío antes de seguir a Kioto.',
     activities: [
@@ -379,8 +382,8 @@ const destinations = [
   {
     id: 'kioto', n: 8, type: 'destino', name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
-    dates: '19-25 oct', nights: 6,
-    arrival: '19 oct', departure: '25 oct', lodging: null,
+    dates: '20-26 oct', nights: 6,
+    arrival: '20 oct', departure: '26 oct', lodging: null,
     tempMax: '14-25', tempMin: '5-20', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Capital cultural. Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
     activities: [
@@ -406,11 +409,13 @@ const destinations = [
   {
     id: 'osaka', n: 9, type: 'destino', name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
-    dates: '25-30 oct', nights: 5,
-    arrival: '25 oct', departure: '30 oct (Shinkansen a Fukuoka)', lodging: null,
+    dates: '26-31 oct', nights: 5,
+    arrival: '26 oct', departure: '31 oct (Shinkansen a Fukuoka)', lodging: null,
     tempMax: '15-25', tempMin: '7-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 5 noches (subió de 3): da aire para Naoshima, un día de Kobe y recorrer barrios de Osaka sin apuro.',
     activities: [
+      { text: '国境を越えて・祈り', cat: 'museos', coords: [34.468246, 134.069626], url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
+      { text: 'Oretachino-curry ya', cat: 'comida', coords: [34.663269, 135.503521], url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
       { text: 'Dotonbori (luces, takoyaki, kushikatsu)', cat: 'ocio' },
       { text: 'Shinsekai + Tsutenkaku tower', cat: 'miradores' },
       { text: 'Castillo de Osaka + parque', cat: 'parques' },
@@ -432,8 +437,8 @@ const destinations = [
   {
     id: 'fukuoka', n: 10, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
     coords: [33.5904, 130.4017],
-    dates: '30 oct–2 nov', nights: 3,
-    arrival: '30 oct (Shinkansen desde Osaka)', departure: '2 nov (ferry Beetle a Busan)', lodging: null,
+    dates: '31 oct–3 nov', nights: 3,
+    arrival: '31 oct (Shinkansen desde Osaka)', departure: '3 nov (ferry Beetle a Busan)', lodging: null,
     tempMax: '16-25', tempMin: '9-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cuna del ramen tonkotsu. Última parada en Japón (en esta tanda) antes del cruce a Corea por ferry.',
     activities: [
@@ -452,8 +457,8 @@ const destinations = [
   {
     id: 'busan', n: 11, type: 'destino', name: 'Busan + Gyeongju', short: 'Busan',
     coords: [35.1796, 129.0756],
-    dates: '2-5 nov', nights: 3,
-    arrival: '2 nov (ferry Beetle desde Fukuoka)', departure: '5 nov (KTX a Seúl)', lodging: null,
+    dates: '3-6 nov', nights: 3,
+    arrival: '3 nov (ferry Beetle desde Fukuoka)', departure: '6 nov (KTX a Seúl)', lodging: null,
     tempMax: '10-25', tempMin: '0-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
     activities: [
@@ -471,8 +476,8 @@ const destinations = [
   {
     id: 'seul', n: 12, type: 'destino', name: 'Seúl', short: 'Seúl',
     coords: [37.5665, 126.9780],
-    dates: '5-9 nov', nights: 4,
-    arrival: '5 nov (KTX desde Busan, ~2h30)', departure: '9 nov (vuelo de vuelta a Japón)', lodging: null,
+    dates: '6-10 nov', nights: 4,
+    arrival: '6 nov (KTX desde Busan, ~2h30)', departure: '10 nov (vuelo de vuelta a Japón)', lodging: null,
     tempMax: '7-20', tempMin: '-1-13', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Tramo coreano. KTX desde Busan, ~2h30. Principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Japón: una última escala en Hakone (parada 11, onsen + Fuji) antes de cerrar en Tokio para el vuelo del 16/11.',
     activities: [
@@ -494,7 +499,6 @@ const destinations = [
       { text: 'Haneul Park (pampas en Mapo)', cat: 'parques', coords: [37.567453, 126.885478], url: "https://www.google.com/maps/search/?api=1&query=Haneul%20Park" },
       { text: 'Eungbongsan Rock Climbing Park', cat: 'parques', coords: [37.548371, 127.030826], url: "https://www.google.com/maps/search/?api=1&query=Eungbongsan%20Rock%20Climbing%20Park" },
       { text: 'Seoul Robot & AI Museum', cat: 'museos', coords: [37.6109, 127.0286], url: "https://www.google.com/maps/search/?api=1&query=SEOUL%20ROBOT%20%26%20AI%20MUSEUM" },
-      { text: 'Ecojardin Gyeongbok (flagship)', cat: 'parques', coords: [37.576, 126.976], url: "https://www.google.com/maps/search/?api=1&query=Ecojardin%20Gyeongbok%20Flagship%20Branch" },
       { text: '20 Samcheong-ro 5-gil (Bukchon)', cat: 'barrios', coords: [37.582816, 126.980777], url: "https://www.google.com/maps/search/?api=1&query=20%20Samcheong-ro%205-gil" }
     ],
     daytrips: [
@@ -504,8 +508,8 @@ const destinations = [
   {
     id: 'hakone', n: 13, type: 'destino', name: 'Hakone (onsen + Fuji)', short: 'Hakone',
     coords: [35.2324, 139.1069],
-    dates: '9-11 nov', nights: 2,
-    arrival: '9 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '11 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
+    dates: '10-12 nov', nights: 2,
+    arrival: '10 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '12 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
     tempMax: '14-20', tempMin: '9-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
     activities: [
@@ -523,10 +527,10 @@ const destinations = [
   {
     id: 'tokio-final', n: 14, type: 'destino', name: 'Tokio (final, pre-vuelo)', short: 'Tokio fin',
     coords: [35.6895, 139.7000],
-    dates: '11-17 nov', nights: 6,
-    arrival: '11 nov (desde Hakone)', departure: '17 nov 17:45 (vuelo UA6 desde Narita/NRT)', lodging: null,
+    dates: '12-17 nov', nights: 5,
+    arrival: '12 nov (desde Hakone)', departure: '17 nov 17:45 (vuelo UA6 desde Narita/NRT)', lodging: null,
     tempMax: '11-24', tempMin: '4-14', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
-    intro: 'Cierre del viaje: 6 noches de vuelta en Tokio (última noche 16/11; el 17 es el día previo al vuelo de la tarde), como buffer pre-vuelo. A mediados de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
+    intro: 'Cierre del viaje: 5 noches de vuelta en Tokio (última noche 16/11; el 17 es el día previo al vuelo de la tarde), como buffer pre-vuelo. A mediados de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
     activities: [
       { text: 'Ginkgos de Meiji Jingu Gaien + koyo en Rikugien / Koishikawa Korakuen', cat: 'parques' },
       { text: 'TeamLab Planets/Borderless (reservar online)', cat: 'museos' },
@@ -587,7 +591,7 @@ destinations.forEach(d => {
       });
   const marker = L.marker(d.coords, { icon }).addTo(map);
   const datesLine = isFullday
-    ? d.dates + ' · de paso (no se duerme)'
+    ? d.dates + ' · de paso (por el día)'
     : d.dates + ' · ' + d.nights + ' noches';
   marker.bindPopup(
     '<div class="popup-title">' + d.n + '. ' + d.short + '</div>' +
@@ -714,19 +718,23 @@ destinations.forEach(d => {
       '</div>' +
     '</div>' +
     '<p class="card-intro">' + d.intro + '</p>' +
-    '<div class="card-section-title">Qué hacer</div>' +
-    CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
-      '<div class="cat-group">' +
-        '<div class="cat-head">' + (CAT_LABELS[c] || c) + '</div>' +
-        '<ul class="card-list">' +
-          d.activities.map((a, i) => [a, i]).filter(([a]) => a.cat === c).map(([a, i]) =>
-            a.coords
-              ? '<li><button type="button" class="act-row" data-act="' + d.id + ':' + i + '">' + a.text + '<span class="act-pin">📍</span></button></li>'
-              : '<li class="act-row-plain">' + a.text + '</li>'
+    (d.activities.length > 0
+      ? '<button type="button" class="qh-toggle"><span class="card-section-title">Qué hacer · ' + d.activities.length + '</span><span class="qh-caret">▸</span></button>' +
+        '<div class="qh-body">' +
+          CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
+            '<div class="cat-group">' +
+              '<div class="cat-head">' + (CAT_LABELS[c] || c) + '</div>' +
+              '<ul class="card-list">' +
+                d.activities.map((a, i) => [a, i]).filter(([a]) => a.cat === c).map(([a, i]) =>
+                  a.coords
+                    ? '<li><button type="button" class="act-row" data-act="' + d.id + ':' + i + '">' + a.text + '<span class="act-pin">📍</span></button></li>'
+                    : '<li class="act-row-plain">' + a.text + '</li>'
+                ).join('') +
+              '</ul>' +
+            '</div>'
           ).join('') +
-        '</ul>' +
-      '</div>'
-    ).join('') +
+        '</div>'
+      : '') +
     dtHtml;
   detailsList.appendChild(card);
   cards[d.id] = card;
@@ -736,9 +744,20 @@ destinations.forEach(d => {
   card.addEventListener('click', (e) => {
     if (e.target.closest('.dt-row')) return;
     if (e.target.closest('.act-row')) return;
+    if (e.target.closest('.qh-toggle') || e.target.closest('.qh-body')) return;
     markers[d.id].openPopup();
     map.flyTo(d.coords, 8, { duration: 0.8 });
   });
+
+  const qhToggle = card.querySelector('.qh-toggle');
+  if (qhToggle) {
+    qhToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const body = card.querySelector('.qh-body');
+      const open = body.classList.toggle('open');
+      qhToggle.classList.toggle('open', open);
+    });
+  }
 
   card.querySelectorAll('.act-row').forEach(btn => {
     btn.addEventListener('click', (e) => {
