@@ -107,6 +107,9 @@
   .card-section-title { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 10px 0 4px; }
   .card-list { margin: 0; padding: 0 0 0 16px; }
   .card-list li { font-size: 12px; line-height: 1.5; color: #333; margin-bottom: 2px; }
+  .act-link { color: #0F6E56; text-decoration: none; border-bottom: 1px dotted rgba(15, 110, 86, 0.4); transition: color 0.12s, border-color 0.12s; }
+  .act-link:hover { color: #1D9E75; border-bottom-color: #1D9E75; }
+  .act-pin { font-size: 10px; margin-left: 3px; opacity: 0.7; }
   .dt-row { padding: 8px 10px; background: rgba(0,0,0,0.025); border-radius: 6px; margin-top: 6px; }
   .dt-row-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
   .dt-row-name { font-size: 12px; font-weight: 500; }
@@ -125,13 +128,6 @@
   .marker-diamond.active { transform: rotate(45deg) scale(1.4); background: #E89B17; z-index: 1000 !important; }
 
   /* Lugares guardados de Google Maps */
-  .saved-section { margin-top: 10px; }
-  .saved-toggle { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; padding: 2px 0; }
-  .saved-toggle:hover { color: #0F6E56; }
-  .saved-toggle .saved-caret { font-size: 9px; transition: transform 0.15s; color: #bbb; }
-  .saved-section.open .saved-caret { transform: rotate(90deg); }
-  .saved-list { display: none; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-  .saved-section.open .saved-list { display: flex; }
   .saved-chip { font-size: 11px; color: #0F6E56; text-decoration: none; background: rgba(15, 110, 86, 0.07); border: 1px solid rgba(15, 110, 86, 0.15); border-radius: 12px; padding: 3px 9px; line-height: 1.3; transition: background 0.12s; }
   .saved-chip:hover { background: rgba(15, 110, 86, 0.15); }
   .saved-chip.no-coord { color: #999; background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
@@ -241,40 +237,46 @@ const destinations = [
       'Shibuya scramble + Harajuku + Meiji Jingu',
       'Akihabara + Jimbocho',
       'Tsukiji exterior, Toyosu, Ginza',
-      'Golden Gai + Omoide Yokocho'
+      'Golden Gai + Omoide Yokocho',
+      { text: 'Ayuntamiento de Tokio (mirador gratis)', url: "https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20Tokio" },
+      { text: 'Socarrat al Mar', url: "https://www.google.com/maps/search/?api=1&query=Socarrat%20al%20Mar" },
+      { text: '2 Chome-13-4 Uenosakuragi (Yanaka)', url: "https://www.google.com/maps/search/?api=1&query=2%20Chome-13-4%20Uenosakuragi" },
+      { text: '国境を越えて・祈り', url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
+      { text: 'Ohjo Building', url: "https://www.google.com/maps/search/?api=1&query=Ohjo%20Building" },
+      { text: 'Neo Tokyo Kart', url: "https://www.google.com/maps/search/?api=1&query=Neo%20Tokyo%20Kart" },
+      { text: 'STREET KART Tokyo', url: "https://www.google.com/maps/search/?api=1&query=STREET%20KART%20Tokyo" },
+      { text: 'stoop', url: "https://www.google.com/maps/search/?api=1&query=stoop" },
+      { text: '1-15 Udagawacho (Shibuya)', url: "https://www.google.com/maps/search/?api=1&query=1-15%20Udagawacho" },
+      { text: 'SCAI The Bathhouse (galería)', url: "https://www.google.com/maps/search/?api=1&query=SCAI%20The%20Bathhouse" },
+      { text: 'Menchirashi (ramen)', url: "https://www.google.com/maps/search/?api=1&query=Menchirashi" },
+      { text: '21_21 Design Sight', url: "https://www.google.com/maps/search/?api=1&query=21_21%20Design%20Sight" },
+      { text: 'Tokyo Joypolis', url: "https://www.google.com/maps/search/?api=1&query=Tokyo%20Joypolis" },
+      { text: 'Shimokitazawa リバーストーンビル b1f', url: "https://www.google.com/maps/search/?api=1&query=%E3%80%92155-0031%20Tokyo%2C%20Setagaya%20City%2C%20Kitazawa%2C%202-ch%C5%8Dme%E2%88%9212%E2%88%926%20%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3%E3%83%93%E3%83%AB%20b1f" },
+      { text: 'Oretachino-curry ya', url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
+      { text: 'Ramen Horiuchi Shinbashi Ten', url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Horiuchi%20Shinbashi%20Ten" },
+      { text: 'Ramen Kagetsu Arashi', url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kagetsu%20Arashi" },
+      { text: 'Ramen Kamo to Negi Shinjuku', url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kamo%20to%20Negi%20Shinjuku" },
+      { text: 'Rokurinsha (Tokyo Ramen Street)', url: "https://www.google.com/maps/search/?api=1&query=Rokurinsha%20Tokyo%20Ramen%20Street" },
+      { text: 'kindal Harajuku (second hand)', url: "https://www.google.com/maps/search/?api=1&query=kindal%20harajuku%20second%20hand%20store" },
+      { text: 'NOT CONVENTIONAL Harajuku', url: "https://www.google.com/maps/search/?api=1&query=NOT%20CONVENTIONAL%20Harajuku" },
+      { text: 'Nakano Broadway', url: "https://www.google.com/maps/search/?api=1&query=Nakano%20Broadway" }
     ],
-    places: [
-          { name: "Ayuntamiento de Tokio", lat: 35.689496, lon: 139.691709, url: "https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20Tokio" },
-          { name: "Socarrat al Mar", lat: 35.6304, lon: 139.7799, url: "https://www.google.com/maps/search/?api=1&query=Socarrat%20al%20Mar" },
-          { name: "2 Chome-13-4 Uenosakuragi", lat: 35.722088, lon: 139.770589, url: "https://www.google.com/maps/search/?api=1&query=2%20Chome-13-4%20Uenosakuragi" },
-          { name: "国境を越えて・祈り", lat: 35.6586, lon: 139.7454, url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
-          { name: "Ohjo Building", lat: 35.694412, lon: 139.702498, url: "https://www.google.com/maps/search/?api=1&query=Ohjo%20Building" },
-          { name: "Neo Tokyo Kart", lat: 35.6586, lon: 139.7454, url: "https://www.google.com/maps/search/?api=1&query=Neo%20Tokyo%20Kart" },
-          { name: "STREET KART Tokyo", lat: 35.638189, lon: 139.82442, url: "https://www.google.com/maps/search/?api=1&query=STREET%20KART%20Tokyo" },
-          { name: "stoop", lat: 35.6645, lon: 139.6987, url: "https://www.google.com/maps/search/?api=1&query=stoop" },
-          { name: "1-15 Udagawacho", lat: 35.662211, lon: 139.69904, url: "https://www.google.com/maps/search/?api=1&query=1-15%20Udagawacho" },
-          { name: "SCAI The Bathhouse", lat: 35.721751, lon: 139.770502, url: "https://www.google.com/maps/search/?api=1&query=SCAI%20The%20Bathhouse" },
-          { name: "Kazenooka Jumokuso Cemetery", lat: 35.568, lon: 139.428, url: "https://www.google.com/maps/search/?api=1&query=Kazenooka%20Jumokuso%20Cemetery" },
-          { name: "Menchirashi", lat: 35.6655, lon: 139.7, url: "https://www.google.com/maps/search/?api=1&query=Menchirashi" },
-          { name: "Fukazawa Tiny Museum", lat: 35.746908, lon: 139.209133, url: "https://www.google.com/maps/search/?api=1&query=Fukazawa%20Tiny%20Museum" },
-          { name: "21_21 Design Sight", lat: 35.667413, lon: 139.730135, url: "https://www.google.com/maps/search/?api=1&query=21_21%20Design%20Sight" },
-          { name: "Tokyo Joypolis", lat: 35.628718, lon: 139.775304, url: "https://www.google.com/maps/search/?api=1&query=Tokyo%20Joypolis" },
-          { name: "〒155-0031 Tokyo, Setagaya City, Kitazawa, 2-chōme−12−6 リバーストーンビル b1f", lat: 35.6618, lon: 139.668, url: "https://www.google.com/maps/search/?api=1&query=%E3%80%92155-0031%20Tokyo%2C%20Setagaya%20City%2C%20Kitazawa%2C%202-ch%C5%8Dme%E2%88%9212%E2%88%926%20%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3%E3%83%93%E3%83%AB%20b1f" },
-          { name: "神奈川工科大学 KAIT広場", lat: 35.479, lon: 139.358, url: "https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E5%B7%A5%E7%A7%91%E5%A4%A7%E5%AD%A6%20KAIT%E5%BA%83%E5%A0%B4" },
-          { name: "Oretachino-curry ya", lat: 35.6938, lon: 139.7034, url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
-          { name: "Ramen Horiuchi Shinbashi Ten", lat: 35.6665, lon: 139.7585, url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Horiuchi%20Shinbashi%20Ten" },
-          { name: "Ramen Kagetsu Arashi", lat: 35.727172, lon: 139.576717, url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kagetsu%20Arashi" },
-          { name: "Ramen Kamo to Negi Shinjuku", lat: 35.690854, lon: 139.700377, url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kamo%20to%20Negi%20Shinjuku" },
-          { name: "Rokurinsha Tokyo Ramen Street", lat: 35.680036, lon: 139.767847, url: "https://www.google.com/maps/search/?api=1&query=Rokurinsha%20Tokyo%20Ramen%20Street" },
-          { name: "kindal harajuku second hand store", lat: 35.6702, lon: 139.7065, url: "https://www.google.com/maps/search/?api=1&query=kindal%20harajuku%20second%20hand%20store" },
-          { name: "NOT CONVENTIONAL Harajuku", lat: 35.6694, lon: 139.705, url: "https://www.google.com/maps/search/?api=1&query=NOT%20CONVENTIONAL%20Harajuku" },
-          { name: "Nakano Broadway", lat: 35.709241, lon: 139.665685, url: "https://www.google.com/maps/search/?api=1&query=Nakano%20Broadway" },
-          { name: "Kanagawa Institute of Technology", lat: 35.486755, lon: 139.34294, url: "https://www.google.com/maps/search/?api=1&query=Kanagawa%20Institute%20of%20Technology" },
-          { name: "The Metropolitan Area Outer Underground Discharge Channel", lat: 35.9967, lon: 139.8113, url: "https://www.google.com/maps/search/?api=1&query=The%20Metropolitan%20Area%20Outer%20Underground%20Discharge%20Channel" },
-        ],
+    activityPlaces: [
+      { lat: 35.689496, lon: 139.691709 }, { lat: 35.6304, lon: 139.7799 }, { lat: 35.722088, lon: 139.770589 },
+      { lat: 35.6586, lon: 139.7454 }, { lat: 35.694412, lon: 139.702498 }, { lat: 35.638189, lon: 139.82442 },
+      { lat: 35.6645, lon: 139.6987 }, { lat: 35.662211, lon: 139.69904 }, { lat: 35.721751, lon: 139.770502 },
+      { lat: 35.6655, lon: 139.7 }, { lat: 35.667413, lon: 139.730135 }, { lat: 35.628718, lon: 139.775304 },
+      { lat: 35.6618, lon: 139.668 }, { lat: 35.6938, lon: 139.7034 }, { lat: 35.6665, lon: 139.7585 },
+      { lat: 35.727172, lon: 139.576717 }, { lat: 35.690854, lon: 139.700377 }, { lat: 35.680036, lon: 139.767847 },
+      { lat: 35.6702, lon: 139.7065 }, { lat: 35.6694, lon: 139.705 }, { lat: 35.709241, lon: 139.665685 }
+    ],
     daytrips: [
       { id: 'kamakura', name: 'Kamakura', coords: [35.3192, 139.5469], time: '1 h en JR Yokosuka', desc: 'Gran Buda, templo Hokoku-ji (bambú), playa Yuigahama.' },
-      { id: 'yokohama', name: 'Yokohama', coords: [35.4437, 139.6380], time: '30 min en JR', desc: 'Chinatown, puerto, Cup Noodle Museum, Sankeien Garden.' }
+      { id: 'yokohama', name: 'Yokohama', coords: [35.4437, 139.6380], time: '30 min en JR', desc: 'Chinatown, puerto, Cup Noodle Museum, Sankeien Garden.' },
+      { id: 'kait', name: 'KAIT広場 + Kanagawa Inst. of Technology', coords: [35.479, 139.358], time: '1 h 15 a Atsugi', url: "https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E5%B7%A5%E7%A7%91%E5%A4%A7%E5%AD%A6%20KAIT%E5%BA%83%E5%A0%B4", desc: 'Plaza KAIT de Junya Ishigami (arquitectura) en el campus de Atsugi, Kanagawa.' },
+      { id: 'fukazawa-museum', name: 'Fukazawa Tiny Museum', coords: [35.746908, 139.209133], time: '1 h al oeste (Hachioji)', url: "https://www.google.com/maps/search/?api=1&query=Fukazawa%20Tiny%20Museum", desc: 'Micro-museo en el oeste de Tokio.' },
+      { id: 'kazenooka', name: 'Kazenooka Jumokuso Cemetery', coords: [35.568, 139.428], time: '1 h a Fujisawa', url: "https://www.google.com/maps/search/?api=1&query=Kazenooka%20Jumokuso%20Cemetery", desc: 'Cementerio-bosque de Fumihiko Maki en Kanagawa.' },
+      { id: 'discharge-channel', name: 'Canal subterráneo de descarga (G-Cans)', coords: [35.9967, 139.8113], time: '1 h a Kasukabe, Saitama', url: "https://www.google.com/maps/search/?api=1&query=The%20Metropolitan%20Area%20Outer%20Underground%20Discharge%20Channel", desc: '"Catedral subterránea" anti-inundaciones. Tour con reserva previa.' }
     ]
   },
   {
@@ -289,13 +291,14 @@ const destinations = [
       'Sapporo Beer Museum + tour de cervecería',
       'Susukino de noche (izakayas y bares)',
       'Jingisukan (cordero a la parrilla)',
-      'Hokkaido Shrine + parque Maruyama'
+      'Hokkaido Shrine + parque Maruyama',
+      { text: 'Mt. Moiwa (mirador nocturno)', url: "https://www.google.com/maps/search/?api=1&query=Mt.%20Moiwa" },
+      { text: 'Sapporo Art Museum', url: "https://www.google.com/maps/search/?api=1&query=Sapporo%20Art%20Museum" },
+      { text: 'Moerenuma Park (Isamu Noguchi)', url: "https://www.google.com/maps/search/?api=1&query=Moerenumakoen" }
     ],
-    places: [
-          { name: "Mt. Moiwa", lat: 43.022395, lon: 141.322339, url: "https://www.google.com/maps/search/?api=1&query=Mt.%20Moiwa" },
-          { name: "Sapporo Art Museum", lat: 42.941983, lon: 141.34223, url: "https://www.google.com/maps/search/?api=1&query=Sapporo%20Art%20Museum" },
-          { name: "Moerenumakoen", lat: 43.148, lon: 141.415, url: "https://www.google.com/maps/search/?api=1&query=Moerenumakoen" },
-        ],
+    activityPlaces: [
+      { lat: 43.022395, lon: 141.322339 }, { lat: 42.941983, lon: 141.34223 }, { lat: 43.148, lon: 141.415 }
+    ],
     daytrips: [
       { id: 'otaru', name: 'Otaru', coords: [43.1907, 140.9947], time: '30-45 min en tren', desc: 'Canales del siglo XIX, talleres de cristal, sushi callejero en el muelle.' },
       { id: 'furano', name: 'Furano + Biei', coords: [43.3525, 142.3833], time: '2-3 h vía Asahikawa', desc: 'Colinas onduladas, panoramic point, granjas. La postal de Hokkaido.' }
@@ -315,7 +318,6 @@ const destinations = [
       'Cena kaiseki tradicional en el ryokan',
       'Lake Toya a 30 min como medio día opcional'
     ],
-    places: [],
     daytrips: []
   },
   {
@@ -332,7 +334,6 @@ const destinations = [
       'Beer Hall en almacenes Kanemori',
       'Iglesias del siglo XIX y cementerio extranjero'
     ],
-    places: [],
     daytrips: [
       { id: 'onuma', name: 'Onuma National Park', coords: [41.9866, 140.6519], time: '30 min en JR', desc: 'Lagos, ciclismo entre 100+ islotes con vista al monte Komagatake.' }
     ]
@@ -348,13 +349,15 @@ const destinations = [
       'Toshogu shrine (mausoleo Tokugawa Ieyasu)',
       'Rinno-ji + puente Shinkyo',
       'Lago Chuzenji + cataratas Kegon (si da el tiempo)',
-      'Senjogahara (primeras hojas) si queda margen'
+      'Senjogahara (primeras hojas) si queda margen',
+      { text: 'Centro de Nikkō (estación / casco)', url: "https://www.google.com/maps/search/?api=1&query=Nikk%C5%8D" }
     ],
-    places: [
-          { name: "Nonohana", lat: 36.966132, lon: 140.030519, url: "https://www.google.com/maps/search/?api=1&query=Nonohana" },
-          { name: "Nikkō", lat: 36.719758, lon: 139.698139, url: "https://www.google.com/maps/search/?api=1&query=Nikk%C5%8D" },
-        ],
-    daytrips: []
+    activityPlaces: [
+      { lat: 36.719758, lon: 139.698139 }
+    ],
+    daytrips: [
+      { id: 'nonohana', name: 'Nonohana', coords: [36.966132, 140.030519], time: '1 h al norte', url: "https://www.google.com/maps/search/?api=1&query=Nonohana", desc: 'Parada guardada al norte de Nikkō, hacia Fukushima.' }
+    ]
   },
   {
     id: 'kanazawa', n: 6, type: 'destino', name: 'Kanazawa', short: 'Kanazawa',
@@ -369,15 +372,16 @@ const destinations = [
       'Higashi Chaya (barrio geisha)',
       'Mercado Omicho (mariscos)',
       'Museo del Siglo XXI',
-      'Distrito samurái Nagamachi'
+      'Distrito samurái Nagamachi',
+      { text: 'Museo del Siglo XXI (21st Century Museum)', url: "https://www.google.com/maps/search/?api=1&query=Kanazawa%2021st%20Century%20Museum%20of%20Contemporary%20Art" },
+      { text: 'Super 2nd Street Shimeno (second hand)', url: "https://www.google.com/maps/search/?api=1&query=Super%202nd%20Street%20Kanazawa%20Shimeno" }
     ],
-    places: [
-          { name: "Super 2nd Street Kanazawa Shimeno", lat: 36.5847, lon: 136.6692, url: "https://www.google.com/maps/search/?api=1&query=Super%202nd%20Street%20Kanazawa%20Shimeno" },
-          { name: "Kanazawa 21st Century Museum of Contemporary Art", lat: 36.561088, lon: 136.659375, url: "https://www.google.com/maps/search/?api=1&query=Kanazawa%2021st%20Century%20Museum%20of%20Contemporary%20Art" },
-          { name: "Echizen Daibutsu", lat: 36.053645, lon: 136.519287, url: "https://www.google.com/maps/search/?api=1&query=Echizen%20Daibutsu" },
-        ],
+    activityPlaces: [
+      { lat: 36.561088, lon: 136.659375 }, { lat: 36.5847, lon: 136.6692 }
+    ],
     daytrips: [
-      ]
+      { id: 'echizen-daibutsu', name: 'Echizen Daibutsu', coords: [36.053645, 136.519287], time: '1 h al sur (Fukui)', url: "https://www.google.com/maps/search/?api=1&query=Echizen%20Daibutsu", desc: 'Gran Buda de Echizen en Katsuyama, Fukui.' }
+    ]
   },
   {
     id: 'shirakawago', n: 7, type: 'fullday', name: 'Shirakawa-go', short: 'Shirakawa-go',
@@ -391,7 +395,6 @@ const destinations = [
       'Caminar el pueblo + casas gassho-zukuri abiertas a visita (Wada-ke)',
       'Puente Deai colgante sobre el río Shogawa'
     ],
-    places: [],
     daytrips: []
   },
   {
@@ -409,7 +412,6 @@ const destinations = [
       'Cena shojin ryori (vegetariana budista)',
       'Ceremonia matutina del templo (5:30 AM)'
     ],
-    places: [],
     daytrips: []
   },
   {
@@ -425,20 +427,22 @@ const destinations = [
       'Fushimi Inari al amanecer (6 AM)',
       'Mercado Nishiki + Kamishichiken',
       'Kinkaku-ji o Ryoan-ji',
-      'Pontocho de noche, kaiseki ryori'
+      'Pontocho de noche, kaiseki ryori',
+      { text: 'Arashiyama Monkey Park Iwatayama', url: "https://www.google.com/maps/search/?api=1&query=Arashiyama%20Monkey%20Park%20Iwatayama" },
+      { text: 'Bosque de Bambú de Arashiyama', url: "https://www.google.com/maps/search/?api=1&query=Bosque%20de%20Bamb%C3%BA%20de%20Arashiyama" },
+      { text: 'Hirobun (kawadoko / nagashi sōmen, Kibune)', url: "https://www.google.com/maps/search/?api=1&query=Hirobun" },
+      { text: 'Garden of Fine Arts Kyoto (Tadao Ando)', url: "https://www.google.com/maps/search/?api=1&query=Garden%20of%20Fine%20Arts%20Kyoto" }
     ],
-    places: [
-          { name: "Arashiyama Monkey Park Iwatayama", lat: 35.009086, lon: 135.674967, url: "https://www.google.com/maps/search/?api=1&query=Arashiyama%20Monkey%20Park%20Iwatayama" },
-          { name: "Hirobun", lat: 35.124899, lon: 135.763925, url: "https://www.google.com/maps/search/?api=1&query=Hirobun" },
-          { name: "Bosque de Bambú de Arashiyama", lat: 35.017, lon: 135.6716, url: "https://www.google.com/maps/search/?api=1&query=Bosque%20de%20Bamb%C3%BA%20de%20Arashiyama" },
-          { name: "MIHO MUSEUM", lat: 34.9149, lon: 136.016131, url: "https://www.google.com/maps/search/?api=1&query=MIHO%20MUSEUM" },
-          { name: "Uji", lat: 34.885124, lon: 135.799565, url: "https://www.google.com/maps/search/?api=1&query=Uji" },
-          { name: "Monte Hiei", lat: 35.072, lon: 135.833, url: "https://www.google.com/maps/search/?api=1&query=Monte%20Hiei" },
-          { name: "Garden of Fine Arts Kyoto", lat: 35.050778, lon: 135.765489, url: "https://www.google.com/maps/search/?api=1&query=Garden%20of%20Fine%20Arts%20Kyoto" },
-        ],
+    activityPlaces: [
+      { lat: 35.009086, lon: 135.674967 }, { lat: 35.017, lon: 135.6716 },
+      { lat: 35.124899, lon: 135.763925 }, { lat: 35.050778, lon: 135.765489 }
+    ],
     daytrips: [
       { id: 'nara', name: 'Nara', coords: [34.6851, 135.8048], time: '45 min en JR', desc: 'Todai-ji (Buda gigante), ciervos sueltos, jardín Yoshiki-en.' },
-      { id: 'murou', name: 'Murou-ji + Hasedera', coords: [34.5378, 136.0376], time: '1 h 30 min', desc: 'Templo + 400 escalones a Hasedera. Murou Art Forest (Dani Karavan).' }
+      { id: 'murou', name: 'Murou-ji + Hasedera', coords: [34.5378, 136.0376], time: '1 h 30 min', desc: 'Templo + 400 escalones a Hasedera. Murou Art Forest (Dani Karavan).' },
+      { id: 'miho', name: 'MIHO MUSEUM', coords: [34.9149, 136.016131], time: '1 h 30 a Shigaraki', url: "https://www.google.com/maps/search/?api=1&query=MIHO%20MUSEUM", desc: 'Museo de I.M. Pei enterrado en la montaña de Shiga.' },
+      { id: 'uji', name: 'Uji', coords: [34.885124, 135.799565], time: '30 min en JR/Keihan', url: "https://www.google.com/maps/search/?api=1&query=Uji", desc: 'Byodo-in (moneda de 10 yenes) + casas de té matcha.' },
+      { id: 'hiei', name: 'Monte Hiei (Enryaku-ji)', coords: [35.072, 135.833], time: '1 h vía teleférico', url: "https://www.google.com/maps/search/?api=1&query=Monte%20Hiei", desc: 'Monasterio Tendai en la montaña entre Kioto y el lago Biwa.' }
     ]
   },
   {
@@ -453,17 +457,18 @@ const destinations = [
       'Shinsekai + Tsutenkaku tower',
       'Castillo de Osaka + parque',
       'Umeda Sky Building al atardecer',
-      'Okonomiyaki y kushikatsu de barrio'
+      'Okonomiyaki y kushikatsu de barrio',
+      { text: 'SUPER NINTENDO WORLD (USJ)', url: "https://www.google.com/maps/search/?api=1&query=SUPER%20NINTENDO%20WORLD%E2%84%A2" },
+      { text: 'Katsudon Yoshibei (Namba, Doguyasuji)', url: "https://www.google.com/maps/search/?api=1&query=Katsudon%20Yoshibei%20Namba%20Doguyasuji" },
+      { text: 'Sayamaike Museum (Tadao Ando)', url: "https://www.google.com/maps/search/?api=1&query=Osaka%20Prefectural%20Sayamaike%20Museum" }
     ],
-    places: [
-          { name: "Katsudon Yoshibei Namba Doguyasuji", lat: 34.6657, lon: 135.502, url: "https://www.google.com/maps/search/?api=1&query=Katsudon%20Yoshibei%20Namba%20Doguyasuji" },
-          { name: "Murou Art Forest", lat: 34.529, lon: 136.049, url: "https://www.google.com/maps/search/?api=1&query=Murou%20Art%20Forest" },
-          { name: "Osaka Prefectural Sayamaike Museum", lat: 34.506, lon: 135.556, url: "https://www.google.com/maps/search/?api=1&query=Osaka%20Prefectural%20Sayamaike%20Museum" },
-          { name: "PL Tower (Great Peace Prayer Tower)", lat: 34.497, lon: 135.546, url: "https://www.google.com/maps/search/?api=1&query=PL%20Tower%20%28Great%20Peace%20Prayer%20Tower%29" },
-          { name: "SUPER NINTENDO WORLD™", lat: 34.6657, lon: 135.4323, url: "https://www.google.com/maps/search/?api=1&query=SUPER%20NINTENDO%20WORLD%E2%84%A2" },
-        ],
+    activityPlaces: [
+      { lat: 34.6657, lon: 135.4323 }, { lat: 34.6657, lon: 135.502 }, { lat: 34.506, lon: 135.556 }
+    ],
     daytrips: [
-      { id: 'naoshima', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu, Benesse, pumpkin de Kusama.' }
+      { id: 'naoshima', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu, Benesse, pumpkin de Kusama.' },
+      { id: 'murou-art', name: 'Murou Art Forest', coords: [34.529, 136.049], time: '1 h 30 (Nara)', url: "https://www.google.com/maps/search/?api=1&query=Murou%20Art%20Forest", desc: 'Esculturas-land art de Dani Karavan en Murou.' },
+      { id: 'pl-tower', name: 'PL Tower (Great Peace Prayer Tower)', coords: [34.497, 135.546], time: '40 min a Tondabayashi', url: "https://www.google.com/maps/search/?api=1&query=PL%20Tower%20%28Great%20Peace%20Prayer%20Tower%29", desc: 'Torre de 180 m de la religión PL Kyodan, al sur de Osaka.' }
     ]
   },
   {
@@ -480,10 +485,9 @@ const destinations = [
       'Caminata por el pueblo + cafés',
       'Yufuin Floral Village (opcional)'
     ],
-    places: [
-          { name: "Bamboo forest", lat: 33.280723, lon: 131.492505, url: "https://www.google.com/maps/search/?api=1&query=Bamboo%20forest" },
-        ],
-    daytrips: []
+    daytrips: [
+      { id: 'yufuin-bamboo', name: 'Bamboo forest', coords: [33.280723, 131.492505], time: '20 min hacia Beppu', url: "https://www.google.com/maps/search/?api=1&query=Bamboo%20forest", desc: 'Bosque de bambú guardado al este de Yufuin, camino a Beppu.' }
+    ]
   },
   {
     id: 'fukuoka', n: 12, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
@@ -497,11 +501,12 @@ const destinations = [
       'Ramen tonkotsu en Ichiran original o Hakata Issou',
       'Canal City Hakata + Ohori Park',
       'Compras en Tenjin',
-      'Motsunabe (hot pot de tripas)'
+      'Motsunabe (hot pot de tripas)',
+      { text: 'Acros Fukuoka (terraza-jardín escalonada)', url: "https://www.google.com/maps/search/?api=1&query=Acros%20Fukuoka" }
     ],
-    places: [
-          { name: "Acros Fukuoka", lat: 33.592167, lon: 130.402852, url: "https://www.google.com/maps/search/?api=1&query=Acros%20Fukuoka" },
-        ],
+    activityPlaces: [
+      { lat: 33.592167, lon: 130.402852 }
+    ],
     daytrips: [
       { id: 'dazaifu', name: 'Dazaifu', coords: [33.5104, 130.5417], time: '40 min en tren', desc: 'Santuario Tenmangu + museo nacional de Kyushu.' },
       { id: 'yanagawa', name: 'Yanagawa', coords: [33.1657, 130.4061], time: '50 min en tren', desc: 'Pueblo de canales en barca + anguila al vapor (unagi seiro).' }
@@ -522,7 +527,6 @@ const destinations = [
       'Haeundae Beach + Songdo',
       'Korean BBQ + soju + jjimjilbang'
     ],
-    places: [],
     daytrips: [
       { id: 'gyeongju', name: 'Gyeongju', coords: [35.8562, 129.2247], time: '30 min en KTX', desc: 'Capital antigua de Silla (UNESCO). Bulguksa, Seokguram, Anapji Pond.' }
     ]
@@ -540,24 +544,29 @@ const destinations = [
       'Gwangjang Market (comida callejera)',
       'Hongdae + Yeonnam-dong + Seongsu',
       'Myeongdong de noche + Korean BBQ',
-      'Namsan Tower + Namdaemun'
+      'Namsan Tower + Namdaemun',
+      { text: 'Dongdaemun Design Plaza (DDP, Zaha Hadid)', url: "https://www.google.com/maps/search/?api=1&query=Dongdaemun%20Design%20Plaza%20%28DDP%29" },
+      { text: 'Gwangjang Market', url: "https://www.google.com/maps/search/?api=1&query=Gwangjang%20Market" },
+      { text: 'Ikseon-dong (hanok cafés)', url: "https://www.google.com/maps/search/?api=1&query=Ikseon-dong" },
+      { text: 'Museo de Arte Leeum', url: "https://www.google.com/maps/search/?api=1&query=Museo%20de%20Arte%20Leeum" },
+      { text: 'GENTLE MONSTER (flagship)', url: "https://www.google.com/maps/search/?api=1&query=GENTLE%20MONSTER" },
+      { text: 'HAUS NOWHERE Seoul', url: "https://www.google.com/maps/search/?api=1&query=HAUS%20NOWHERE%20SEOUL" },
+      { text: 'Audeum Audio Museum', url: "https://www.google.com/maps/search/?api=1&query=Audeum%20Audio%20Museum" },
+      { text: 'Le Chamber (bar de cócteles)', url: "https://www.google.com/maps/search/?api=1&query=Le%20Chamber" },
+      { text: 'Seoul Forest Park', url: "https://www.google.com/maps/search/?api=1&query=Seoul%20Forest%20Park" },
+      { text: 'Haneul Park (pampas en Mapo)', url: "https://www.google.com/maps/search/?api=1&query=Haneul%20Park" },
+      { text: 'Eungbongsan Rock Climbing Park', url: "https://www.google.com/maps/search/?api=1&query=Eungbongsan%20Rock%20Climbing%20Park" },
+      { text: 'Seoul Robot & AI Museum', url: "https://www.google.com/maps/search/?api=1&query=SEOUL%20ROBOT%20%26%20AI%20MUSEUM" },
+      { text: 'Ecojardin Gyeongbok (flagship)', url: "https://www.google.com/maps/search/?api=1&query=Ecojardin%20Gyeongbok%20Flagship%20Branch" },
+      { text: '20 Samcheong-ro 5-gil (Bukchon)', url: "https://www.google.com/maps/search/?api=1&query=20%20Samcheong-ro%205-gil" }
     ],
-    places: [
-          { name: "Ecojardin Gyeongbok Flagship Branch", lat: 37.576, lon: 126.976, url: "https://www.google.com/maps/search/?api=1&query=Ecojardin%20Gyeongbok%20Flagship%20Branch" },
-          { name: "20 Samcheong-ro 5-gil", lat: 37.582797, lon: 126.980755, url: "https://www.google.com/maps/search/?api=1&query=20%20Samcheong-ro%205-gil" },
-          { name: "Gwangjang Market", lat: 37.569783, lon: 127.000655, url: "https://www.google.com/maps/search/?api=1&query=Gwangjang%20Market" },
-          { name: "Eungbongsan Rock Climbing Park", lat: 37.5478, lon: 127.033, url: "https://www.google.com/maps/search/?api=1&query=Eungbongsan%20Rock%20Climbing%20Park" },
-          { name: "Seoul Forest Park", lat: 37.543386, lon: 127.033267, url: "https://www.google.com/maps/search/?api=1&query=Seoul%20Forest%20Park" },
-          { name: "Haneul Park", lat: 37.568064, lon: 126.884978, url: "https://www.google.com/maps/search/?api=1&query=Haneul%20Park" },
-          { name: "Ikseon-dong", lat: 37.574358, lon: 126.989776, url: "https://www.google.com/maps/search/?api=1&query=Ikseon-dong" },
-          { name: "Le Chamber", lat: 37.5246, lon: 127.041, url: "https://www.google.com/maps/search/?api=1&query=Le%20Chamber" },
-          { name: "SEOUL ROBOT & AI MUSEUM", lat: 37.6109, lon: 127.0286, url: "https://www.google.com/maps/search/?api=1&query=SEOUL%20ROBOT%20%26%20AI%20MUSEUM" },
-          { name: "Museo de Arte Leeum", lat: 37.5384, lon: 126.999, url: "https://www.google.com/maps/search/?api=1&query=Museo%20de%20Arte%20Leeum" },
-          { name: "HAUS NOWHERE SEOUL", lat: 37.538138, lon: 127.058948, url: "https://www.google.com/maps/search/?api=1&query=HAUS%20NOWHERE%20SEOUL" },
-          { name: "GENTLE MONSTER", lat: 37.521837, lon: 127.021619, url: "https://www.google.com/maps/search/?api=1&query=GENTLE%20MONSTER" },
-          { name: "Audeum Audio Museum", lat: 37.5247, lon: 127.039, url: "https://www.google.com/maps/search/?api=1&query=Audeum%20Audio%20Museum" },
-          { name: "Dongdaemun Design Plaza (DDP)", lat: 37.567069, lon: 127.009899, url: "https://www.google.com/maps/search/?api=1&query=Dongdaemun%20Design%20Plaza%20%28DDP%29" },
-        ],
+    activityPlaces: [
+      { lat: 37.567069, lon: 127.009899 }, { lat: 37.569783, lon: 127.000655 }, { lat: 37.574358, lon: 126.989776 },
+      { lat: 37.5384, lon: 126.999 }, { lat: 37.521837, lon: 127.021619 }, { lat: 37.538138, lon: 127.058948 },
+      { lat: 37.5247, lon: 127.039 }, { lat: 37.5246, lon: 127.041 }, { lat: 37.543386, lon: 127.033267 },
+      { lat: 37.568064, lon: 126.884978 }, { lat: 37.5478, lon: 127.033 }, { lat: 37.6109, lon: 127.0286 },
+      { lat: 37.576, lon: 126.976 }, { lat: 37.582797, lon: 126.980755 }
+    ],
     daytrips: [
       { id: 'dmz', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. JSA, Dora Observatory. Reservar antes.' }
     ]
@@ -577,7 +586,6 @@ const destinations = [
       'Compras finales: Nakano Broadway, Harajuku, Ginza',
       'Última cena: Golden Gai u Omoide Yokocho'
     ],
-    places: [],
     daytrips: [
       { id: 'hakone', name: 'Hakone', coords: [35.2324, 139.1069], time: '1 h 30 en Romancecar', desc: 'Onsen + Museo al Aire Libre + Owakudani. Koyo de noviembre en su punto.' }
     ]
@@ -658,7 +666,9 @@ destinations.forEach(d => {
     marker.bindPopup(
       '<div class="popup-title">' + dt.name + '</div>' +
       '<div class="popup-dates">Day trip desde ' + d.short + ' · ' + dt.time + '</div>' +
-      '<div class="popup-why">' + dt.desc + '</div>'
+      '<div class="popup-why">' + dt.desc +
+        (dt.url ? '<br><a href="' + dt.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a>' : '') +
+      '</div>'
     );
     dtMarkers[dt.id] = marker;
   });
@@ -672,14 +682,16 @@ function placePopup(p, sub) {
     '<div class="popup-why"><a href="' + p.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a></div>';
 }
 
+// Puntito sutil en el mapa para cada lugar guardado que ahora es una actividad
+// dentro del destino (el link a Maps vive en la tarjeta "Qué hacer").
 const savedPlaceLayer = L.layerGroup().addTo(map);
 destinations.forEach(d => {
-  (d.places || []).forEach(p => {
+  (d.activityPlaces || []).forEach(p => {
     if (p.lat == null || p.lon == null) return;
     L.circleMarker([p.lat, p.lon], {
       radius: 3.5, color: '#0F6E56', weight: 1, opacity: 0.9,
       fillColor: '#1D9E75', fillOpacity: 0.85,
-    }).addTo(savedPlaceLayer).bindPopup(placePopup(p, 'Lugar guardado · ' + d.short));
+    }).addTo(savedPlaceLayer);
   });
 });
 
@@ -693,7 +705,7 @@ orphanPlaces.forEach(p => {
 });
 
 const placeCoords = destinations
-  .flatMap(d => (d.places || []).filter(p => p.lat != null).map(p => [p.lat, p.lon]))
+  .flatMap(d => (d.activityPlaces || []).filter(p => p.lat != null).map(p => [p.lat, p.lon]))
   .concat(orphanPlaces.filter(p => p.lat != null).map(p => [p.lat, p.lon]));
 const allCoords = routeCoords
   .concat(destinations.flatMap(d => d.daytrips.map(dt => dt.coords)))
@@ -722,18 +734,6 @@ destinations.forEach(d => {
       ).join('')
     : '';
 
-  const places = d.places || [];
-  const savedHtml = places.length > 0
-    ? '<div class="saved-section" data-saved="' + d.id + '">' +
-        '<div class="saved-toggle"><span class="saved-caret">▶</span>Lugares guardados (' + places.length + ')</div>' +
-        '<div class="saved-list">' +
-          places.map(p =>
-            '<a class="saved-chip' + (p.lat == null ? ' no-coord' : '') + '" href="' + p.url + '" target="_blank" rel="noopener">' + p.name + '</a>'
-          ).join('') +
-        '</div>' +
-      '</div>'
-    : '';
-
   const numHtml = isFullday
     ? '<div class="card-num fullday"><span>' + d.n + '</span></div>'
     : '<div class="card-num">' + d.n + '</div>';
@@ -758,8 +758,11 @@ destinations.forEach(d => {
     '</div>' +
     '<p class="card-intro">' + d.intro + '</p>' +
     '<div class="card-section-title">Qué hacer</div>' +
-    '<ul class="card-list">' + d.activities.map(a => '<li>' + a + '</li>').join('') + '</ul>' +
-    dtHtml + savedHtml;
+    '<ul class="card-list">' + d.activities.map(a => {
+      if (typeof a === 'string') return '<li>' + a + '</li>';
+      return '<li><a class="act-link" href="' + a.url + '" target="_blank" rel="noopener">' + a.text + '<span class="act-pin">↗</span></a></li>';
+    }).join('') + '</ul>' +
+    dtHtml;
   detailsList.appendChild(card);
   cards[d.id] = card;
 
@@ -767,21 +770,14 @@ destinations.forEach(d => {
   card.addEventListener('mouseleave', () => { card.classList.remove('active'); unhighlightMarker(d.id); });
   card.addEventListener('click', (e) => {
     if (e.target.closest('.dt-row')) return;
-    if (e.target.closest('.saved-section')) return;
+    if (e.target.closest('.act-link')) return;
     markers[d.id].openPopup();
     map.flyTo(d.coords, 8, { duration: 0.8 });
   });
 
-  const savedSection = card.querySelector('.saved-section');
-  if (savedSection) {
-    savedSection.querySelector('.saved-toggle').addEventListener('click', (e) => {
-      e.stopPropagation();
-      savedSection.classList.toggle('open');
-    });
-    savedSection.querySelectorAll('.saved-chip').forEach(chip => {
-      chip.addEventListener('click', (e) => e.stopPropagation());
-    });
-  }
+  card.querySelectorAll('.act-link').forEach(link => {
+    link.addEventListener('click', (e) => e.stopPropagation());
+  });
 
   card.querySelectorAll('.dt-row').forEach(row => {
     const dtId = row.dataset.dtId;
