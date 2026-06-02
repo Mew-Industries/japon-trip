@@ -45,9 +45,16 @@
     border-bottom: 1px solid rgba(0,0,0,0.08);
     flex-shrink: 0;
   }
-  .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .chart-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0; width: 100%; background: none; border: none; padding: 2px 0; cursor: pointer; }
+  .chart-header .qh-caret { transition: transform 0.15s; }
+  .chart-header.open .qh-caret { transform: rotate(90deg); }
   .chart-title { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
-  .chart-wrap { height: 200px; position: relative; }
+  .chart-wrap { height: 200px; position: relative; display: none; }
+  .chart-wrap.open { display: block; }
+  .mini-pop { min-width: 150px; max-width: 210px; }
+  .mini-pop-img { width: 100%; height: 92px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; display: block; background: #ece9e2; }
+  .mini-pop-maps { display: inline-block; margin-top: 6px; font-size: 11px; color: #0F6E56; text-decoration: none; font-weight: 600; }
+  .mini-pop-maps:hover { color: #1D9E75; }
 
   .details-section { flex: 1; overflow-y: auto; padding: 14px 14px 24px; }
   .details-title { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 4px 4px 10px; }
@@ -209,10 +216,11 @@
 
   <div class="content-pane">
     <div class="chart-section">
-      <div class="chart-header">
+      <button type="button" class="chart-header" id="chart-toggle">
         <span class="chart-title">Temperatura por destino</span>
-      </div>
-      <div class="chart-wrap">
+        <span class="qh-caret">▸</span>
+      </button>
+      <div class="chart-wrap" id="chart-wrap">
         <canvas id="weatherChart"></canvas>
       </div>
     </div>
@@ -299,12 +307,12 @@ const destinations = [
       { text: 'Nakano Broadway', cat: 'compras', coords: [35.709247, 139.665652], url: "https://www.google.com/maps/search/?api=1&query=Nakano%20Broadway" }
     ],
     daytrips: [
-      { id: 'kamakura', name: 'Kamakura', coords: [35.3192, 139.5469], time: '1 h en JR Yokosuka', desc: 'Gran Buda, templo Hokoku-ji (bambú), playa Yuigahama.' },
-      { id: 'yokohama', name: 'Yokohama', coords: [35.4437, 139.6380], time: '30 min en JR', desc: 'Chinatown, puerto, Cup Noodle Museum, Sankeien Garden.' },
-      { id: 'kait', name: 'KAIT広場 + Kanagawa Inst. of Technology', coords: [35.486557, 139.343234], time: '1 h 15 a Atsugi', url: "https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E5%B7%A5%E7%A7%91%E5%A4%A7%E5%AD%A6%20KAIT%E5%BA%83%E5%A0%B4", desc: 'Plaza KAIT de Junya Ishigami (arquitectura) en el campus de Atsugi, Kanagawa.' },
+      { id: 'kamakura', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/TsurugaokaHachiman-M8867.jpg/360px-TsurugaokaHachiman-M8867.jpg', name: 'Kamakura', coords: [35.3192, 139.5469], time: '1 h en JR Yokosuka', desc: 'Gran Buda, templo Hokoku-ji (bambú), playa Yuigahama.' },
+      { id: 'yokohama', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Minato_Mirai.jpg/360px-Minato_Mirai.jpg', name: 'Yokohama', coords: [35.4437, 139.6380], time: '30 min en JR', desc: 'Chinatown, puerto, Cup Noodle Museum, Sankeien Garden.' },
+      { id: 'kait', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Kanagawa_Institute_of_Technology.jpg/360px-Kanagawa_Institute_of_Technology.jpg', name: 'KAIT広場 + Kanagawa Inst. of Technology', coords: [35.486557, 139.343234], time: '1 h 15 a Atsugi', url: "https://www.google.com/maps/search/?api=1&query=%E7%A5%9E%E5%A5%88%E5%B7%9D%E5%B7%A5%E7%A7%91%E5%A4%A7%E5%AD%A6%20KAIT%E5%BA%83%E5%A0%B4", desc: 'Plaza KAIT de Junya Ishigami (arquitectura) en el campus de Atsugi, Kanagawa.' },
       { id: 'fukazawa-museum', name: 'Fukazawa Tiny Museum', coords: [35.747306, 139.208255], time: '1 h al oeste (Hachioji)', url: "https://www.google.com/maps/search/?api=1&query=Fukazawa%20Tiny%20Museum", desc: 'Micro-museo en el oeste de Tokio.' },
       { id: 'kazenooka', name: 'Kazenooka Jumokuso Cemetery', coords: [35.637556, 139.345684], time: '1 h a Fujisawa', url: "https://www.google.com/maps/search/?api=1&query=Kazenooka%20Jumokuso%20Cemetery", desc: 'Cementerio-bosque de Fumihiko Maki en Kanagawa.' },
-      { id: 'discharge-channel', name: 'Canal subterráneo de descarga (G-Cans)', coords: [35.996667, 139.811389], time: '1 h a Kasukabe, Saitama', url: "https://www.google.com/maps/search/?api=1&query=The%20Metropolitan%20Area%20Outer%20Underground%20Discharge%20Channel", desc: '"Catedral subterránea" anti-inundaciones. Tour con reserva previa.' }
+      { id: 'discharge-channel', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Geofront_Temple%5E_%E9%A6%96%E9%83%BD%E5%9C%8F%E5%A4%96%E9%83%AD%E6%94%BE%E6%B0%B4%E8%B7%AF_-_panoramio.jpg/360px-Geofront_Temple%5E_%E9%A6%96%E9%83%BD%E5%9C%8F%E5%A4%96%E9%83%AD%E6%94%BE%E6%B0%B4%E8%B7%AF_-_panoramio.jpg', name: 'Canal subterráneo de descarga (G-Cans)', coords: [35.996667, 139.811389], time: '1 h a Kasukabe, Saitama', url: "https://www.google.com/maps/search/?api=1&query=The%20Metropolitan%20Area%20Outer%20Underground%20Discharge%20Channel", desc: '"Catedral subterránea" anti-inundaciones. Tour con reserva previa.' }
     ]
   },
   {
@@ -343,9 +351,9 @@ const destinations = [
       { text: 'Zuihōden (mausoleo dorado de Date Masamune)', cat: 'templos', coords: [38.250448, 140.866708], url: "https://www.google.com/maps/search/?api=1&query=Zuih%C5%8Dden" }
     ],
     daytrips: [
-      { id: 'matsushima', name: 'Matsushima', coords: [38.3400, 141.0600], time: '40 min en JR', desc: 'Bahía de islas con pinos, una de las "3 vistas de Japón". Templo Zuiganji + paseo en barco.' },
+      { id: 'matsushima', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/211030_Kameshima_Matsushima_Miyagi_pref_Japan01n.jpg/360px-211030_Kameshima_Matsushima_Miyagi_pref_Japan01n.jpg', name: 'Matsushima', coords: [38.3400, 141.0600], time: '40 min en JR', desc: 'Bahía de islas con pinos, una de las "3 vistas de Japón". Templo Zuiganji + paseo en barco.' },
       { id: 'zao-fox', name: 'Zaō Fox Village', coords: [38.040829, 140.53036], time: '1 h 30 al sur', url: "https://www.google.com/maps/search/?api=1&query=Za%C5%8D%20Fox%20Village", desc: 'Santuario de zorros sueltos en la montaña Zao + cráter Okama (lago turquesa).' },
-      { id: 'towada-oirase', name: 'Towada / Oirase (opción B de base)', coords: [40.489962, 140.952549], time: 'norte profundo', url: "https://www.google.com/maps/search/?api=1&query=Oirase%20keiry%C5%AB%20Gorge", desc: 'Garganta de Oirase + lago Towada: de los mejores follajes de Japón a fines de octubre. Si la base de Tohoku se decide acá en vez de Sendai, esto pasa a ser el centro de las 2 noches.' }
+      { id: 'towada-oirase', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Oirase_keiryuu.JPG/360px-Oirase_keiryuu.JPG', name: 'Towada / Oirase (opción B de base)', coords: [40.489962, 140.952549], time: 'norte profundo', url: "https://www.google.com/maps/search/?api=1&query=Oirase%20keiry%C5%AB%20Gorge", desc: 'Garganta de Oirase + lago Towada: de los mejores follajes de Japón a fines de octubre. Si la base de Tohoku se decide acá en vez de Sendai, esto pasa a ser el centro de las 2 noches.' }
     ]
   },
   {
@@ -366,7 +374,7 @@ const destinations = [
       { text: 'Sapporo Art Museum', cat: 'museos', coords: [42.942067, 141.342577], url: "https://www.google.com/maps/search/?api=1&query=Sapporo%20Art%20Museum" }
     ],
     daytrips: [
-      { id: 'otaru', name: 'Otaru', coords: [43.1907, 140.9947], time: '40 min en JR', desc: 'Pueblo portuario del canal, cristalería y sushi. Clásico day trip desde Sapporo.' }
+      { id: 'otaru', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Otaru_Montage.jpg/360px-Otaru_Montage.jpg', name: 'Otaru', coords: [43.1907, 140.9947], time: '40 min en JR', desc: 'Pueblo portuario del canal, cristalería y sushi. Clásico day trip desde Sapporo.' }
     ]
   },
   {
@@ -449,11 +457,11 @@ const destinations = [
       { text: 'Garden of Fine Arts Kyoto (Tadao Ando)', cat: 'museos', coords: [35.050655, 135.765443], url: "https://www.google.com/maps/search/?api=1&query=Garden%20of%20Fine%20Arts%20Kyoto" }
     ],
     daytrips: [
-      { id: 'nara', name: 'Nara', coords: [34.6851, 135.8048], time: '45 min en JR', desc: 'Todai-ji (Buda gigante), ciervos sueltos, jardín Yoshiki-en.' },
-      { id: 'murou', name: 'Murou-ji + Hasedera', coords: [34.5378, 136.0376], time: '1 h 30 min', desc: 'Templo + 400 escalones a Hasedera. Murou Art Forest (Dani Karavan).' },
-      { id: 'miho', name: 'MIHO MUSEUM', coords: [34.914917, 136.016215], time: '1 h 30 a Shigaraki', url: "https://www.google.com/maps/search/?api=1&query=MIHO%20MUSEUM", desc: 'Museo de I.M. Pei enterrado en la montaña de Shiga.' },
-      { id: 'uji', name: 'Uji', coords: [34.884513, 135.799704], time: '30 min en JR/Keihan', url: "https://www.google.com/maps/search/?api=1&query=Uji", desc: 'Byodo-in (moneda de 10 yenes) + casas de té matcha.' },
-      { id: 'hiei', name: 'Monte Hiei (Enryaku-ji)', coords: [35.070333, 135.840694], time: '1 h vía teleférico', url: "https://www.google.com/maps/search/?api=1&query=Monte%20Hiei", desc: 'Monasterio Tendai en la montaña entre Kioto y el lago Biwa.' }
+      { id: 'nara', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/T%C5%8Ddai-ji_Kon-d%C5%8D.jpg/360px-T%C5%8Ddai-ji_Kon-d%C5%8D.jpg', name: 'Nara', coords: [34.6851, 135.8048], time: '45 min en JR', desc: 'Todai-ji (Buda gigante), ciervos sueltos, jardín Yoshiki-en.' },
+      { id: 'murou', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Murouji%2C_hondou-3.jpg/360px-Murouji%2C_hondou-3.jpg', name: 'Murou-ji + Hasedera', coords: [34.5378, 136.0376], time: '1 h 30 min', desc: 'Templo + 400 escalones a Hasedera. Murou Art Forest (Dani Karavan).' },
+      { id: 'miho', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Miho_museum02n3872.jpg/360px-Miho_museum02n3872.jpg', name: 'MIHO MUSEUM', coords: [34.914917, 136.016215], time: '1 h 30 a Shigaraki', url: "https://www.google.com/maps/search/?api=1&query=MIHO%20MUSEUM", desc: 'Museo de I.M. Pei enterrado en la montaña de Shiga.' },
+      { id: 'uji', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Byodoin_Phoenix_Hall_Uji_2009.jpg/360px-Byodoin_Phoenix_Hall_Uji_2009.jpg', name: 'Uji', coords: [34.884513, 135.799704], time: '30 min en JR/Keihan', url: "https://www.google.com/maps/search/?api=1&query=Uji", desc: 'Byodo-in (moneda de 10 yenes) + casas de té matcha.' },
+      { id: 'hiei', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Sakura_MtHiei.jpg/360px-Sakura_MtHiei.jpg', name: 'Monte Hiei (Enryaku-ji)', coords: [35.070333, 135.840694], time: '1 h vía teleférico', url: "https://www.google.com/maps/search/?api=1&query=Monte%20Hiei", desc: 'Monasterio Tendai en la montaña entre Kioto y el lago Biwa.' }
     ]
   },
   {
@@ -480,10 +488,10 @@ const destinations = [
       { text: 'Sayamaike Museum (Tadao Ando)', cat: 'museos', coords: [34.507516, 135.551369], url: "https://www.google.com/maps/search/?api=1&query=Osaka%20Prefectural%20Sayamaike%20Museum" }
     ],
     daytrips: [
-      { id: 'naoshima', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu, Benesse, pumpkin de Kusama.' },
-      { id: 'kobe', name: 'Kobe', coords: [34.6901, 135.1955], time: '30 min en tren', desc: 'Carne de Kobe, barrio Kitano (casas extranjeras), puerto y teleférico de Nunobiki. Aprovecha una de las noches extra.' },
+      { id: 'naoshima', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Beachside_Torii%2C_Naoshima.jpg/360px-Beachside_Torii%2C_Naoshima.jpg', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu, Benesse, pumpkin de Kusama.' },
+      { id: 'kobe', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Kobe_Port_Tower_and_Maritime_Museum%2C_November_2016.jpg/360px-Kobe_Port_Tower_and_Maritime_Museum%2C_November_2016.jpg', name: 'Kobe', coords: [34.6901, 135.1955], time: '30 min en tren', desc: 'Carne de Kobe, barrio Kitano (casas extranjeras), puerto y teleférico de Nunobiki. Aprovecha una de las noches extra.' },
       { id: 'murou-art', name: 'Murou Art Forest', coords: [34.537082, 136.031622], time: '1 h 30 (Nara)', url: "https://www.google.com/maps/search/?api=1&query=Murou%20Art%20Forest", desc: 'Esculturas-land art de Dani Karavan en Murou.' },
-      { id: 'pl-tower', name: 'PL Tower (Great Peace Prayer Tower)', coords: [34.502226, 135.585919], time: '40 min a Tondabayashi', url: "https://www.google.com/maps/search/?api=1&query=PL%20Tower%20%28Great%20Peace%20Prayer%20Tower%29", desc: 'Torre de 180 m de la religión PL Kyodan, al sur de Osaka.' }
+      { id: 'pl-tower', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Torre_da_Paz.jpg/360px-Torre_da_Paz.jpg', name: 'PL Tower (Great Peace Prayer Tower)', coords: [34.502226, 135.585919], time: '40 min a Tondabayashi', url: "https://www.google.com/maps/search/?api=1&query=PL%20Tower%20%28Great%20Peace%20Prayer%20Tower%29", desc: 'Torre de 180 m de la religión PL Kyodan, al sur de Osaka.' }
     ]
   },
   {
@@ -504,8 +512,8 @@ const destinations = [
       { text: 'Acros Fukuoka (terraza-jardín escalonada)', cat: 'parques', coords: [33.59159, 130.402352], url: "https://www.google.com/maps/search/?api=1&query=Acros%20Fukuoka" }
     ],
     daytrips: [
-      { id: 'dazaifu', name: 'Dazaifu', coords: [33.5104, 130.5417], time: '40 min en tren', desc: 'Santuario Tenmangu + museo nacional de Kyushu.' },
-      { id: 'yanagawa', name: 'Yanagawa', coords: [33.1657, 130.4061], time: '50 min en tren', desc: 'Pueblo de canales en barca + anguila al vapor (unagi seiro).' }
+      { id: 'dazaifu', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Dazaifu_City_Hall.JPG/360px-Dazaifu_City_Hall.JPG', name: 'Dazaifu', coords: [33.5104, 130.5417], time: '40 min en tren', desc: 'Santuario Tenmangu + museo nacional de Kyushu.' },
+      { id: 'yanagawa', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Yanagawa-kawakudari.jpg/360px-Yanagawa-kawakudari.jpg', name: 'Yanagawa', coords: [33.1657, 130.4061], time: '50 min en tren', desc: 'Pueblo de canales en barca + anguila al vapor (unagi seiro).' }
     ]
   },
   {
@@ -526,7 +534,7 @@ const destinations = [
       { text: 'Korean BBQ + soju + jjimjilbang', cat: 'ocio' }
     ],
     daytrips: [
-      { id: 'gyeongju', name: 'Gyeongju', coords: [35.8562, 129.2247], time: '30 min en KTX', desc: 'Capital antigua de Silla (UNESCO). Bulguksa, Seokguram, Anapji Pond.' }
+      { id: 'gyeongju', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Gyeongju_montage.png/360px-Gyeongju_montage.png', name: 'Gyeongju', coords: [35.8562, 129.2247], time: '30 min en KTX', desc: 'Capital antigua de Silla (UNESCO). Bulguksa, Seokguram, Anapji Pond.' }
     ]
   },
   {
@@ -560,7 +568,7 @@ const destinations = [
       { text: '20 Samcheong-ro 5-gil (Bukchon)', cat: 'barrios', coords: [37.582816, 126.980777], url: "https://www.google.com/maps/search/?api=1&query=20%20Samcheong-ro%205-gil" }
     ],
     daytrips: [
-      { id: 'dmz', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. JSA, Dora Observatory. Reservar antes.' }
+      { id: 'dmz', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/070401_Panmunjeom3.jpg/360px-070401_Panmunjeom3.jpg', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. JSA, Dora Observatory. Reservar antes.' }
     ]
   },
   {
@@ -639,6 +647,20 @@ L.polyline(routeCoords, {
   color: '#0F6E56', weight: 3, opacity: 0.75, dashArray: '8, 8',
 }).addTo(map);
 
+// Popup estilo "mini Google Maps": foto (si hay) + nombre + sub + link a Maps.
+function gmapsFromName(name) {
+  return 'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent(name.split('(')[0].split('/')[0].trim());
+}
+function miniPopup(img, title, sub, mapsUrl) {
+  return '<div class="mini-pop">' +
+    (img ? '<img class="mini-pop-img" src="' + img + '" loading="lazy" alt="">' : '') +
+    '<div class="popup-title">' + title + '</div>' +
+    (sub ? '<div class="popup-dates">' + sub + '</div>' : '') +
+    (mapsUrl ? '<a class="mini-pop-maps" href="' + mapsUrl + '" target="_blank" rel="noopener">Ver en Google Maps →</a>' : '') +
+  '</div>';
+}
+
 const markers = {};
 destinations.forEach(d => {
   const isFullday = d.type === 'fullday';
@@ -656,9 +678,7 @@ destinations.forEach(d => {
     ? d.dates + ' · pasar el día'
     : d.dates + ' · ' + d.nights + ' noches';
   marker.bindPopup(
-    '<div class="popup-title">' + d.n + '. ' + d.short + '</div>' +
-    '<div class="popup-dates">' + datesLine + '</div>' +
-    '<div class="popup-why">' + d.intro + '</div>'
+    miniPopup(d.img, d.n + '. ' + d.short, datesLine, gmapsFromName(d.short))
   );
   markers[d.id] = marker;
 });
@@ -672,11 +692,7 @@ destinations.forEach(d => {
     });
     const marker = L.marker(dt.coords, { icon }).addTo(map);
     marker.bindPopup(
-      '<div class="popup-title">' + dt.name + '</div>' +
-      '<div class="popup-dates">Day trip desde ' + d.short + ' · ' + dt.time + '</div>' +
-      '<div class="popup-why">' + dt.desc +
-        (dt.url ? '<br><a href="' + dt.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a>' : '') +
-      '</div>'
+      miniPopup(dt.img, dt.name, 'Day trip desde ' + d.short + ' · ' + dt.time, dt.url || gmapsFromName(dt.name))
     );
     dtMarkers[dt.id] = marker;
   });
@@ -685,9 +701,7 @@ destinations.forEach(d => {
 // LUGARES GUARDADOS (Google Maps) — puntitos sutiles dentro de cada destino,
 // y pins distintos (anillo naranja) para los orphans que no caen en ningún destino.
 function placePopup(p, sub) {
-  return '<div class="popup-title">' + p.name + '</div>' +
-    (sub ? '<div class="popup-dates">' + sub + '</div>' : '') +
-    '<div class="popup-why"><a href="' + p.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a></div>';
+  return miniPopup(p.img, p.name, sub, p.url || gmapsFromName(p.name));
 }
 
 // Categorías de "Qué hacer" (etiqueta + orden de despliegue).
@@ -710,9 +724,7 @@ destinations.forEach(d => {
       fillColor: '#1D9E75', fillOpacity: 0.85,
     }).addTo(savedPlaceLayer);
     m.bindPopup(
-      '<div class="popup-title">' + a.text + '</div>' +
-      '<div class="popup-dates">' + d.short + ' · ' + (CAT_LABELS[a.cat] || a.cat) + '</div>' +
-      (a.url ? '<div class="popup-why"><a href="' + a.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a></div>' : '')
+      miniPopup(a.img, a.text, d.short + ' · ' + (CAT_LABELS[a.cat] || a.cat), a.url || gmapsFromName(a.text))
     );
     actMarkers[d.id + ':' + i] = m;
   });
@@ -947,7 +959,7 @@ for (let i = 0; i < destinations.length - 1; i++) {
 const ctx = document.getElementById('weatherChart').getContext('2d');
 const avg = (range) => { const [lo, hi] = range.split('-').map(Number); return Math.round((lo + hi) / 2); };
 
-new Chart(ctx, {
+const weatherChart = new Chart(ctx, {
   type: 'line',
   data: {
     labels: destinations.map(d => d.short),
@@ -971,7 +983,7 @@ new Chart(ctx, {
       if (elements.length > 0) {
         const idx = elements[0].index;
         const d = destinations[idx];
-        if (cards[d.id]) cards[d.id].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        focusTrip(d.id);
         map.flyTo(d.coords, 7, { duration: 0.8 });
       }
     },
@@ -983,6 +995,20 @@ new Chart(ctx, {
     interaction: { intersect: false, mode: 'index' }
   }
 });
+
+// Panel de temperatura colapsado por default; resize del chart al abrir (Chart.js
+// no dimensiona bien si el contenedor estaba display:none).
+(function () {
+  const tgl = document.getElementById('chart-toggle');
+  const wrap = document.getElementById('chart-wrap');
+  if (tgl && wrap) {
+    tgl.addEventListener('click', () => {
+      const open = wrap.classList.toggle('open');
+      tgl.classList.toggle('open', open);
+      if (open) setTimeout(() => weatherChart.resize(), 30);
+    });
+  }
+})();
 </script>
 </body>
 </html>
