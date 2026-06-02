@@ -397,7 +397,7 @@ const destinations = [
     img: 'https://api.openverse.org/v1/images/5f731235-bf9c-44bd-b79e-230678d0a1b9/thumb/',
     imgs: ['https://api.openverse.org/v1/images/5f731235-bf9c-44bd-b79e-230678d0a1b9/thumb/', 'https://api.openverse.org/v1/images/b99dfd64-c57b-431f-9719-d592d1133ec1/thumb/', 'https://api.openverse.org/v1/images/eb7ae932-7557-4e78-8804-313bbf0a254c/thumb/'],
     dates: '17-19 oct', nights: 2,
-    arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Koyasan)', lodging: null,
+    arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Kioto)', lodging: null,
     leg: { mode: '✈️🚆', time: '~1 h 40 (vuelo)', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sapporo%20to%20Komatsu', dirLabel: 'ver vuelos ↗' },
     tempMax: '15-27', tempMin: '8-19', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
@@ -421,7 +421,7 @@ const destinations = [
     img: 'https://api.openverse.org/v1/images/4523eb7e-0bff-4930-bbb8-d11fe1c9fef8/thumb/',
     imgs: ['https://api.openverse.org/v1/images/4523eb7e-0bff-4930-bbb8-d11fe1c9fef8/thumb/', 'https://api.openverse.org/v1/images/5378655b-8817-4de1-a475-97e2204fa4fd/thumb/', 'https://api.openverse.org/v1/images/194173cf-f8bf-426f-895e-419386c7fda5/thumb/'],
     dates: '19 oct', nights: 0,
-    arrival: '19 oct (de paso desde Kanazawa hacia Koyasan)', departure: '19 oct tarde (sigue a Koyasan; duerme allí esta noche)', lodging: null,
+    arrival: '19 oct (de paso desde Kanazawa hacia Kioto)', departure: '19 oct tarde (sigue a Kioto; duerme allí esta noche)', lodging: null,
     leg: { mode: '🚌', time: '~1 h 15', detail: 'Bus directo Kanazawa → Shirakawa-go (de paso).', dirUrl: 'https://japanbusonline.com/en', dirLabel: 'reservar bus ↗' },
     tempMax: '16-26', tempMin: '6-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Día completo de paso entre Kanazawa y Koyasan. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue al sur. No se pernocta acá — la noche se duerme en Koyasan.',
@@ -433,33 +433,13 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'koyasan', n: 7, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
-    coords: [34.2129, 135.5836],
-    img: 'https://api.openverse.org/v1/images/8f5b8faf-024b-455b-a44a-04e711143bef/thumb/',
-    imgs: ['https://api.openverse.org/v1/images/8f5b8faf-024b-455b-a44a-04e711143bef/thumb/', 'https://api.openverse.org/v1/images/f412a518-c0f3-4659-b82a-8dc78310a7c3/thumb/', 'https://api.openverse.org/v1/images/96667cd7-cf9c-40fc-8759-e22b50760fbb/thumb/'],
-    dates: '19-20 oct', nights: 1,
-    arrival: '19 oct', departure: '20 oct', lodging: null,
-    leg: { mode: '🚌🚄🚠', time: '~7 h', detail: 'Bus a Shin-Takaoka + Shinkansen + Nankai + funicular a Koyasan. Día largo.' },
-    tempMax: '10-23', tempMin: '5-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
-    intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís 1 noche en un templo con cena vegetariana y ceremonia matutina opcional. Con una sola noche, el plan ideal es llegar a la tarde para Okunoin al atardecer y madrugar para la ceremonia + Okunoin vacío antes de seguir a Kioto.',
-    activities: [
-      { text: 'Okunoin al atardecer (cementerio con 200.000 lápidas)', cat: 'templos' },
-      { text: 'Okunoin antes del amanecer (vacío total)', cat: 'templos' },
-      { text: 'Kongobu-ji (templo principal)', cat: 'templos' },
-      { text: 'Garan (complejo central con pagoda)', cat: 'templos' },
-      { text: 'Cena shojin ryori (vegetariana budista)', cat: 'comida' },
-      { text: 'Ceremonia matutina del templo (5:30 AM)', cat: 'templos' }
-    ],
-    daytrips: []
-  },
-  {
-    id: 'kioto', n: 8, type: 'destino', name: 'Kioto', short: 'Kioto',
+    id: 'kioto', n: 7, type: 'destino', name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
     img: 'https://api.openverse.org/v1/images/3a57488a-f679-4f25-af1e-b7429b83ed10/thumb/',
     imgs: ['https://api.openverse.org/v1/images/3a57488a-f679-4f25-af1e-b7429b83ed10/thumb/', 'https://api.openverse.org/v1/images/19bae5b6-b4bb-4dc7-b7da-394fe8958b90/thumb/', 'https://api.openverse.org/v1/images/2c9d0a2c-3d95-4427-ba22-cd14d1992927/thumb/'],
-    dates: '20-26 oct', nights: 6,
-    arrival: '20 oct', departure: '26 oct', lodging: null,
-    leg: { mode: '🚠🚆', time: '~3 h 15', detail: 'Funicular + Nankai a Osaka + tren a Kioto.' },
+    dates: '19-25 oct', nights: 6,
+    arrival: '19 oct (llega de Shirakawa-go, primera noche acá)', departure: '25 oct (sigue a Koyasan)', lodging: null,
+    leg: { mode: '🚌🚄', time: '~3 h 40', detail: 'Bus Shirakawa-go → Kanazawa/Takayama + tren/Shinkansen a Kioto.' },
     tempMax: '14-25', tempMin: '5-20', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Capital cultural. Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
     activities: [
@@ -483,13 +463,33 @@ const destinations = [
     ]
   },
   {
+    id: 'koyasan', n: 8, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
+    coords: [34.2129, 135.5836],
+    img: 'https://api.openverse.org/v1/images/8f5b8faf-024b-455b-a44a-04e711143bef/thumb/',
+    imgs: ['https://api.openverse.org/v1/images/8f5b8faf-024b-455b-a44a-04e711143bef/thumb/', 'https://api.openverse.org/v1/images/f412a518-c0f3-4659-b82a-8dc78310a7c3/thumb/', 'https://api.openverse.org/v1/images/96667cd7-cf9c-40fc-8759-e22b50760fbb/thumb/'],
+    dates: '25-26 oct', nights: 1,
+    arrival: '25 oct', departure: '26 oct', lodging: null,
+    leg: { mode: '🚆🚠', time: '~3 h 20', detail: 'Tren Kioto → Namba + Nankai línea Koya + funicular a Koyasan.' },
+    tempMax: '10-23', tempMin: '5-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
+    intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís 1 noche en un templo con cena vegetariana y ceremonia matutina opcional. Con una sola noche, el plan ideal es llegar a la tarde para Okunoin al atardecer y madrugar para la ceremonia + Okunoin vacío antes de seguir a Osaka.',
+    activities: [
+      { text: 'Okunoin al atardecer (cementerio con 200.000 lápidas)', cat: 'templos' },
+      { text: 'Okunoin antes del amanecer (vacío total)', cat: 'templos' },
+      { text: 'Kongobu-ji (templo principal)', cat: 'templos' },
+      { text: 'Garan (complejo central con pagoda)', cat: 'templos' },
+      { text: 'Cena shojin ryori (vegetariana budista)', cat: 'comida' },
+      { text: 'Ceremonia matutina del templo (5:30 AM)', cat: 'templos' }
+    ],
+    daytrips: []
+  },
+  {
     id: 'osaka', n: 9, type: 'destino', name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
     img: 'https://api.openverse.org/v1/images/8af760a3-dc71-4794-9ff6-f214aa25ab60/thumb/',
     imgs: ['https://api.openverse.org/v1/images/8af760a3-dc71-4794-9ff6-f214aa25ab60/thumb/', 'https://api.openverse.org/v1/images/7729b56c-b873-42ca-9908-2d4093feb2fc/thumb/', 'https://api.openverse.org/v1/images/af774711-d466-4d72-a8e7-6355d5f7c7d2/thumb/'],
     dates: '26-31 oct', nights: 5,
-    arrival: '26 oct', departure: '31 oct (Shinkansen a Fukuoka)', lodging: null,
-    leg: { mode: '🚆', time: '~45 min', detail: 'JR o Hankyu Kioto → Osaka.' },
+    arrival: '26 oct (llega de Koyasan)', departure: '31 oct (Shinkansen a Fukuoka)', lodging: null,
+    leg: { mode: '🚠🚆', time: '~2 h 30', detail: 'Funicular + Nankai Koyasan → Osaka (Namba).' },
     tempMax: '15-25', tempMin: '7-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 5 noches (subió de 3): da aire para Naoshima, un día de Kobe y recorrer barrios de Osaka sin apuro.',
     activities: [
