@@ -121,8 +121,16 @@
   .seg-date { background: rgba(255,255,255,0.92); border: 1px solid #cfe3db; color: #0F6E56; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 8px; white-space: nowrap; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.12); cursor: pointer; transition: background 0.12s, color 0.12s; }
   .seg-date:hover { background: #0F6E56; color: #fff; border-color: #0F6E56; }
   .leg-row { display: flex; align-items: center; gap: 8px; margin: 3px 0 3px 16px; padding: 3px 0 3px 12px; border-left: 2px dashed #d3cdbf; font-size: 11px; color: #888; }
-  .leg-mode { font-size: 14px; line-height: 1; }
+  .leg-mode { font-size: 14px; line-height: 1; flex-shrink: 0; }
+  .leg-text { flex: 1; }
   .leg-text strong { color: #555; font-weight: 600; }
+  .leg-dir { margin-left: 6px; font-size: 10px; color: #0F6E56; text-decoration: none; white-space: nowrap; border-bottom: 1px dotted rgba(15,110,86,0.4); flex-shrink: 0; }
+  .leg-dir:hover { color: #1D9E75; border-bottom-color: #1D9E75; }
+  .itin-thumb { width: 34px; height: 34px; border-radius: 7px; object-fit: cover; flex-shrink: 0; background: #ece9e2; }
+  .detail-banner { width: 100%; height: 130px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; background: #ece9e2; display: block; }
+  .dest-card, .leg-row { scroll-margin-top: 14px; }
+  @keyframes cardflash { 0% { box-shadow: 0 0 0 2px rgba(15,110,86,0); } 20% { box-shadow: 0 0 0 2px rgba(15,110,86,0.6); } 100% { box-shadow: 0 0 0 2px rgba(15,110,86,0); } }
+  .flash { animation: cardflash 1.4s ease-out; }
   .itin-head { display: flex; align-items: center; gap: 10px; cursor: pointer; }
   .itin-caret { margin-left: auto; font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
   .dest-card.open .itin-caret { transform: rotate(90deg); }
@@ -259,6 +267,7 @@ const destinations = [
   {
     id: 'tokio-llegada', n: 1, type: 'destino', name: 'Tokio (llegada)', short: 'Tokio',
     coords: [35.6762, 139.6503],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/500px-Skyscrapers_of_Shinjuku_2009_January.jpg',
     dates: '8-13 oct', nights: 5,
     arrival: '8 oct (HANEDA/HND, llegada del vuelo desde Houston)', departure: '13 oct (día en Nikko de paso, sigue al norte)', lodging: null,
     leg: { mode: '✈️', time: 'vuelo', detail: 'Llegada a Tokio Haneda (ver Vuelos arriba).' },
@@ -301,6 +310,7 @@ const destinations = [
   {
     id: 'nikko', n: 2, type: 'fullday', name: 'Nikko', short: 'Nikko',
     coords: [36.7589, 139.6075],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Nikko_Toshogu_Yomeimon_Gate_2024.jpg/500px-Nikko_Toshogu_Yomeimon_Gate_2024.jpg',
     dates: '13 oct', nights: 0,
     arrival: '13 oct (de paso desde Tokio, primer salto al norte)', departure: '13 oct tarde (sigue a Sendai; duerme allí esta noche)', lodging: null,
     leg: { mode: '🚆', time: '~2 h', detail: 'Tren Tobu/JR Tokio → Nikkō (Limited Express).' },
@@ -320,6 +330,7 @@ const destinations = [
   {
     id: 'sendai', n: 3, type: 'destino', name: 'Tohoku (Sendai / Towada-Oirase, TBD)', short: 'Tohoku',
     coords: [38.2682, 140.8694],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/SendaiCity_Skylines_from_Mukaiyama2018.jpg/500px-SendaiCity_Skylines_from_Mukaiyama2018.jpg',
     dates: '13-15 oct', nights: 2,
     arrival: '13 oct (de paso por Nikko desde Tokio)', departure: '15 oct (sigue a Sapporo)', lodging: null,
     leg: { mode: '🚄', time: '~2 h 30', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Sendai.' },
@@ -340,6 +351,7 @@ const destinations = [
   {
     id: 'sapporo', n: 4, type: 'destino', name: 'Sapporo (Hokkaido)', short: 'Sapporo',
     coords: [43.0618, 141.3545],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/SapporoCity_Skylines2020.jpg/500px-SapporoCity_Skylines2020.jpg',
     dates: '15-17 oct', nights: 2,
     arrival: '15 oct (tren/vuelo desde Tohoku)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
     leg: { mode: '✈️', time: '~1 h 15', detail: 'Vuelo Sendai → New Chitose (alt: Shinkansen ~4 h vía Shin-Aomori).' },
@@ -360,6 +372,7 @@ const destinations = [
   {
     id: 'kanazawa', n: 5, type: 'destino', name: 'Kanazawa', short: 'Kanazawa',
     coords: [36.5613, 136.6562],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/%E6%9C%9B%E6%B9%96%E5%8F%B0%EF%BC%92.jpg/500px-%E6%9C%9B%E6%B9%96%E5%8F%B0%EF%BC%92.jpg',
     dates: '17-19 oct', nights: 2,
     arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Koyasan)', lodging: null,
     leg: { mode: '✈️🚆', time: '~2 h', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.' },
@@ -382,6 +395,7 @@ const destinations = [
   {
     id: 'shirakawago', n: 6, type: 'fullday', name: 'Shirakawa-go', short: 'Shirakawa-go',
     coords: [36.2585, 136.9067],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Ogi_Shirakawa-g%C5%8D%2C_Gifu%2C_Japan.jpg/500px-Ogi_Shirakawa-g%C5%8D%2C_Gifu%2C_Japan.jpg',
     dates: '19 oct', nights: 0,
     arrival: '19 oct (de paso desde Kanazawa hacia Koyasan)', departure: '19 oct tarde (sigue a Koyasan; duerme allí esta noche)', lodging: null,
     leg: { mode: '🚌', time: '~1 h 15', detail: 'Bus directo Kanazawa → Shirakawa-go (de paso).' },
@@ -397,6 +411,7 @@ const destinations = [
   {
     id: 'koyasan', n: 7, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
     coords: [34.2129, 135.5836],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Danjogaran_Koyasan12n3200.jpg/500px-Danjogaran_Koyasan12n3200.jpg',
     dates: '19-20 oct', nights: 1,
     arrival: '19 oct', departure: '20 oct', lodging: null,
     leg: { mode: '🚌🚄🚠', time: '~5 h', detail: 'Bus a Shin-Takaoka + Shinkansen + Nankai + funicular a Koyasan. Día largo.' },
@@ -415,6 +430,7 @@ const destinations = [
   {
     id: 'kioto', n: 8, type: 'destino', name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Kiyomizu.jpg/500px-Kiyomizu.jpg',
     dates: '20-26 oct', nights: 6,
     arrival: '20 oct', departure: '26 oct', lodging: null,
     leg: { mode: '🚠🚆', time: '~2 h 30', detail: 'Funicular + Nankai a Osaka + tren a Kioto.' },
@@ -443,6 +459,7 @@ const destinations = [
   {
     id: 'osaka', n: 9, type: 'destino', name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Osaka_Castle_02bs3200.jpg/500px-Osaka_Castle_02bs3200.jpg',
     dates: '26-31 oct', nights: 5,
     arrival: '26 oct', departure: '31 oct (Shinkansen a Fukuoka)', lodging: null,
     leg: { mode: '🚆', time: '~15-30 min', detail: 'JR o Hankyu Kioto → Osaka.' },
@@ -472,6 +489,7 @@ const destinations = [
   {
     id: 'fukuoka', n: 10, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
     coords: [33.5904, 130.4017],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Fukuoka_Skyline_of_Seaside_Momochi.jpg/500px-Fukuoka_Skyline_of_Seaside_Momochi.jpg',
     dates: '31 oct–3 nov', nights: 3,
     arrival: '31 oct (Shinkansen desde Osaka)', departure: '3 nov (ferry Beetle a Busan)', lodging: null,
     leg: { mode: '🚄', time: '~2 h 30', detail: 'Shinkansen Shin-Osaka → Hakata (Nozomi).' },
@@ -493,6 +511,7 @@ const destinations = [
   {
     id: 'busan', n: 11, type: 'destino', name: 'Busan + Gyeongju', short: 'Busan',
     coords: [35.1796, 129.0756],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Gwangandaegyo_Bridge_in_Busan%2C_South_Korea_%28iau2207b%29.tiff/lossy-page1-330px-Gwangandaegyo_Bridge_in_Busan%2C_South_Korea_%28iau2207b%29.tiff.jpg',
     dates: '3-6 nov', nights: 3,
     arrival: '3 nov (ferry Beetle desde Fukuoka)', departure: '6 nov (KTX a Seúl)', lodging: null,
     leg: { mode: '⛴️', time: '~3 h 20', detail: 'Ferry rápido Hakata → Busan (Beetle/Kobee; alt: Camellia overnight).' },
@@ -513,6 +532,7 @@ const destinations = [
   {
     id: 'seul', n: 12, type: 'destino', name: 'Seúl', short: 'Seúl',
     coords: [37.5665, 126.9780],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg/500px-%EC%A4%91%ED%99%94%EC%A0%84%EC%9D%98_%EB%82%AE.jpg',
     dates: '6-10 nov', nights: 4,
     arrival: '6 nov (KTX desde Busan, ~2h30)', departure: '10 nov (vuelo de vuelta a Japón)', lodging: null,
     leg: { mode: '🚄', time: '~2 h 30', detail: 'KTX Busan → Seúl.' },
@@ -546,6 +566,7 @@ const destinations = [
   {
     id: 'hakone', n: 13, type: 'destino', name: 'Hakone (onsen + Fuji)', short: 'Hakone',
     coords: [35.2324, 139.1069],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/View_of_Mount_Fuji_from_Lake_Ashi.jpg/500px-View_of_Mount_Fuji_from_Lake_Ashi.jpg',
     dates: '10-12 nov', nights: 2,
     arrival: '10 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '12 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
     leg: { mode: '✈️🚆', time: '~4 h', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.' },
@@ -566,6 +587,7 @@ const destinations = [
   {
     id: 'tokio-final', n: 14, type: 'destino', name: 'Tokio (final, pre-vuelo)', short: 'Tokio fin',
     coords: [35.6895, 139.7000],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Skyscrapers_of_Shinjuku_2009_January.jpg/500px-Skyscrapers_of_Shinjuku_2009_January.jpg',
     dates: '12-17 nov', nights: 5,
     arrival: '12 nov (desde Hakone)', departure: '17 nov 17:45 (vuelo UA6 desde Narita/NRT)', lodging: null,
     leg: { mode: '🚆', time: '~1 h 30', detail: 'Romancecar/Shinkansen Hakone → Tokio.' },
@@ -715,8 +737,9 @@ map.fitBounds(L.latLngBounds(allCoords), { padding: [40, 40] });
 
 const detailsList = document.getElementById('details-list');
 const cards = {};
+const legRows = {};   // id -> la fila de transporte que precede a esa card
 
-destinations.forEach(d => {
+destinations.forEach((d, idx) => {
   const isFullday = d.type === 'fullday';
   const card = document.createElement('article');
   card.className = 'dest-card' + (isFullday ? ' fullday' : '');
@@ -749,9 +772,16 @@ destinations.forEach(d => {
   if (d.leg) {
     const legRow = document.createElement('div');
     legRow.className = 'leg-row';
+    const prev = destinations[idx - 1];
+    const dirLink = (prev && prev.coords && d.coords)
+      ? '<a class="leg-dir" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=' +
+        prev.coords[0] + ',' + prev.coords[1] + '&destination=' + d.coords[0] + ',' + d.coords[1] +
+        '&travelmode=transit" title="Cómo llegar en Google Maps">cómo llegar ↗</a>'
+      : '';
     legRow.innerHTML = '<span class="leg-mode">' + d.leg.mode + '</span>' +
-      '<span class="leg-text"><strong>' + d.leg.time + '</strong> · ' + d.leg.detail + '</span>';
+      '<span class="leg-text"><strong>' + d.leg.time + '</strong> · ' + d.leg.detail + '</span>' + dirLink;
     detailsList.appendChild(legRow);
+    legRows[d.id] = legRow;
   }
 
   const tempsHtml =
@@ -761,9 +791,13 @@ destinations.forEach(d => {
       '<span class="temp-note">' + d.weatherMode + '</span>' +
     '</div>';
 
+  const thumbHtml = d.img ? '<img class="itin-thumb" src="' + d.img + '" loading="lazy" alt="">' : '';
+  const bannerHtml = d.img ? '<img class="detail-banner" src="' + d.img + '" loading="lazy" alt="' + d.name + '">' : '';
+
   card.innerHTML =
     '<div class="itin-head">' +
       numHtml +
+      thumbHtml +
       '<div class="card-title-wrap">' +
         titleHtml +
         metaHtml +
@@ -771,6 +805,7 @@ destinations.forEach(d => {
       '<span class="itin-caret">▸</span>' +
     '</div>' +
     '<div class="card-detail">' +
+      bannerHtml +
       tempsHtml +
       '<p class="card-intro">' + d.intro + '</p>' +
       (d.activities.length > 0
@@ -860,10 +895,29 @@ function unhighlightMarker(id) { const el = document.querySelector('.marker-num[
 function highlightDaytrip(id) { const el = document.querySelector('.marker-dot[data-id="' + id + '"]'); if (el) el.classList.add('active'); }
 function unhighlightDaytrip(id) { const el = document.querySelector('.marker-dot[data-id="' + id + '"]'); if (el) el.classList.remove('active'); }
 
+// Llevar del mapa al sidebar de forma clara: expandir la card, anclar al inicio del
+// "viaje" (la fila de transporte que precede al destino) y resaltarlo con un flash.
+// Ancla al top del bloque para que la carga de imágenes de abajo no descoloque el scroll.
+function flash(el) {
+  if (!el) return;
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 1500);
+}
+function focusTrip(id) {
+  const card = cards[id];
+  if (!card) return;
+  card.classList.add('open');
+  const anchor = legRows[id] || card;
+  setTimeout(() => {
+    anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    flash(legRows[id]); flash(card);
+  }, 70);
+}
+
 Object.entries(markers).forEach(([id, marker]) => {
   marker.on('mouseover', () => { highlightMarker(id); if (cards[id]) cards[id].classList.add('active'); });
   marker.on('mouseout', () => { unhighlightMarker(id); if (cards[id]) cards[id].classList.remove('active'); });
-  marker.on('click', () => { if (cards[id]) { cards[id].classList.add('open'); cards[id].scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
+  marker.on('click', () => focusTrip(id));
 });
 Object.entries(dtMarkers).forEach(([id, marker]) => {
   marker.on('mouseover', () => highlightDaytrip(id));
@@ -886,10 +940,7 @@ for (let i = 0; i < destinations.length - 1; i++) {
     className: '', iconSize: [40, 16], iconAnchor: [20, 8],
   });
   L.marker(mid, { icon: segIcon, keyboard: false, zIndexOffset: -100 }).addTo(map)
-    .on('click', () => {
-      const card = cards[b.id];
-      if (card) { card.classList.add('open'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-    });
+    .on('click', () => focusTrip(b.id));
 }
 
 // CHART
