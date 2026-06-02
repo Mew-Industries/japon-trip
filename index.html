@@ -166,7 +166,7 @@
   <div class="header-stats">
     <span><strong>26/9</strong> salida BA</span>
     <span><strong>40</strong> noches</span>
-    <span><strong>14</strong> nodos</span>
+    <span><strong>15</strong> nodos</span>
     <span><strong>8/11</strong> regreso</span>
   </div>
 </header>
@@ -360,7 +360,7 @@ const destinations = [
     id: 'kanazawa', n: 6, type: 'destino', name: 'Kanazawa', short: 'Kanazawa',
     coords: [36.5613, 136.6562],
     dates: '10-12 oct', nights: 2,
-    arrival: '10 oct (noche; llega de Nikko, primera noche acá)', departure: '12 oct (tren al sur)', lodging: null,
+    arrival: '10 oct (noche; llega de Nikko, primera noche acá)', departure: '12 oct (vía Shirakawa-go de paso, sigue a Koyasan)', lodging: null,
     tempMax: '20-25', tempMin: '13-18', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Nikko el 11/10. Day trip a Shirakawa-go ida y vuelta.',
     activities: [
@@ -377,11 +377,25 @@ const destinations = [
           { name: "Echizen Daibutsu", lat: 36.053645, lon: 136.519287, url: "https://www.google.com/maps/search/?api=1&query=Echizen%20Daibutsu" },
         ],
     daytrips: [
-      { id: 'shirakawago', name: 'Shirakawa-go', coords: [36.2585, 136.9067], time: '1 h 15 min en bus', desc: 'Pueblo UNESCO con casas gassho-zukuri. Verde en sept, mágico.' }
-    ]
+      ]
   },
   {
-    id: 'koyasan', n: 7, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
+    id: 'shirakawago', n: 7, type: 'fullday', name: 'Shirakawa-go', short: 'Shirakawa-go',
+    coords: [36.2585, 136.9067],
+    dates: '12 oct', nights: 0,
+    arrival: '12 oct (de paso desde Kanazawa hacia Koyasan)', departure: '12 oct tarde (sigue a Koyasan; duerme allí esta noche)', lodging: null,
+    tempMax: '18-22', tempMin: '8-12', weatherUpdated: '2026-06-01', weatherMode: 'climatología',
+    intro: 'Día completo de paso entre Kanazawa y Koyasan. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue al sur. No se pernocta acá — la noche se duerme en Koyasan.',
+    activities: [
+      'Mirador de Ogimachi (vista panorámica del valle de casas)',
+      'Caminar el pueblo + casas gassho-zukuri abiertas a visita (Wada-ke)',
+      'Puente Deai colgante sobre el río Shogawa'
+    ],
+    places: [],
+    daytrips: []
+  },
+  {
+    id: 'koyasan', n: 8, type: 'destino', name: 'Koyasan (shukubo)', short: 'Koyasan',
     coords: [34.2129, 135.5836],
     dates: '12-14 oct', nights: 2,
     arrival: '12 oct', departure: '14 oct', lodging: null,
@@ -399,7 +413,7 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'kioto', n: 8, type: 'destino', name: 'Kioto', short: 'Kioto',
+    id: 'kioto', n: 9, type: 'destino', name: 'Kioto', short: 'Kioto',
     coords: [35.0116, 135.7681],
     dates: '14-19 oct', nights: 5,
     arrival: '14 oct', departure: '19 oct', lodging: null,
@@ -428,7 +442,7 @@ const destinations = [
     ]
   },
   {
-    id: 'osaka', n: 9, type: 'destino', name: 'Osaka', short: 'Osaka',
+    id: 'osaka', n: 10, type: 'destino', name: 'Osaka', short: 'Osaka',
     coords: [34.6937, 135.5023],
     dates: '19-22 oct', nights: 3,
     arrival: '19 oct', departure: '22 oct', lodging: null,
@@ -453,7 +467,7 @@ const destinations = [
     ]
   },
   {
-    id: 'yufuin', n: 10, type: 'destino', name: 'Yufuin (onsen)', short: 'Yufuin',
+    id: 'yufuin', n: 11, type: 'destino', name: 'Yufuin (onsen)', short: 'Yufuin',
     coords: [33.2667, 131.3667],
     dates: '22-24 oct', nights: 2,
     arrival: '22 oct', departure: '24 oct', lodging: null,
@@ -472,7 +486,7 @@ const destinations = [
     daytrips: []
   },
   {
-    id: 'fukuoka', n: 11, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
+    id: 'fukuoka', n: 12, type: 'destino', name: 'Fukuoka', short: 'Fukuoka',
     coords: [33.5904, 130.4017],
     dates: '24-27 oct', nights: 3,
     arrival: '24 oct', departure: '27 oct', lodging: null,
@@ -494,7 +508,7 @@ const destinations = [
     ]
   },
   {
-    id: 'busan', n: 12, type: 'destino', name: 'Busan + Gyeongju', short: 'Busan',
+    id: 'busan', n: 13, type: 'destino', name: 'Busan + Gyeongju', short: 'Busan',
     coords: [35.1796, 129.0756],
     dates: '27-30 oct', nights: 3,
     arrival: '27 oct', departure: '30 oct', lodging: null,
@@ -514,7 +528,7 @@ const destinations = [
     ]
   },
   {
-    id: 'seul', n: 13, type: 'destino', name: 'Seúl', short: 'Seúl',
+    id: 'seul', n: 14, type: 'destino', name: 'Seúl', short: 'Seúl',
     coords: [37.5665, 126.9780],
     dates: '30 oct–3 nov', nights: 4,
     arrival: '30 oct', departure: '3 nov', lodging: null,
@@ -549,7 +563,7 @@ const destinations = [
     ]
   },
   {
-    id: 'tokio-final', n: 14, type: 'destino', name: 'Tokio (final, pre-vuelo)', short: 'Tokio fin',
+    id: 'tokio-final', n: 15, type: 'destino', name: 'Tokio (final, pre-vuelo)', short: 'Tokio fin',
     coords: [35.6895, 139.7000],
     dates: '3-7 nov', nights: 4,
     arrival: '3 nov', departure: '7 nov 16:45 (vuelo UA33 desde NRT)', lodging: null,
