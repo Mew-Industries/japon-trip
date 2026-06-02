@@ -121,7 +121,7 @@
   .marker-dot { width: 12px; height: 12px; border-radius: 50%; background: white; border: 1.5px solid #444; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: transform 0.2s, background 0.2s, border-color 0.2s; }
   .marker-dot.active { transform: scale(1.8); background: #fbbf77; border-color: #BA7517; }
 
-  /* Nodo "día completo · de paso": numerado pero rombo y color distinto (no se duerme ahí) */
+  /* Nodo "de paso": numerado pero rombo y color distinto (no se duerme ahí) */
   .marker-diamond-wrap { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
   .marker-diamond { width: 26px; height: 26px; background: #F0B84A; border: 2px solid #B87814; transform: rotate(45deg); box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: transform 0.2s, background 0.2s; display: flex; align-items: center; justify-content: center; }
   .marker-diamond span { transform: rotate(-45deg); font-family: -apple-system, sans-serif; font-size: 12px; font-weight: 700; color: #5A3A00; }
@@ -605,7 +605,7 @@ destinations.forEach(d => {
       });
   const marker = L.marker(d.coords, { icon }).addTo(map);
   const datesLine = isFullday
-    ? d.dates + ' · día completo · de paso'
+    ? d.dates + ' · de paso (no se duerme)'
     : d.dates + ' · ' + d.nights + ' noches';
   marker.bindPopup(
     '<div class="popup-title">' + d.n + '. ' + d.short + '</div>' +
@@ -698,10 +698,10 @@ destinations.forEach(d => {
     ? '<div class="card-num fullday"><span>' + d.n + '</span></div>'
     : '<div class="card-num">' + d.n + '</div>';
   const titleHtml = isFullday
-    ? '<h2>' + d.name + '<span class="fullday-tag">día completo</span></h2>'
+    ? '<h2>' + d.name + '<span class="fullday-tag">de paso</span></h2>'
     : '<h2>' + d.name + '</h2>';
   const metaHtml = isFullday
-    ? '<div class="card-meta">' + d.dates + ' · día completo · de paso</div>'
+    ? '<div class="card-meta">' + d.dates + ' · de paso (no se duerme)</div>'
     : '<div class="card-meta">' + d.dates + ' · ' + d.nights + ' noches</div>';
 
   card.innerHTML =
