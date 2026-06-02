@@ -22,7 +22,11 @@ A medida que el viaje se concreta y transcurre, en CADA parada queremos registra
 - **Cuándo llegamos y cuándo nos vamos** — fechas/horas reales, no solo el plan.
 - **Qué pensábamos hacer ahí** — actividades planeadas (y, idealmente, marcar lo que se hizo).
 
-Hoy el array `destinations` en `index.html` ya tiene `n/type/name/coords/dates/nights/arrival/departure/lodging/activities/places/daytrips`. `type` distingue `destino` (se duerme) de `fullday` (día de paso sin pernocte). La evolución natural es ir completando `lodging` (dónde paramos) y `arrival`/`departure` con hora real, y mantener `activities` como "qué pensábamos hacer". No romper la estructura existente — extenderla.
+Hoy el array `destinations` en `index.html` ya tiene `n/type/name/coords/dates/nights/arrival/departure/lodging/activities/daytrips`. `type` distingue `destino` (se duerme) de `fullday` (día de paso sin pernocte). La evolución natural es ir completando `lodging` (dónde paramos) y `arrival`/`departure` con hora real, y mantener `activities` como "qué pensábamos hacer". No romper la estructura existente — extenderla.
+
+**Modelo de `activities`** (refactor 2026-06-02): cada actividad es un objeto `{ text, cat, coords?, url? }`. `cat` es la categoría (uno de: templos, museos, parques, miradores, barrios, comida, compras, onsen, ocio, otros) — la lista "Qué hacer" se renderiza **agrupada por categoría** en ese orden (CAT_ORDER/CAT_LABELS en el JS). `coords: [lat,lon]` + `url` (Google Maps) están presentes en las actividades que vienen de un lugar guardado (53 de ellas); esas se muestran como ítem clickeable que **vuela al punto en el mapa y abre su popup** (el link a Google Maps vive en el popup del punto, NO en el ítem de la lista). Las actividades escritas a mano sin lugar guardado (~70) van como texto plano bajo su categoría (sin pin). El viejo array paralelo `activityPlaces` (puntitos anónimos) fue **eliminado** y fundido acá. Para recategorizar algo, editá el `cat` de esa actividad; para darle pin a una idea a mano, agregale `coords` + `url`.
+
+⚠️ El script `scripts/update_weather.py` parsea los nodos por regex esperando el formato `id: '...', n: N, type: '...', name: '...'` con comillas simples — NO convertir el array a JSON ni cambiar ese estilo o se rompe el updater de clima.
 
 ## ⚠️ INVARIANTE de fechas (regla dura — verificar SIEMPRE al editar el itinerario)
 

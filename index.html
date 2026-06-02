@@ -105,11 +105,15 @@
 
   .card-intro { font-size: 12px; color: #555; line-height: 1.5; margin: 0 0 10px; }
   .card-section-title { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin: 10px 0 4px; }
-  .card-list { margin: 0; padding: 0 0 0 16px; }
-  .card-list li { font-size: 12px; line-height: 1.5; color: #333; margin-bottom: 2px; }
-  .act-link { color: #0F6E56; text-decoration: none; border-bottom: 1px dotted rgba(15, 110, 86, 0.4); transition: color 0.12s, border-color 0.12s; }
-  .act-link:hover { color: #1D9E75; border-bottom-color: #1D9E75; }
-  .act-pin { font-size: 10px; margin-left: 3px; opacity: 0.7; }
+  .card-list { margin: 0 0 6px; padding: 0 0 0 2px; list-style: none; }
+  .card-list li { font-size: 12px; line-height: 1.5; color: #333; margin-bottom: 1px; }
+  .cat-group { margin: 6px 0 2px; }
+  .cat-head { font-size: 11px; font-weight: 600; color: #0F6E56; margin: 6px 0 3px; }
+  .act-row { display: inline-block; width: 100%; text-align: left; font: inherit; font-size: 12px; line-height: 1.45; color: #1a6b54; background: none; border: none; padding: 1px 0; cursor: pointer; border-radius: 4px; transition: color 0.12s; }
+  .act-row:hover { color: #1D9E75; }
+  .act-row-plain { font-size: 12px; line-height: 1.5; color: #444; padding: 1px 0; }
+  .act-pin { font-size: 9px; margin-left: 4px; opacity: 0.55; }
+  .act-row:hover .act-pin { opacity: 0.9; }
   .dt-row { padding: 8px 10px; background: rgba(0,0,0,0.025); border-radius: 6px; margin-top: 6px; }
   .dt-row-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 2px; }
   .dt-row-name { font-size: 12px; font-weight: 500; }
@@ -228,42 +232,33 @@ const destinations = [
     tempMax: '15-28', tempMin: '12-20', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Aterrizaje en Tokio (Haneda) el 8/10. 5 noches de aclimatación y jet lag para arrancar. Los clásicos de Tokio al empezar el viaje. Tokio se revisita al final (parada 13) como buffer pre-vuelo, así que los museos/teamLab/shopping pueden quedar para esa segunda tanda.',
     activities: [
-      'Asakusa (Senso-ji) + Sumida River + Skytree',
-      'Shibuya scramble + Harajuku + Meiji Jingu',
-      'Akihabara + Jimbocho',
-      'Tsukiji exterior, Toyosu, Ginza',
-      'Golden Gai + Omoide Yokocho',
-      { text: 'Ayuntamiento de Tokio (mirador gratis)', url: "https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20Tokio" },
-      { text: 'Socarrat al Mar', url: "https://www.google.com/maps/search/?api=1&query=Socarrat%20al%20Mar" },
-      { text: '2 Chome-13-4 Uenosakuragi (Yanaka)', url: "https://www.google.com/maps/search/?api=1&query=2%20Chome-13-4%20Uenosakuragi" },
-      { text: '国境を越えて・祈り', url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
-      { text: 'Ohjo Building', url: "https://www.google.com/maps/search/?api=1&query=Ohjo%20Building" },
-      { text: 'Neo Tokyo Kart', url: "https://www.google.com/maps/search/?api=1&query=Neo%20Tokyo%20Kart" },
-      { text: 'STREET KART Tokyo', url: "https://www.google.com/maps/search/?api=1&query=STREET%20KART%20Tokyo" },
-      { text: 'stoop', url: "https://www.google.com/maps/search/?api=1&query=stoop" },
-      { text: '1-15 Udagawacho (Shibuya)', url: "https://www.google.com/maps/search/?api=1&query=1-15%20Udagawacho" },
-      { text: 'SCAI The Bathhouse (galería)', url: "https://www.google.com/maps/search/?api=1&query=SCAI%20The%20Bathhouse" },
-      { text: 'Menchirashi (ramen)', url: "https://www.google.com/maps/search/?api=1&query=Menchirashi" },
-      { text: '21_21 Design Sight', url: "https://www.google.com/maps/search/?api=1&query=21_21%20Design%20Sight" },
-      { text: 'Tokyo Joypolis', url: "https://www.google.com/maps/search/?api=1&query=Tokyo%20Joypolis" },
-      { text: 'Shimokitazawa リバーストーンビル b1f', url: "https://www.google.com/maps/search/?api=1&query=%E3%80%92155-0031%20Tokyo%2C%20Setagaya%20City%2C%20Kitazawa%2C%202-ch%C5%8Dme%E2%88%9212%E2%88%926%20%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3%E3%83%93%E3%83%AB%20b1f" },
-      { text: 'Oretachino-curry ya', url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
-      { text: 'Ramen Horiuchi Shinbashi Ten', url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Horiuchi%20Shinbashi%20Ten" },
-      { text: 'Ramen Kagetsu Arashi', url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kagetsu%20Arashi" },
-      { text: 'Ramen Kamo to Negi Shinjuku', url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kamo%20to%20Negi%20Shinjuku" },
-      { text: 'Rokurinsha (Tokyo Ramen Street)', url: "https://www.google.com/maps/search/?api=1&query=Rokurinsha%20Tokyo%20Ramen%20Street" },
-      { text: 'kindal Harajuku (second hand)', url: "https://www.google.com/maps/search/?api=1&query=kindal%20harajuku%20second%20hand%20store" },
-      { text: 'NOT CONVENTIONAL Harajuku', url: "https://www.google.com/maps/search/?api=1&query=NOT%20CONVENTIONAL%20Harajuku" },
-      { text: 'Nakano Broadway', url: "https://www.google.com/maps/search/?api=1&query=Nakano%20Broadway" }
-    ],
-    activityPlaces: [
-      { lat: 35.689496, lon: 139.691709 }, { lat: 35.6304, lon: 139.7799 }, { lat: 35.722088, lon: 139.770589 },
-      { lat: 35.6586, lon: 139.7454 }, { lat: 35.694412, lon: 139.702498 }, { lat: 35.638189, lon: 139.82442 },
-      { lat: 35.6645, lon: 139.6987 }, { lat: 35.662211, lon: 139.69904 }, { lat: 35.721751, lon: 139.770502 },
-      { lat: 35.6655, lon: 139.7 }, { lat: 35.667413, lon: 139.730135 }, { lat: 35.628718, lon: 139.775304 },
-      { lat: 35.6618, lon: 139.668 }, { lat: 35.6938, lon: 139.7034 }, { lat: 35.6665, lon: 139.7585 },
-      { lat: 35.727172, lon: 139.576717 }, { lat: 35.690854, lon: 139.700377 }, { lat: 35.680036, lon: 139.767847 },
-      { lat: 35.6702, lon: 139.7065 }, { lat: 35.6694, lon: 139.705 }, { lat: 35.709241, lon: 139.665685 }
+      { text: 'Asakusa (Senso-ji) + Sumida River + Skytree', cat: 'templos' },
+      { text: 'Shibuya scramble + Harajuku + Meiji Jingu', cat: 'templos' },
+      { text: 'Akihabara + Jimbocho', cat: 'compras' },
+      { text: 'Tsukiji exterior, Toyosu, Ginza', cat: 'compras' },
+      { text: 'Golden Gai + Omoide Yokocho', cat: 'barrios' },
+      { text: 'Ayuntamiento de Tokio (mirador gratis)', cat: 'miradores', coords: [35.6894957, 139.6917094], url: "https://www.google.com/maps/search/?api=1&query=Ayuntamiento%20de%20Tokio" },
+      { text: 'Socarrat al Mar', cat: 'comida', coords: [35.6304, 139.7799], url: "https://www.google.com/maps/search/?api=1&query=Socarrat%20al%20Mar" },
+      { text: '2 Chome-13-4 Uenosakuragi (Yanaka)', cat: 'miradores', coords: [35.722088, 139.770589], url: "https://www.google.com/maps/search/?api=1&query=2%20Chome-13-4%20Uenosakuragi" },
+      { text: '国境を越えて・祈り', cat: 'museos', coords: [35.6586, 139.7454], url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
+      { text: 'Ohjo Building', cat: 'miradores', coords: [35.694412, 139.7024976], url: "https://www.google.com/maps/search/?api=1&query=Ohjo%20Building" },
+      { text: 'Neo Tokyo Kart', cat: 'ocio', coords: [35.6586, 139.7454], url: "https://www.google.com/maps/search/?api=1&query=Neo%20Tokyo%20Kart" },
+      { text: 'STREET KART Tokyo', cat: 'ocio', coords: [35.638189, 139.8244199], url: "https://www.google.com/maps/search/?api=1&query=STREET%20KART%20Tokyo" },
+      { text: 'stoop', cat: 'miradores', coords: [35.6645, 139.6987], url: "https://www.google.com/maps/search/?api=1&query=stoop" },
+      { text: '1-15 Udagawacho (Shibuya)', cat: 'miradores', coords: [35.6622106, 139.6990404], url: "https://www.google.com/maps/search/?api=1&query=1-15%20Udagawacho" },
+      { text: 'SCAI The Bathhouse (galería)', cat: 'museos', coords: [35.7217514, 139.7705016], url: "https://www.google.com/maps/search/?api=1&query=SCAI%20The%20Bathhouse" },
+      { text: 'Menchirashi (ramen)', cat: 'comida', coords: [35.6655, 139.7], url: "https://www.google.com/maps/search/?api=1&query=Menchirashi" },
+      { text: '21_21 Design Sight', cat: 'museos', coords: [35.6674127, 139.7301349], url: "https://www.google.com/maps/search/?api=1&query=21_21%20Design%20Sight" },
+      { text: 'Tokyo Joypolis', cat: 'ocio', coords: [35.6287179, 139.7753038], url: "https://www.google.com/maps/search/?api=1&query=Tokyo%20Joypolis" },
+      { text: 'Shimokitazawa リバーストーンビル b1f', cat: 'compras', coords: [35.6618, 139.668], url: "https://www.google.com/maps/search/?api=1&query=%E3%80%92155-0031%20Tokyo%2C%20Setagaya%20City%2C%20Kitazawa%2C%202-ch%C5%8Dme%E2%88%9212%E2%88%926%20%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3%E3%83%93%E3%83%AB%20b1f" },
+      { text: 'Oretachino-curry ya', cat: 'comida', coords: [35.6938, 139.7034], url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
+      { text: 'Ramen Horiuchi Shinbashi Ten', cat: 'comida', coords: [35.6665, 139.7585], url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Horiuchi%20Shinbashi%20Ten" },
+      { text: 'Ramen Kagetsu Arashi', cat: 'comida', coords: [35.7271721, 139.5767167], url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kagetsu%20Arashi" },
+      { text: 'Ramen Kamo to Negi Shinjuku', cat: 'comida', coords: [35.6908536, 139.7003768], url: "https://www.google.com/maps/search/?api=1&query=Ramen%20Kamo%20to%20Negi%20Shinjuku" },
+      { text: 'Rokurinsha (Tokyo Ramen Street)', cat: 'comida', coords: [35.6800361, 139.7678472], url: "https://www.google.com/maps/search/?api=1&query=Rokurinsha%20Tokyo%20Ramen%20Street" },
+      { text: 'kindal Harajuku (second hand)', cat: 'compras', coords: [35.6702, 139.7065], url: "https://www.google.com/maps/search/?api=1&query=kindal%20harajuku%20second%20hand%20store" },
+      { text: 'NOT CONVENTIONAL Harajuku', cat: 'compras', coords: [35.6694, 139.705], url: "https://www.google.com/maps/search/?api=1&query=NOT%20CONVENTIONAL%20Harajuku" },
+      { text: 'Nakano Broadway', cat: 'compras', coords: [35.7092407, 139.6656853], url: "https://www.google.com/maps/search/?api=1&query=Nakano%20Broadway" }
     ],
     daytrips: [
       { id: 'kamakura', name: 'Kamakura', coords: [35.3192, 139.5469], time: '1 h en JR Yokosuka', desc: 'Gran Buda, templo Hokoku-ji (bambú), playa Yuigahama.' },
@@ -282,14 +277,11 @@ const destinations = [
     tempMax: '15-22', tempMin: '7-14', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Día de paso, sin pernocte: saliendo de Tokio hacia el norte se baja en Nikko para los santuarios UNESCO de Toshogu y (si da el tiempo) el lago Chuzenji + cataratas Kegon, con los primeros colores de otoño en altura. A la tarde/noche se sigue viaje a Sendai (se duerme allí). Nikko es el pivote del salto al norte: Tokio → Nikko → Sendai → Sapporo, sin backtrack.',
     activities: [
-      'Toshogu shrine (mausoleo Tokugawa Ieyasu)',
-      'Rinno-ji + puente Shinkyo',
-      'Lago Chuzenji + cataratas Kegon (si da el tiempo)',
-      'Senjogahara (primeras hojas) si queda margen',
-      { text: 'Centro de Nikkō (estación / casco)', url: "https://www.google.com/maps/search/?api=1&query=Nikk%C5%8D" }
-    ],
-    activityPlaces: [
-      { lat: 36.719758, lon: 139.698139 }
+      { text: 'Toshogu shrine (mausoleo Tokugawa Ieyasu)', cat: 'templos' },
+      { text: 'Rinno-ji + puente Shinkyo', cat: 'templos' },
+      { text: 'Lago Chuzenji + cataratas Kegon (si da el tiempo)', cat: 'parques' },
+      { text: 'Senjogahara (primeras hojas) si queda margen', cat: 'parques' },
+      { text: 'Centro de Nikkō (estación / casco)', cat: 'barrios', coords: [36.7197576, 139.698139], url: "https://www.google.com/maps/search/?api=1&query=Nikk%C5%8D" }
     ],
     daytrips: [
       { id: 'nonohana', name: 'Nonohana', coords: [36.966132, 140.030519], time: '1 h al norte', url: "https://www.google.com/maps/search/?api=1&query=Nonohana", desc: 'Parada guardada al norte de Nikkō, hacia Fukushima.' }
@@ -303,13 +295,10 @@ const destinations = [
     tempMax: '16-24', tempMin: '7-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Escala en Tohoku camino al norte, en pleno arranque del otoño. Sendai es la capital de la región: lengua de res a la parrilla (gyutan), la avenida arbolada de Jozenji y el mausoleo dorado de Date Masamune. Sirve de pivote entre Nikko y Sapporo, y deja a mano la bahía de Matsushima y los zorros de Zao. El koyo de Tohoku está en plena subida a mediados/fines de octubre.',
     activities: [
-      'Gyutan (lengua de res a la parrilla, especialidad de Sendai)',
-      'Avenida Jozenji-dori + barrio Kokubuncho',
-      'Ruinas del castillo de Sendai (Aoba) + vista de la ciudad',
-      { text: 'Zuihōden (mausoleo dorado de Date Masamune)', url: "https://www.google.com/maps/search/?api=1&query=Zuih%C5%8Dden" }
-    ],
-    activityPlaces: [
-      { lat: 38.250649, lon: 140.866391 }
+      { text: 'Gyutan (lengua de res a la parrilla, especialidad de Sendai)', cat: 'comida' },
+      { text: 'Avenida Jozenji-dori + barrio Kokubuncho', cat: 'barrios' },
+      { text: 'Ruinas del castillo de Sendai (Aoba) + vista de la ciudad', cat: 'miradores' },
+      { text: 'Zuihōden (mausoleo dorado de Date Masamune)', cat: 'templos', coords: [38.2506487, 140.8663906], url: "https://www.google.com/maps/search/?api=1&query=Zuih%C5%8Dden" }
     ],
     daytrips: [
       { id: 'matsushima', name: 'Matsushima', coords: [38.3400, 141.0600], time: '40 min en JR', desc: 'Bahía de islas con pinos, una de las "3 vistas de Japón". Templo Zuiganji + paseo en barco.' },
@@ -324,15 +313,12 @@ const destinations = [
     tempMax: '11-21', tempMin: '2-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
-      'Mercado Nijo + ramen miso + sopa de curry (sopa curry)',
-      'Parque Odori + torre de TV',
-      'Antigua fábrica de cerveza Sapporo (museo + biergarten)',
-      { text: 'Monte Moiwa (teleférico, vista nocturna de la ciudad)', url: "https://www.google.com/maps/search/?api=1&query=Mt.%20Moiwa" },
-      { text: 'Moerenuma Park (parque-escultura de Isamu Noguchi)', url: "https://www.google.com/maps/search/?api=1&query=Moerenumakoen" },
-      { text: 'Sapporo Art Museum', url: "https://www.google.com/maps/search/?api=1&query=Sapporo%20Art%20Museum" }
-    ],
-    activityPlaces: [
-      { lat: 43.022395, lon: 141.322339 }, { lat: 43.148, lon: 141.415 }, { lat: 42.941983, lon: 141.34223 }
+      { text: 'Mercado Nijo + ramen miso + sopa de curry (sopa curry)', cat: 'comida' },
+      { text: 'Parque Odori + torre de TV', cat: 'parques' },
+      { text: 'Antigua fábrica de cerveza Sapporo (museo + biergarten)', cat: 'comida' },
+      { text: 'Monte Moiwa (teleférico, vista nocturna de la ciudad)', cat: 'miradores', coords: [43.0223946, 141.3223386], url: "https://www.google.com/maps/search/?api=1&query=Mt.%20Moiwa" },
+      { text: 'Moerenuma Park (parque-escultura de Isamu Noguchi)', cat: 'museos', coords: [43.148, 141.415], url: "https://www.google.com/maps/search/?api=1&query=Moerenumakoen" },
+      { text: 'Sapporo Art Museum', cat: 'museos', coords: [42.9419832, 141.3422298], url: "https://www.google.com/maps/search/?api=1&query=Sapporo%20Art%20Museum" }
     ],
     daytrips: [
       { id: 'otaru', name: 'Otaru', coords: [43.1907, 140.9947], time: '40 min en JR', desc: 'Pueblo portuario del canal, cristalería y sushi. Clásico day trip desde Sapporo.' }
@@ -346,17 +332,14 @@ const destinations = [
     tempMax: '15-27', tempMin: '8-19', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
     activities: [
-      'Jardín Kenroku-en (top 3 de Japón)',
-      'Castillo de Kanazawa',
-      'Higashi Chaya (barrio geisha)',
-      'Mercado Omicho (mariscos)',
-      'Museo del Siglo XXI',
-      'Distrito samurái Nagamachi',
-      { text: 'Museo del Siglo XXI (21st Century Museum)', url: "https://www.google.com/maps/search/?api=1&query=Kanazawa%2021st%20Century%20Museum%20of%20Contemporary%20Art" },
-      { text: 'Super 2nd Street Shimeno (second hand)', url: "https://www.google.com/maps/search/?api=1&query=Super%202nd%20Street%20Kanazawa%20Shimeno" }
-    ],
-    activityPlaces: [
-      { lat: 36.561088, lon: 136.659375 }, { lat: 36.5847, lon: 136.6692 }
+      { text: 'Jardín Kenroku-en (top 3 de Japón)', cat: 'parques' },
+      { text: 'Castillo de Kanazawa', cat: 'miradores' },
+      { text: 'Higashi Chaya (barrio geisha)', cat: 'barrios' },
+      { text: 'Mercado Omicho (mariscos)', cat: 'comida' },
+      { text: 'Museo del Siglo XXI', cat: 'museos' },
+      { text: 'Distrito samurái Nagamachi', cat: 'barrios' },
+      { text: 'Museo del Siglo XXI (21st Century Museum)', cat: 'museos', coords: [36.561088, 136.659375], url: "https://www.google.com/maps/search/?api=1&query=Kanazawa%2021st%20Century%20Museum%20of%20Contemporary%20Art" },
+      { text: 'Super 2nd Street Shimeno (second hand)', cat: 'compras', coords: [36.5847, 136.6692], url: "https://www.google.com/maps/search/?api=1&query=Super%202nd%20Street%20Kanazawa%20Shimeno" }
     ],
     daytrips: [
       { id: 'echizen-daibutsu', name: 'Echizen Daibutsu', coords: [36.053645, 136.519287], time: '1 h al sur (Fukui)', url: "https://www.google.com/maps/search/?api=1&query=Echizen%20Daibutsu", desc: 'Gran Buda de Echizen en Katsuyama, Fukui.' }
@@ -370,9 +353,9 @@ const destinations = [
     tempMax: '16-26', tempMin: '6-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Día completo de paso entre Kanazawa y Koyasan. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue al sur. No se pernocta acá — la noche se duerme en Koyasan.',
     activities: [
-      'Mirador de Ogimachi (vista panorámica del valle de casas)',
-      'Caminar el pueblo + casas gassho-zukuri abiertas a visita (Wada-ke)',
-      'Puente Deai colgante sobre el río Shogawa'
+      { text: 'Mirador de Ogimachi (vista panorámica del valle de casas)', cat: 'parques' },
+      { text: 'Caminar el pueblo + casas gassho-zukuri abiertas a visita (Wada-ke)', cat: 'otros' },
+      { text: 'Puente Deai colgante sobre el río Shogawa', cat: 'parques' }
     ],
     daytrips: []
   },
@@ -384,12 +367,12 @@ const destinations = [
     tempMax: '10-23', tempMin: '5-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís 1 noche en un templo con cena vegetariana y ceremonia matutina opcional. Con una sola noche, el plan ideal es llegar a la tarde para Okunoin al atardecer y madrugar para la ceremonia + Okunoin vacío antes de seguir a Kioto.',
     activities: [
-      'Okunoin al atardecer (cementerio con 200.000 lápidas)',
-      'Okunoin antes del amanecer (vacío total)',
-      'Kongobu-ji (templo principal)',
-      'Garan (complejo central con pagoda)',
-      'Cena shojin ryori (vegetariana budista)',
-      'Ceremonia matutina del templo (5:30 AM)'
+      { text: 'Okunoin al atardecer (cementerio con 200.000 lápidas)', cat: 'templos' },
+      { text: 'Okunoin antes del amanecer (vacío total)', cat: 'templos' },
+      { text: 'Kongobu-ji (templo principal)', cat: 'templos' },
+      { text: 'Garan (complejo central con pagoda)', cat: 'templos' },
+      { text: 'Cena shojin ryori (vegetariana budista)', cat: 'comida' },
+      { text: 'Ceremonia matutina del templo (5:30 AM)', cat: 'templos' }
     ],
     daytrips: []
   },
@@ -401,20 +384,16 @@ const destinations = [
     tempMax: '14-25', tempMin: '5-20', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Capital cultural. Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
     activities: [
-      'Arashiyama al amanecer: bambú, Tenryu-ji, Otagi Nenbutsuji',
-      'Templos del este: Kiyomizu, Yasaka, paseo de filósofos, Ginkaku-ji',
-      'Fushimi Inari al amanecer (6 AM)',
-      'Mercado Nishiki + Kamishichiken',
-      'Kinkaku-ji o Ryoan-ji',
-      'Pontocho de noche, kaiseki ryori',
-      { text: 'Arashiyama Monkey Park Iwatayama', url: "https://www.google.com/maps/search/?api=1&query=Arashiyama%20Monkey%20Park%20Iwatayama" },
-      { text: 'Bosque de Bambú de Arashiyama', url: "https://www.google.com/maps/search/?api=1&query=Bosque%20de%20Bamb%C3%BA%20de%20Arashiyama" },
-      { text: 'Hirobun (kawadoko / nagashi sōmen, Kibune)', url: "https://www.google.com/maps/search/?api=1&query=Hirobun" },
-      { text: 'Garden of Fine Arts Kyoto (Tadao Ando)', url: "https://www.google.com/maps/search/?api=1&query=Garden%20of%20Fine%20Arts%20Kyoto" }
-    ],
-    activityPlaces: [
-      { lat: 35.009086, lon: 135.674967 }, { lat: 35.017, lon: 135.6716 },
-      { lat: 35.124899, lon: 135.763925 }, { lat: 35.050778, lon: 135.765489 }
+      { text: 'Arashiyama al amanecer: bambú, Tenryu-ji, Otagi Nenbutsuji', cat: 'templos' },
+      { text: 'Templos del este: Kiyomizu, Yasaka, paseo de filósofos, Ginkaku-ji', cat: 'templos' },
+      { text: 'Fushimi Inari al amanecer (6 AM)', cat: 'templos' },
+      { text: 'Mercado Nishiki + Kamishichiken', cat: 'comida' },
+      { text: 'Kinkaku-ji o Ryoan-ji', cat: 'otros' },
+      { text: 'Pontocho de noche, kaiseki ryori', cat: 'comida' },
+      { text: 'Arashiyama Monkey Park Iwatayama', cat: 'parques', coords: [35.0090864, 135.6749673], url: "https://www.google.com/maps/search/?api=1&query=Arashiyama%20Monkey%20Park%20Iwatayama" },
+      { text: 'Bosque de Bambú de Arashiyama', cat: 'parques', coords: [35.017, 135.6716], url: "https://www.google.com/maps/search/?api=1&query=Bosque%20de%20Bamb%C3%BA%20de%20Arashiyama" },
+      { text: 'Hirobun (kawadoko / nagashi sōmen, Kibune)', cat: 'comida', coords: [35.1248986, 135.7639251], url: "https://www.google.com/maps/search/?api=1&query=Hirobun" },
+      { text: 'Garden of Fine Arts Kyoto (Tadao Ando)', cat: 'museos', coords: [35.0507778, 135.7654894], url: "https://www.google.com/maps/search/?api=1&query=Garden%20of%20Fine%20Arts%20Kyoto" }
     ],
     daytrips: [
       { id: 'nara', name: 'Nara', coords: [34.6851, 135.8048], time: '45 min en JR', desc: 'Todai-ji (Buda gigante), ciervos sueltos, jardín Yoshiki-en.' },
@@ -432,19 +411,16 @@ const destinations = [
     tempMax: '15-25', tempMin: '7-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 5 noches (subió de 3): da aire para Naoshima, un día de Kobe y recorrer barrios de Osaka sin apuro.',
     activities: [
-      'Dotonbori (luces, takoyaki, kushikatsu)',
-      'Shinsekai + Tsutenkaku tower',
-      'Castillo de Osaka + parque',
-      'Umeda Sky Building al atardecer',
-      'Okonomiyaki y kushikatsu de barrio',
-      'Barrios con calma: Nakazakicho (cafés vintage), Shinsaibashi, Amerika-mura',
-      'Kuromon Ichiba (mercado) + tienda de cuchillos en Sennichimae Doguyasuji',
-      { text: 'SUPER NINTENDO WORLD (USJ)', url: "https://www.google.com/maps/search/?api=1&query=SUPER%20NINTENDO%20WORLD%E2%84%A2" },
-      { text: 'Katsudon Yoshibei (Namba, Doguyasuji)', url: "https://www.google.com/maps/search/?api=1&query=Katsudon%20Yoshibei%20Namba%20Doguyasuji" },
-      { text: 'Sayamaike Museum (Tadao Ando)', url: "https://www.google.com/maps/search/?api=1&query=Osaka%20Prefectural%20Sayamaike%20Museum" }
-    ],
-    activityPlaces: [
-      { lat: 34.6657, lon: 135.4323 }, { lat: 34.6657, lon: 135.502 }, { lat: 34.506, lon: 135.556 }
+      { text: 'Dotonbori (luces, takoyaki, kushikatsu)', cat: 'ocio' },
+      { text: 'Shinsekai + Tsutenkaku tower', cat: 'miradores' },
+      { text: 'Castillo de Osaka + parque', cat: 'parques' },
+      { text: 'Umeda Sky Building al atardecer', cat: 'miradores' },
+      { text: 'Okonomiyaki y kushikatsu de barrio', cat: 'comida' },
+      { text: 'Barrios con calma: Nakazakicho (cafés vintage), Shinsaibashi, Amerika-mura', cat: 'barrios' },
+      { text: 'Kuromon Ichiba (mercado) + tienda de cuchillos en Sennichimae Doguyasuji', cat: 'comida' },
+      { text: 'SUPER NINTENDO WORLD (USJ)', cat: 'ocio', coords: [34.6657, 135.4323], url: "https://www.google.com/maps/search/?api=1&query=SUPER%20NINTENDO%20WORLD%E2%84%A2" },
+      { text: 'Katsudon Yoshibei (Namba, Doguyasuji)', cat: 'comida', coords: [34.6657, 135.502], url: "https://www.google.com/maps/search/?api=1&query=Katsudon%20Yoshibei%20Namba%20Doguyasuji" },
+      { text: 'Sayamaike Museum (Tadao Ando)', cat: 'museos', coords: [34.506, 135.556], url: "https://www.google.com/maps/search/?api=1&query=Osaka%20Prefectural%20Sayamaike%20Museum" }
     ],
     daytrips: [
       { id: 'naoshima', name: 'Naoshima', coords: [34.4554, 133.9933], time: '3 h vía Okayama + ferry', desc: 'Isla de arte: Chichu, Benesse, pumpkin de Kusama.' },
@@ -461,15 +437,12 @@ const destinations = [
     tempMax: '16-25', tempMin: '9-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cuna del ramen tonkotsu. Última parada en Japón (en esta tanda) antes del cruce a Corea por ferry.',
     activities: [
-      'Yatais (puestos callejeros) en Nakasu y Tenjin',
-      'Ramen tonkotsu en Ichiran original o Hakata Issou',
-      'Canal City Hakata + Ohori Park',
-      'Compras en Tenjin',
-      'Motsunabe (hot pot de tripas)',
-      { text: 'Acros Fukuoka (terraza-jardín escalonada)', url: "https://www.google.com/maps/search/?api=1&query=Acros%20Fukuoka" }
-    ],
-    activityPlaces: [
-      { lat: 33.592167, lon: 130.402852 }
+      { text: 'Yatais (puestos callejeros) en Nakasu y Tenjin', cat: 'comida' },
+      { text: 'Ramen tonkotsu en Ichiran original o Hakata Issou', cat: 'comida' },
+      { text: 'Canal City Hakata + Ohori Park', cat: 'parques' },
+      { text: 'Compras en Tenjin', cat: 'compras' },
+      { text: 'Motsunabe (hot pot de tripas)', cat: 'comida' },
+      { text: 'Acros Fukuoka (terraza-jardín escalonada)', cat: 'parques', coords: [33.592167, 130.4028516], url: "https://www.google.com/maps/search/?api=1&query=Acros%20Fukuoka" }
     ],
     daytrips: [
       { id: 'dazaifu', name: 'Dazaifu', coords: [33.5104, 130.5417], time: '40 min en tren', desc: 'Santuario Tenmangu + museo nacional de Kyushu.' },
@@ -484,12 +457,12 @@ const destinations = [
     tempMax: '10-25', tempMin: '0-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
     activities: [
-      'Gamcheon Culture Village (favela artística colorida)',
-      'Mercado Jagalchi (pescado más grande de Corea)',
-      'Haedong Yonggungsa (templo sobre el mar)',
-      'Beomeosa (templo en la montaña)',
-      'Haeundae Beach + Songdo',
-      'Korean BBQ + soju + jjimjilbang'
+      { text: 'Gamcheon Culture Village (favela artística colorida)', cat: 'barrios' },
+      { text: 'Mercado Jagalchi (pescado más grande de Corea)', cat: 'comida' },
+      { text: 'Haedong Yonggungsa (templo sobre el mar)', cat: 'templos' },
+      { text: 'Beomeosa (templo en la montaña)', cat: 'templos' },
+      { text: 'Haeundae Beach + Songdo', cat: 'parques' },
+      { text: 'Korean BBQ + soju + jjimjilbang', cat: 'ocio' }
     ],
     daytrips: [
       { id: 'gyeongju', name: 'Gyeongju', coords: [35.8562, 129.2247], time: '30 min en KTX', desc: 'Capital antigua de Silla (UNESCO). Bulguksa, Seokguram, Anapji Pond.' }
@@ -503,33 +476,26 @@ const destinations = [
     tempMax: '7-20', tempMin: '-1-13', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Tramo coreano. KTX desde Busan, ~2h30. Principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Japón: una última escala en Hakone (parada 11, onsen + Fuji) antes de cerrar en Tokio para el vuelo del 16/11.',
     activities: [
-      'Palacio Gyeongbokgung (con hanbok gratis)',
-      'Bukchon Hanok Village + Insadong',
-      'Gwangjang Market (comida callejera)',
-      'Hongdae + Yeonnam-dong + Seongsu',
-      'Myeongdong de noche + Korean BBQ',
-      'Namsan Tower + Namdaemun',
-      { text: 'Dongdaemun Design Plaza (DDP, Zaha Hadid)', url: "https://www.google.com/maps/search/?api=1&query=Dongdaemun%20Design%20Plaza%20%28DDP%29" },
-      { text: 'Gwangjang Market', url: "https://www.google.com/maps/search/?api=1&query=Gwangjang%20Market" },
-      { text: 'Ikseon-dong (hanok cafés)', url: "https://www.google.com/maps/search/?api=1&query=Ikseon-dong" },
-      { text: 'Museo de Arte Leeum', url: "https://www.google.com/maps/search/?api=1&query=Museo%20de%20Arte%20Leeum" },
-      { text: 'GENTLE MONSTER (flagship)', url: "https://www.google.com/maps/search/?api=1&query=GENTLE%20MONSTER" },
-      { text: 'HAUS NOWHERE Seoul', url: "https://www.google.com/maps/search/?api=1&query=HAUS%20NOWHERE%20SEOUL" },
-      { text: 'Audeum Audio Museum', url: "https://www.google.com/maps/search/?api=1&query=Audeum%20Audio%20Museum" },
-      { text: 'Le Chamber (bar de cócteles)', url: "https://www.google.com/maps/search/?api=1&query=Le%20Chamber" },
-      { text: 'Seoul Forest Park', url: "https://www.google.com/maps/search/?api=1&query=Seoul%20Forest%20Park" },
-      { text: 'Haneul Park (pampas en Mapo)', url: "https://www.google.com/maps/search/?api=1&query=Haneul%20Park" },
-      { text: 'Eungbongsan Rock Climbing Park', url: "https://www.google.com/maps/search/?api=1&query=Eungbongsan%20Rock%20Climbing%20Park" },
-      { text: 'Seoul Robot & AI Museum', url: "https://www.google.com/maps/search/?api=1&query=SEOUL%20ROBOT%20%26%20AI%20MUSEUM" },
-      { text: 'Ecojardin Gyeongbok (flagship)', url: "https://www.google.com/maps/search/?api=1&query=Ecojardin%20Gyeongbok%20Flagship%20Branch" },
-      { text: '20 Samcheong-ro 5-gil (Bukchon)', url: "https://www.google.com/maps/search/?api=1&query=20%20Samcheong-ro%205-gil" }
-    ],
-    activityPlaces: [
-      { lat: 37.567069, lon: 127.009899 }, { lat: 37.569783, lon: 127.000655 }, { lat: 37.574358, lon: 126.989776 },
-      { lat: 37.5384, lon: 126.999 }, { lat: 37.521837, lon: 127.021619 }, { lat: 37.538138, lon: 127.058948 },
-      { lat: 37.5247, lon: 127.039 }, { lat: 37.5246, lon: 127.041 }, { lat: 37.543386, lon: 127.033267 },
-      { lat: 37.568064, lon: 126.884978 }, { lat: 37.5478, lon: 127.033 }, { lat: 37.6109, lon: 127.0286 },
-      { lat: 37.576, lon: 126.976 }, { lat: 37.582797, lon: 126.980755 }
+      { text: 'Palacio Gyeongbokgung (con hanbok gratis)', cat: 'templos' },
+      { text: 'Bukchon Hanok Village + Insadong', cat: 'compras' },
+      { text: 'Gwangjang Market (comida callejera)', cat: 'comida' },
+      { text: 'Hongdae + Yeonnam-dong + Seongsu', cat: 'compras' },
+      { text: 'Myeongdong de noche + Korean BBQ', cat: 'comida' },
+      { text: 'Namsan Tower + Namdaemun', cat: 'miradores' },
+      { text: 'Dongdaemun Design Plaza (DDP, Zaha Hadid)', cat: 'museos', coords: [37.5670686, 127.009899], url: "https://www.google.com/maps/search/?api=1&query=Dongdaemun%20Design%20Plaza%20%28DDP%29" },
+      { text: 'Gwangjang Market', cat: 'comida', coords: [37.5697826, 127.0006548], url: "https://www.google.com/maps/search/?api=1&query=Gwangjang%20Market" },
+      { text: 'Ikseon-dong (hanok cafés)', cat: 'barrios', coords: [37.5743576, 126.9897757], url: "https://www.google.com/maps/search/?api=1&query=Ikseon-dong" },
+      { text: 'Museo de Arte Leeum', cat: 'museos', coords: [37.5384, 126.999], url: "https://www.google.com/maps/search/?api=1&query=Museo%20de%20Arte%20Leeum" },
+      { text: 'GENTLE MONSTER (flagship)', cat: 'museos', coords: [37.5218374, 127.0216185], url: "https://www.google.com/maps/search/?api=1&query=GENTLE%20MONSTER" },
+      { text: 'HAUS NOWHERE Seoul', cat: 'museos', coords: [37.5381376, 127.0589475], url: "https://www.google.com/maps/search/?api=1&query=HAUS%20NOWHERE%20SEOUL" },
+      { text: 'Audeum Audio Museum', cat: 'museos', coords: [37.5247, 127.039], url: "https://www.google.com/maps/search/?api=1&query=Audeum%20Audio%20Museum" },
+      { text: 'Le Chamber (bar de cócteles)', cat: 'comida', coords: [37.5246, 127.041], url: "https://www.google.com/maps/search/?api=1&query=Le%20Chamber" },
+      { text: 'Seoul Forest Park', cat: 'parques', coords: [37.5433862, 127.0332668], url: "https://www.google.com/maps/search/?api=1&query=Seoul%20Forest%20Park" },
+      { text: 'Haneul Park (pampas en Mapo)', cat: 'parques', coords: [37.568064, 126.8849778], url: "https://www.google.com/maps/search/?api=1&query=Haneul%20Park" },
+      { text: 'Eungbongsan Rock Climbing Park', cat: 'parques', coords: [37.5478, 127.033], url: "https://www.google.com/maps/search/?api=1&query=Eungbongsan%20Rock%20Climbing%20Park" },
+      { text: 'Seoul Robot & AI Museum', cat: 'museos', coords: [37.6109, 127.0286], url: "https://www.google.com/maps/search/?api=1&query=SEOUL%20ROBOT%20%26%20AI%20MUSEUM" },
+      { text: 'Ecojardin Gyeongbok (flagship)', cat: 'parques', coords: [37.576, 126.976], url: "https://www.google.com/maps/search/?api=1&query=Ecojardin%20Gyeongbok%20Flagship%20Branch" },
+      { text: '20 Samcheong-ro 5-gil (Bukchon)', cat: 'barrios', coords: [37.582797, 126.9807546], url: "https://www.google.com/maps/search/?api=1&query=20%20Samcheong-ro%205-gil" }
     ],
     daytrips: [
       { id: 'dmz', name: 'DMZ Tour', coords: [37.9425, 126.6800], time: 'Bus desde el centro, 1 día', desc: 'Frontera con Corea del Norte. JSA, Dora Observatory. Reservar antes.' }
@@ -543,15 +509,12 @@ const destinations = [
     tempMax: '14-20', tempMin: '9-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
     activities: [
-      { text: 'Museo al Aire Libre de Hakone (Hakone Open-Air Museum)', url: "https://www.google.com/maps/search/?api=1&query=Museo%20al%20Aire%20Libre%20de%20Hakone" },
-      'Owakudani (valle volcánico, huevos negros del azufre)',
-      'Lago Ashi: barco pirata + torii del santuario de Hakone sobre el agua',
-      'Onsen al atardecer en el ryokan',
-      'Vistas del monte Fuji (día despejado)',
-      { text: 'Castillo Odawara (puerta de entrada a Hakone)', url: "https://www.google.com/maps/search/?api=1&query=Castillo%20Odawara" }
-    ],
-    activityPlaces: [
-      { lat: 35.2447, lon: 139.053 }, { lat: 35.251055, lon: 139.153425 }
+      { text: 'Museo al Aire Libre de Hakone (Hakone Open-Air Museum)', cat: 'museos', coords: [35.2447, 139.053], url: "https://www.google.com/maps/search/?api=1&query=Museo%20al%20Aire%20Libre%20de%20Hakone" },
+      { text: 'Owakudani (valle volcánico, huevos negros del azufre)', cat: 'parques' },
+      { text: 'Lago Ashi: barco pirata + torii del santuario de Hakone sobre el agua', cat: 'templos' },
+      { text: 'Onsen al atardecer en el ryokan', cat: 'onsen' },
+      { text: 'Vistas del monte Fuji (día despejado)', cat: 'miradores' },
+      { text: 'Castillo Odawara (puerta de entrada a Hakone)', cat: 'miradores', coords: [35.2510547, 139.1534249], url: "https://www.google.com/maps/search/?api=1&query=Castillo%20Odawara" }
     ],
     daytrips: [
       { id: 'chureito', name: 'Chureito Pagoda', coords: [35.501287, 138.801356], time: '~1 h al norte (Yamanashi)', url: "https://www.google.com/maps/search/?api=1&query=Chureito%20Pagoda", desc: 'La pagoda con el monte Fuji de fondo, lado Yamanashi (Fujiyoshida). La postal clásica del Fuji.' }
@@ -565,12 +528,12 @@ const destinations = [
     tempMax: '11-24', tempMin: '4-14', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cierre del viaje: 6 noches de vuelta en Tokio (última noche 16/11; el 17 es el día previo al vuelo de la tarde), como buffer pre-vuelo. A mediados de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
     activities: [
-      'Ginkgos de Meiji Jingu Gaien + koyo en Rikugien / Koishikawa Korakuen',
-      'TeamLab Planets/Borderless (reservar online)',
-      'Yanaka + Nezu + Sendagi (Tokio "viejo")',
-      'Museo Ghibli si conseguís entrada',
-      'Compras finales: Nakano Broadway, Harajuku, Ginza',
-      'Última cena: Golden Gai u Omoide Yokocho'
+      { text: 'Ginkgos de Meiji Jingu Gaien + koyo en Rikugien / Koishikawa Korakuen', cat: 'parques' },
+      { text: 'TeamLab Planets/Borderless (reservar online)', cat: 'museos' },
+      { text: 'Yanaka + Nezu + Sendagi (Tokio "viejo")', cat: 'barrios' },
+      { text: 'Museo Ghibli si conseguís entrada', cat: 'museos' },
+      { text: 'Compras finales: Nakano Broadway, Harajuku, Ginza', cat: 'compras' },
+      { text: 'Última cena: Golden Gai u Omoide Yokocho', cat: 'comida' }
     ],
     daytrips: []
   }
@@ -661,16 +624,31 @@ function placePopup(p, sub) {
     '<div class="popup-why"><a href="' + p.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a></div>';
 }
 
-// Puntito sutil en el mapa para cada lugar guardado que ahora es una actividad
-// dentro del destino (el link a Maps vive en la tarjeta "Qué hacer").
+// Categorías de "Qué hacer" (etiqueta + orden de despliegue).
+const CAT_LABELS = {
+  comida: '🍜 Comida', templos: '⛩️ Templos y santuarios', museos: '🏛️ Museos y arte',
+  parques: '🌳 Parques y naturaleza', barrios: '🏙️ Barrios y paseos', compras: '🛍️ Compras',
+  miradores: '🗼 Miradores y arquitectura', onsen: '♨️ Onsen', ocio: '🎢 Ocio', otros: '✨ Otros'
+};
+const CAT_ORDER = ['templos','museos','parques','miradores','barrios','comida','compras','onsen','ocio','otros'];
+
+// Un marcador con nombre por cada actividad geolocalizada. El link a Google Maps
+// vive en el popup del punto; la lista "Qué hacer" linkea a este punto.
+const actMarkers = {};
 const savedPlaceLayer = L.layerGroup().addTo(map);
 destinations.forEach(d => {
-  (d.activityPlaces || []).forEach(p => {
-    if (p.lat == null || p.lon == null) return;
-    L.circleMarker([p.lat, p.lon], {
-      radius: 3.5, color: '#0F6E56', weight: 1, opacity: 0.9,
+  (d.activities || []).forEach((a, i) => {
+    if (!a.coords) return;
+    const m = L.circleMarker(a.coords, {
+      radius: 4, color: '#0F6E56', weight: 1.5, opacity: 0.95,
       fillColor: '#1D9E75', fillOpacity: 0.85,
     }).addTo(savedPlaceLayer);
+    m.bindPopup(
+      '<div class="popup-title">' + a.text + '</div>' +
+      '<div class="popup-dates">' + d.short + ' · ' + (CAT_LABELS[a.cat] || a.cat) + '</div>' +
+      (a.url ? '<div class="popup-why"><a href="' + a.url + '" target="_blank" rel="noopener">Abrir en Google Maps →</a></div>' : '')
+    );
+    actMarkers[d.id + ':' + i] = m;
   });
 });
 
@@ -684,7 +662,7 @@ orphanPlaces.forEach(p => {
 });
 
 const placeCoords = destinations
-  .flatMap(d => (d.activityPlaces || []).filter(p => p.lat != null).map(p => [p.lat, p.lon]))
+  .flatMap(d => (d.activities || []).filter(a => a.coords).map(a => a.coords))
   .concat(orphanPlaces.filter(p => p.lat != null).map(p => [p.lat, p.lon]));
 const allCoords = routeCoords
   .concat(destinations.flatMap(d => d.daytrips.map(dt => dt.coords)))
@@ -737,10 +715,18 @@ destinations.forEach(d => {
     '</div>' +
     '<p class="card-intro">' + d.intro + '</p>' +
     '<div class="card-section-title">Qué hacer</div>' +
-    '<ul class="card-list">' + d.activities.map(a => {
-      if (typeof a === 'string') return '<li>' + a + '</li>';
-      return '<li><a class="act-link" href="' + a.url + '" target="_blank" rel="noopener">' + a.text + '<span class="act-pin">↗</span></a></li>';
-    }).join('') + '</ul>' +
+    CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
+      '<div class="cat-group">' +
+        '<div class="cat-head">' + (CAT_LABELS[c] || c) + '</div>' +
+        '<ul class="card-list">' +
+          d.activities.map((a, i) => [a, i]).filter(([a]) => a.cat === c).map(([a, i]) =>
+            a.coords
+              ? '<li><button type="button" class="act-row" data-act="' + d.id + ':' + i + '">' + a.text + '<span class="act-pin">📍</span></button></li>'
+              : '<li class="act-row-plain">' + a.text + '</li>'
+          ).join('') +
+        '</ul>' +
+      '</div>'
+    ).join('') +
     dtHtml;
   detailsList.appendChild(card);
   cards[d.id] = card;
@@ -749,13 +735,17 @@ destinations.forEach(d => {
   card.addEventListener('mouseleave', () => { card.classList.remove('active'); unhighlightMarker(d.id); });
   card.addEventListener('click', (e) => {
     if (e.target.closest('.dt-row')) return;
-    if (e.target.closest('.act-link')) return;
+    if (e.target.closest('.act-row')) return;
     markers[d.id].openPopup();
     map.flyTo(d.coords, 8, { duration: 0.8 });
   });
 
-  card.querySelectorAll('.act-link').forEach(link => {
-    link.addEventListener('click', (e) => e.stopPropagation());
+  card.querySelectorAll('.act-row').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const m = actMarkers[btn.dataset.act];
+      if (m) { map.flyTo(m.getLatLng(), 14, { duration: 0.8 }); m.openPopup(); }
+    });
   });
 
   card.querySelectorAll('.dt-row').forEach(row => {
