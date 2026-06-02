@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japón + Corea · sept-nov 2026</title>
+<title>Japón + Corea · oct-nov 2026</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   * { box-sizing: border-box; }
@@ -113,6 +113,16 @@
   .qh-toggle.open .qh-caret { transform: rotate(90deg); }
   .qh-body { display: none; }
   .qh-body.open { display: block; }
+  .leg-row { display: flex; align-items: center; gap: 8px; margin: 3px 0 3px 16px; padding: 3px 0 3px 12px; border-left: 2px dashed #d3cdbf; font-size: 11px; color: #888; }
+  .leg-mode { font-size: 14px; line-height: 1; }
+  .leg-text strong { color: #555; font-weight: 600; }
+  .itin-head { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .itin-caret { margin-left: auto; font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
+  .dest-card.open .itin-caret { transform: rotate(90deg); }
+  .card-detail { display: none; margin-top: 10px; }
+  .dest-card.open .card-detail { display: block; }
+  .detail-temps { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .temp-note { font-size: 9px; color: #b3b3b3; text-transform: uppercase; letter-spacing: 0.6px; }
   .cat-group { margin: 6px 0 2px; }
   .cat-head { font-size: 11px; font-weight: 600; color: #0F6E56; margin: 6px 0 3px; }
   .act-row { display: inline-block; width: 100%; text-align: left; font: inherit; font-size: 12px; line-height: 1.45; color: #1a6b54; background: none; border: none; padding: 1px 0; cursor: pointer; border-radius: 4px; transition: color 0.12s; }
@@ -167,7 +177,7 @@
 <header class="site-header">
   <div class="header-title">
     <h1>Japón + Corea</h1>
-    <span class="subtitle">sept-nov 2026</span>
+    <span class="subtitle">6 oct – 18 nov 2026</span>
   </div>
   <div class="header-stats">
     <span><strong>6/10</strong> salida BA</span>
@@ -219,7 +229,7 @@
         <div class="flight-note">Open jaw: entra por Tokio HANEDA (HND), sale por Tokio NARITA (NRT). El viaje arranca y termina en Tokio. Todo United Polaris business.</div>
       </div>
 
-      <div class="details-title" style="margin-top: 16px;">Destinos · click para enfocar en el mapa</div>
+      <div class="details-title" style="margin-top: 16px;">Itinerario · click en un destino para ver el detalle</div>
       <div id="details-list"></div>
     </div>
   </div>
@@ -235,6 +245,7 @@ const destinations = [
     coords: [35.6762, 139.6503],
     dates: '8-13 oct', nights: 5,
     arrival: '8 oct (HANEDA/HND, llegada del vuelo desde Houston)', departure: '13 oct (día en Nikko de paso, sigue al norte)', lodging: null,
+    leg: { mode: '✈️', time: 'vuelo', detail: 'Llegada a Tokio Haneda (ver Vuelos arriba).' },
     tempMax: '15-28', tempMin: '12-20', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Aterrizaje en Tokio (Haneda) el 8/10. 5 noches de aclimatación y jet lag para arrancar. Los clásicos de Tokio al empezar el viaje. Tokio se revisita al final (parada 13) como buffer pre-vuelo, así que los museos/teamLab/shopping pueden quedar para esa segunda tanda.',
     activities: [
@@ -276,6 +287,7 @@ const destinations = [
     coords: [36.7589, 139.6075],
     dates: '13 oct', nights: 0,
     arrival: '13 oct (de paso desde Tokio, primer salto al norte)', departure: '13 oct tarde (sigue a Sendai; duerme allí esta noche)', lodging: null,
+    leg: { mode: '🚆', time: '~2 h', detail: 'Tren Tobu/JR Tokio → Nikkō (Limited Express).' },
     tempMax: '15-22', tempMin: '7-14', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Día de paso, sin pernocte: saliendo de Tokio hacia el norte se baja en Nikko para los santuarios UNESCO de Toshogu y (si da el tiempo) el lago Chuzenji + cataratas Kegon, con los primeros colores de otoño en altura. A la tarde/noche se sigue viaje a Sendai (se duerme allí). Nikko es el pivote del salto al norte: Tokio → Nikko → Sendai → Sapporo, sin backtrack.',
     activities: [
@@ -294,6 +306,7 @@ const destinations = [
     coords: [38.2682, 140.8694],
     dates: '13-15 oct', nights: 2,
     arrival: '13 oct (de paso por Nikko desde Tokio)', departure: '15 oct (sigue a Sapporo)', lodging: null,
+    leg: { mode: '🚄', time: '~2 h 30', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Sendai.' },
     tempMax: '16-24', tempMin: '7-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: '2 noches en Tohoku camino al norte, en pleno pico de otoño (foliage ~fines oct). Base TBD entre dos opciones: (a) Sendai — la capital de la región, hub fácil: gyutan, Jozenji, Zuihōden, con Matsushima y Zaō Fox Village a mano; o (b) el norte profundo — Towada/Oirase, de los mejores follajes de Japón, más remoto y de naturaleza. El nodo queda como Tohoku hasta decidir; las actividades de abajo son de Sendai (opción a), con Towada/Oirase listados como alternativa en day trips.',
     activities: [
@@ -313,6 +326,7 @@ const destinations = [
     coords: [43.0618, 141.3545],
     dates: '15-17 oct', nights: 2,
     arrival: '15 oct (tren/vuelo desde Tohoku)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
+    leg: { mode: '✈️', time: '~1 h 15', detail: 'Vuelo Sendai → New Chitose (alt: Shinkansen ~4 h vía Shin-Aomori).' },
     tempMax: '11-21', tempMin: '2-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
@@ -332,6 +346,7 @@ const destinations = [
     coords: [36.5613, 136.6562],
     dates: '17-19 oct', nights: 2,
     arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Koyasan)', lodging: null,
+    leg: { mode: '✈️🚆', time: '~2 h', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.' },
     tempMax: '15-27', tempMin: '8-19', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
     activities: [
@@ -353,6 +368,7 @@ const destinations = [
     coords: [36.2585, 136.9067],
     dates: '19 oct', nights: 0,
     arrival: '19 oct (de paso desde Kanazawa hacia Koyasan)', departure: '19 oct tarde (sigue a Koyasan; duerme allí esta noche)', lodging: null,
+    leg: { mode: '🚌', time: '~1 h 15', detail: 'Bus directo Kanazawa → Shirakawa-go (de paso).' },
     tempMax: '16-26', tempMin: '6-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Día completo de paso entre Kanazawa y Koyasan. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue al sur. No se pernocta acá — la noche se duerme en Koyasan.',
     activities: [
@@ -367,6 +383,7 @@ const destinations = [
     coords: [34.2129, 135.5836],
     dates: '19-20 oct', nights: 1,
     arrival: '19 oct', departure: '20 oct', lodging: null,
+    leg: { mode: '🚌🚄🚠', time: '~5 h', detail: 'Bus a Shin-Takaoka + Shinkansen + Nankai + funicular a Koyasan. Día largo.' },
     tempMax: '10-23', tempMin: '5-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís 1 noche en un templo con cena vegetariana y ceremonia matutina opcional. Con una sola noche, el plan ideal es llegar a la tarde para Okunoin al atardecer y madrugar para la ceremonia + Okunoin vacío antes de seguir a Kioto.',
     activities: [
@@ -384,6 +401,7 @@ const destinations = [
     coords: [35.0116, 135.7681],
     dates: '20-26 oct', nights: 6,
     arrival: '20 oct', departure: '26 oct', lodging: null,
+    leg: { mode: '🚠🚆', time: '~2 h 30', detail: 'Funicular + Nankai a Osaka + tren a Kioto.' },
     tempMax: '14-25', tempMin: '5-20', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Capital cultural. Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
     activities: [
@@ -411,6 +429,7 @@ const destinations = [
     coords: [34.6937, 135.5023],
     dates: '26-31 oct', nights: 5,
     arrival: '26 oct', departure: '31 oct (Shinkansen a Fukuoka)', lodging: null,
+    leg: { mode: '🚆', time: '~15-30 min', detail: 'JR o Hankyu Kioto → Osaka.' },
     tempMax: '15-25', tempMin: '7-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 5 noches (subió de 3): da aire para Naoshima, un día de Kobe y recorrer barrios de Osaka sin apuro.',
     activities: [
@@ -439,6 +458,7 @@ const destinations = [
     coords: [33.5904, 130.4017],
     dates: '31 oct–3 nov', nights: 3,
     arrival: '31 oct (Shinkansen desde Osaka)', departure: '3 nov (ferry Beetle a Busan)', lodging: null,
+    leg: { mode: '🚄', time: '~2 h 30', detail: 'Shinkansen Shin-Osaka → Hakata (Nozomi).' },
     tempMax: '16-25', tempMin: '9-18', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cuna del ramen tonkotsu. Última parada en Japón (en esta tanda) antes del cruce a Corea por ferry.',
     activities: [
@@ -459,6 +479,7 @@ const destinations = [
     coords: [35.1796, 129.0756],
     dates: '3-6 nov', nights: 3,
     arrival: '3 nov (ferry Beetle desde Fukuoka)', departure: '6 nov (KTX a Seúl)', lodging: null,
+    leg: { mode: '⛴️', time: '~3 h 20', detail: 'Ferry rápido Hakata → Busan (Beetle/Kobee; alt: Camellia overnight).' },
     tempMax: '10-25', tempMin: '0-16', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
     activities: [
@@ -478,6 +499,7 @@ const destinations = [
     coords: [37.5665, 126.9780],
     dates: '6-10 nov', nights: 4,
     arrival: '6 nov (KTX desde Busan, ~2h30)', departure: '10 nov (vuelo de vuelta a Japón)', lodging: null,
+    leg: { mode: '🚄', time: '~2 h 30', detail: 'KTX Busan → Seúl.' },
     tempMax: '7-20', tempMin: '-1-13', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Tramo coreano. KTX desde Busan, ~2h30. Principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Japón: una última escala en Hakone (parada 11, onsen + Fuji) antes de cerrar en Tokio para el vuelo del 16/11.',
     activities: [
@@ -510,6 +532,7 @@ const destinations = [
     coords: [35.2324, 139.1069],
     dates: '10-12 nov', nights: 2,
     arrival: '10 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '12 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
+    leg: { mode: '✈️🚆', time: '~4 h', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.' },
     tempMax: '14-20', tempMin: '9-15', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
     activities: [
@@ -529,6 +552,7 @@ const destinations = [
     coords: [35.6895, 139.7000],
     dates: '12-17 nov', nights: 5,
     arrival: '12 nov (desde Hakone)', departure: '17 nov 17:45 (vuelo UA6 desde Narita/NRT)', lodging: null,
+    leg: { mode: '🚆', time: '~1 h 30', detail: 'Romancecar/Shinkansen Hakone → Tokio.' },
     tempMax: '11-24', tempMin: '4-14', weatherUpdated: '2026-06-02', weatherMode: 'climatología',
     intro: 'Cierre del viaje: 5 noches de vuelta en Tokio (última noche 16/11; el 17 es el día previo al vuelo de la tarde), como buffer pre-vuelo. A mediados de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
     activities: [
@@ -702,51 +726,65 @@ destinations.forEach(d => {
     ? '<h2>' + d.name + '<span class="fullday-tag">de paso</span></h2>'
     : '<h2>' + d.name + '</h2>';
   const metaHtml = isFullday
-    ? '<div class="card-meta">' + d.dates + ' · de paso (no se duerme)</div>'
+    ? '<div class="card-meta">' + d.dates + ' · de paso (por el día)</div>'
     : '<div class="card-meta">' + d.dates + ' · ' + d.nights + ' noches</div>';
 
+  // Fila de transporte: cómo se llega a este nodo desde el anterior (va ANTES de la card).
+  if (d.leg) {
+    const legRow = document.createElement('div');
+    legRow.className = 'leg-row';
+    legRow.innerHTML = '<span class="leg-mode">' + d.leg.mode + '</span>' +
+      '<span class="leg-text"><strong>' + d.leg.time + '</strong> · ' + d.leg.detail + '</span>';
+    detailsList.appendChild(legRow);
+  }
+
+  const tempsHtml =
+    '<div class="detail-temps">' +
+      '<div class="temp-pill temp-max"><span class="temp-label">Máx</span><span class="temp-value">' + d.tempMax + '°</span></div>' +
+      '<div class="temp-pill temp-min"><span class="temp-label">Mín</span><span class="temp-value">' + d.tempMin + '°</span></div>' +
+      '<span class="temp-note">' + d.weatherMode + '</span>' +
+    '</div>';
+
   card.innerHTML =
-    '<div class="card-header">' +
+    '<div class="itin-head">' +
       numHtml +
       '<div class="card-title-wrap">' +
         titleHtml +
         metaHtml +
       '</div>' +
-      '<div class="card-temps">' +
-        '<div class="temp-pill temp-max"><span class="temp-label">Máx</span><span class="temp-value">' + d.tempMax + '°</span></div>' +
-        '<div class="temp-pill temp-min"><span class="temp-label">Mín</span><span class="temp-value">' + d.tempMin + '°</span></div>' +
-      '</div>' +
+      '<span class="itin-caret">▸</span>' +
     '</div>' +
-    '<p class="card-intro">' + d.intro + '</p>' +
-    (d.activities.length > 0
-      ? '<button type="button" class="qh-toggle"><span class="card-section-title">Qué hacer · ' + d.activities.length + '</span><span class="qh-caret">▸</span></button>' +
-        '<div class="qh-body">' +
-          CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
-            '<div class="cat-group">' +
-              '<div class="cat-head">' + (CAT_LABELS[c] || c) + '</div>' +
-              '<ul class="card-list">' +
-                d.activities.map((a, i) => [a, i]).filter(([a]) => a.cat === c).map(([a, i]) =>
-                  a.coords
-                    ? '<li><button type="button" class="act-row" data-act="' + d.id + ':' + i + '">' + a.text + '<span class="act-pin">📍</span></button></li>'
-                    : '<li class="act-row-plain">' + a.text + '</li>'
-                ).join('') +
-              '</ul>' +
-            '</div>'
-          ).join('') +
-        '</div>'
-      : '') +
-    dtHtml;
+    '<div class="card-detail">' +
+      tempsHtml +
+      '<p class="card-intro">' + d.intro + '</p>' +
+      (d.activities.length > 0
+        ? '<button type="button" class="qh-toggle"><span class="card-section-title">Qué hacer · ' + d.activities.length + '</span><span class="qh-caret">▸</span></button>' +
+          '<div class="qh-body">' +
+            CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
+              '<div class="cat-group">' +
+                '<div class="cat-head">' + (CAT_LABELS[c] || c) + '</div>' +
+                '<ul class="card-list">' +
+                  d.activities.map((a, i) => [a, i]).filter(([a]) => a.cat === c).map(([a, i]) =>
+                    a.coords
+                      ? '<li><button type="button" class="act-row" data-act="' + d.id + ':' + i + '">' + a.text + '<span class="act-pin">📍</span></button></li>'
+                      : '<li class="act-row-plain">' + a.text + '</li>'
+                  ).join('') +
+                '</ul>' +
+              '</div>'
+            ).join('') +
+          '</div>'
+        : '') +
+      dtHtml +
+    '</div>';
   detailsList.appendChild(card);
   cards[d.id] = card;
 
-  card.addEventListener('mouseenter', () => { card.classList.add('active'); highlightMarker(d.id); });
-  card.addEventListener('mouseleave', () => { card.classList.remove('active'); unhighlightMarker(d.id); });
-  card.addEventListener('click', (e) => {
-    if (e.target.closest('.dt-row')) return;
-    if (e.target.closest('.act-row')) return;
-    if (e.target.closest('.qh-toggle') || e.target.closest('.qh-body')) return;
-    markers[d.id].openPopup();
-    map.flyTo(d.coords, 8, { duration: 0.8 });
+  card.addEventListener('mouseenter', () => { highlightMarker(d.id); });
+  card.addEventListener('mouseleave', () => { unhighlightMarker(d.id); });
+
+  card.querySelector('.itin-head').addEventListener('click', () => {
+    const open = card.classList.toggle('open');
+    if (open) { markers[d.id].openPopup(); map.flyTo(d.coords, 8, { duration: 0.8 }); }
   });
 
   const qhToggle = card.querySelector('.qh-toggle');
@@ -809,7 +847,7 @@ function unhighlightDaytrip(id) { const el = document.querySelector('.marker-dot
 Object.entries(markers).forEach(([id, marker]) => {
   marker.on('mouseover', () => { highlightMarker(id); if (cards[id]) cards[id].classList.add('active'); });
   marker.on('mouseout', () => { unhighlightMarker(id); if (cards[id]) cards[id].classList.remove('active'); });
-  marker.on('click', () => { if (cards[id]) cards[id].scrollIntoView({ behavior: 'smooth', block: 'center' }); });
+  marker.on('click', () => { if (cards[id]) { cards[id].classList.add('open'); cards[id].scrollIntoView({ behavior: 'smooth', block: 'center' }); } });
 });
 Object.entries(dtMarkers).forEach(([id, marker]) => {
   marker.on('mouseover', () => highlightDaytrip(id));
