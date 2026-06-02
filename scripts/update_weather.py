@@ -131,7 +131,7 @@ def main() -> int:
 
     # iterate destination blocks: each starts at "id: '...', n: N,"
     block_re = re.compile(
-        r"id:\s*'(?P<id>[^']+)',\s*n:\s*\d+,\s*name:\s*'(?P<name>[^']+)'", )
+        r"id:\s*'(?P<id>[^']+)',\s*n:\s*\d+,\s*(?:type:\s*'[^']*',\s*)?name:\s*'(?P<name>[^']+)'", )
     edits = []
     for m in block_re.finditer(html):
         sid = m.group("id"); name = m.group("name")
