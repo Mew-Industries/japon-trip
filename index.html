@@ -72,7 +72,12 @@
   .flight-card a.flight-seg .seg-route { color: #1a1a1a; font-weight: 600; }
   .flight-card a.flight-seg .seg-no { color: #0F6E56; font-weight: 600; font-size: 10px; }
   .flight-card a.flight-seg .seg-time { color: #666; font-size: 10px; text-align: right; }
-  .flight-card .seg-conn { font-size: 10px; color: #aaa; padding: 2px 6px; font-style: italic; }
+  .flight-card .flight-dir { border: 1px solid rgba(0,0,0,0.07); border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; background: rgba(15,110,86,0.02); }
+  .flight-card .flight-dir-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .flight-card .flight-dir-label { font-size: 11px; font-weight: 700; color: #0F6E56; }
+  .flight-card .flight-dir-meta { font-size: 9px; color: #999; white-space: nowrap; }
+  .flight-card .seg-conn { display: flex; align-items: center; gap: 8px; font-size: 9px; color: #b0b0b0; margin: 2px 0; }
+  .flight-card .seg-conn::before, .flight-card .seg-conn::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,0.07); }
   .flight-card .flight-note { font-size: 10px; color: #888; margin-top: 8px; line-height: 1.4; }
 
   .dest-card {
@@ -207,28 +212,37 @@
     <div class="details-section">
       <div class="details-title">Vuelos · United Polaris business · click para tracker</div>
       <div class="flight-card">
-        <div class="flight-leg-title">Ida → Tokio (Haneda) · 6-8 oct</div>
-        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL818" target="_blank" rel="noopener">
-          <span class="seg-route">EZE → IAH <span class="seg-no">UA818</span></span>
-          <span class="seg-time">6 oct 21:00 → 7 oct 5:15<br>B777-200 · 10h15</span>
-        </a>
-        <div class="seg-conn">escala Houston 6h20</div>
-        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL7937" target="_blank" rel="noopener">
-          <span class="seg-route">IAH → HND <span class="seg-no">UA7937</span></span>
-          <span class="seg-time">7 oct 11:35 → 8 oct 15:25<br>B787-9 · op. ANA · 13h50</span>
-        </a>
-
-        <div class="flight-leg-title">Vuelta → Buenos Aires · 17-18 nov</div>
-        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL6" target="_blank" rel="noopener">
-          <span class="seg-route">NRT → IAH <span class="seg-no">UA6</span></span>
-          <span class="seg-time">17 nov 17:45 → 17 nov 14:40<br>B787-9 · 11h55</span>
-        </a>
-        <div class="seg-conn">escala Houston 3h50</div>
-        <a class="flight-seg" href="https://flightaware.com/live/flight/UAL831" target="_blank" rel="noopener">
-          <span class="seg-route">IAH → EZE <span class="seg-no">UA831</span></span>
-          <span class="seg-time">17 nov 18:30 → 18 nov 7:20<br>B777-200 · 9h50</span>
-        </a>
-        <div class="flight-note">Open jaw: entra por Tokio HANEDA (HND), sale por Tokio NARITA (NRT). El viaje arranca y termina en Tokio. Todo United Polaris business.</div>
+        <div class="flight-dir">
+          <div class="flight-dir-head">
+            <span class="flight-dir-label">↗ Ida · EZE → Tokio</span>
+            <span class="flight-dir-meta">6–8 oct · ~30 h · 1 escala</span>
+          </div>
+          <a class="flight-seg" href="https://flightaware.com/live/flight/UAL818" target="_blank" rel="noopener">
+            <span class="seg-route">EZE → IAH <span class="seg-no">UA818</span></span>
+            <span class="seg-time">6 oct 21:00 → 7 oct 5:15<br>B777-200 · 10h15</span>
+          </a>
+          <div class="seg-conn"><span>escala Houston · 6 h 20</span></div>
+          <a class="flight-seg" href="https://flightaware.com/live/flight/UAL7937" target="_blank" rel="noopener">
+            <span class="seg-route">IAH → HND <span class="seg-no">UA7937</span></span>
+            <span class="seg-time">7 oct 11:35 → 8 oct 15:25<br>B787-9 · op. ANA · 13h50</span>
+          </a>
+        </div>
+        <div class="flight-dir">
+          <div class="flight-dir-head">
+            <span class="flight-dir-label">↙ Vuelta · Tokio → EZE</span>
+            <span class="flight-dir-meta">17–18 nov · ~25 h · 1 escala</span>
+          </div>
+          <a class="flight-seg" href="https://flightaware.com/live/flight/UAL6" target="_blank" rel="noopener">
+            <span class="seg-route">NRT → IAH <span class="seg-no">UA6</span></span>
+            <span class="seg-time">17 nov 17:45 → 17 nov 14:40<br>B787-9 · 11h55</span>
+          </a>
+          <div class="seg-conn"><span>escala Houston · 3 h 50</span></div>
+          <a class="flight-seg" href="https://flightaware.com/live/flight/UAL831" target="_blank" rel="noopener">
+            <span class="seg-route">IAH → EZE <span class="seg-no">UA831</span></span>
+            <span class="seg-time">17 nov 18:30 → 18 nov 7:20<br>B777-200 · 9h50</span>
+          </a>
+        </div>
+        <div class="flight-note">Open jaw: entra por Tokio <strong>Haneda</strong> (HND), sale por Tokio <strong>Narita</strong> (NRT). Todo United Polaris business.</div>
       </div>
 
       <div class="details-title" style="margin-top: 16px;">Itinerario · click en un destino para ver el detalle</div>
