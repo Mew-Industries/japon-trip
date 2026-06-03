@@ -157,7 +157,8 @@
   @keyframes cardflash { 0% { box-shadow: 0 0 0 2px rgba(15,110,86,0); } 20% { box-shadow: 0 0 0 2px rgba(15,110,86,0.6); } 100% { box-shadow: 0 0 0 2px rgba(15,110,86,0); } }
   .flash { animation: cardflash 1.4s ease-out; }
   .itin-head { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-  .itin-caret { margin-left: auto; font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
+  .dest-flag { width: 28px; height: 19px; object-fit: cover; border-radius: 3px; margin-left: auto; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
+  .itin-caret { font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
   .dest-card.open .itin-caret { transform: rotate(90deg); }
   .card-detail { display: none; margin-top: 10px; }
   .dest-card.open .card-detail { display: block; }
@@ -847,10 +848,13 @@ destinations.forEach((d, idx) => {
   const numHtml = isFullday
     ? '<div class="card-num fullday"><span>' + d.n + '</span></div>'
     : '<div class="card-num">' + d.n + '</div>';
-  const flagHtml = d.flag ? ' <span class="dest-flag">' + d.flag + '</span>' : '';
+  const flagCC = { '🇯🇵': 'jp', '🇰🇷': 'kr' };
+  const flagImgHtml = (d.flag && flagCC[d.flag])
+    ? '<img class="dest-flag" src="https://flagcdn.com/' + flagCC[d.flag] + '.svg" alt="' + d.flag + '">'
+    : '';
   const titleHtml = isFullday
-    ? '<h2>' + d.name + flagHtml + '<span class="fullday-tag">de paso</span></h2>'
-    : '<h2>' + d.name + flagHtml + '</h2>';
+    ? '<h2>' + d.name + '<span class="fullday-tag">de paso</span></h2>'
+    : '<h2>' + d.name + '</h2>';
   const metaHtml = isFullday
     ? '<div class="card-meta">' + d.dates + ' · pasar el día</div>'
     : '<div class="card-meta">' + d.dates + ' · ' + d.nights + ' noches</div>';
@@ -878,8 +882,8 @@ destinations.forEach((d, idx) => {
 
   const tempsHtml =
     '<div class="detail-temps">' +
-      '<div class="temp-pill temp-max"><span class="temp-label">Máx</span><span class="temp-value">' + d.tempMax + '°</span></div>' +
       '<div class="temp-pill temp-min"><span class="temp-label">Mín</span><span class="temp-value">' + d.tempMin + '°</span></div>' +
+      '<div class="temp-pill temp-max"><span class="temp-label">Máx</span><span class="temp-value">' + d.tempMax + '°</span></div>' +
       '<span class="temp-note">' + d.weatherMode + '</span>' +
     '</div>';
 
@@ -899,6 +903,7 @@ destinations.forEach((d, idx) => {
         titleHtml +
         metaHtml +
       '</div>' +
+      flagImgHtml +
       '<span class="itin-caret">▸</span>' +
     '</div>' +
     '<div class="card-detail">' +
