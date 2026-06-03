@@ -134,6 +134,14 @@
   .leg-dir { margin-left: 6px; font-size: 10px; color: #0F6E56; text-decoration: none; white-space: nowrap; border-bottom: 1px dotted rgba(15,110,86,0.4); flex-shrink: 0; }
   .leg-dir:hover { color: #1D9E75; border-bottom-color: #1D9E75; }
   .itin-thumb { width: 34px; height: 34px; border-radius: 7px; object-fit: cover; flex-shrink: 0; background: #ece9e2; }
+  .lodging-card { display: flex; gap: 10px; text-decoration: none; color: inherit; background: rgba(15,110,86,0.03); border: 1px solid rgba(0,0,0,0.07); border-radius: 8px; padding: 8px; margin-bottom: 10px; transition: border-color 0.12s, background 0.12s; }
+  .lodging-card:hover { border-color: #1D9E75; background: rgba(15,110,86,0.06); }
+  .lodging-img { width: 84px; height: 84px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #ece9e2; }
+  .lodging-body { flex: 1; min-width: 0; }
+  .lodging-name { font-size: 13px; font-weight: 600; color: #1a1a1a; margin-bottom: 1px; }
+  .lodging-sub { font-size: 11px; color: #666; }
+  .lodging-area { font-size: 11px; color: #777; margin: 2px 0; line-height: 1.35; }
+  .lodging-meta { font-size: 11px; color: #0F6E56; font-weight: 600; margin-top: 3px; }
   .detail-gallery { display: flex; gap: 4px; margin-bottom: 10px; }
   .gallery-thumb { flex: 1; width: 0; height: 84px; object-fit: cover; border-radius: 6px; cursor: pointer; background: #ece9e2; transition: opacity 0.12s; }
   .gallery-thumb:hover { opacity: 0.82; }
@@ -580,7 +588,15 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Gyeonghoeru_%28Royal_Banquet_Hall%29_at_Gyeongbokgung_Palace%2C_Seoul.jpg/500px-Gyeonghoeru_%28Royal_Banquet_Hall%29_at_Gyeongbokgung_Palace%2C_Seoul.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Gyeonghoeru_%28Royal_Banquet_Hall%29_at_Gyeongbokgung_Palace%2C_Seoul.jpg/500px-Gyeonghoeru_%28Royal_Banquet_Hall%29_at_Gyeongbokgung_Palace%2C_Seoul.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Bukchon-ro_11-gil_street_with_hanok_houses_at_blue_hour_in_Bukchon_Hanok_Village_Seoul.jpg/500px-Bukchon-ro_11-gil_street_with_hanok_houses_at_blue_hour_in_Bukchon_Hanok_Village_Seoul.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Namsan_Tower_sunset%2C_Seoul.jpg/500px-Namsan_Tower_sunset%2C_Seoul.jpg'],
     dates: '6-10 nov', nights: 4,
-    arrival: '6 nov (KTX desde Busan, ~2h30)', departure: '10 nov (vuelo de vuelta a Japón)', lodging: null,
+    arrival: '6 nov (KTX desde Busan, ~2h30)', departure: '10 nov (vuelo de vuelta a Japón)',
+    lodging: {
+      name: 'Hanok privado en Bukchon', type: 'Airbnb · hanok tradicional', rating: '★5.0',
+      guests: '2 huéspedes · 1 dorm · 1 baño privado',
+      area: 'Jongno (Gyeongdong) — cerca de Bukchon, Changdeokgung y la estación Anguk (línea 3)',
+      checkIn: '6 nov', checkOut: '10 nov', nights: 4,
+      img: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1564056461714511568/original/be512150-94b2-40aa-ba39-5dd5c339c85a.jpeg?im_w=720',
+      url: 'https://www.airbnb.com/rooms/1564056461714511568?check_in=2026-11-06&check_out=2026-11-10&adults=2'
+    },
     leg: { mode: '🚄', time: '~2 h 40', detail: 'KTX Busan → Seúl.' },
     tempMax: '6-19', tempMin: '-1-10', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Tramo coreano. KTX desde Busan, ~2h30. Principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Japón: una última escala en Hakone (parada 11, onsen + Fuji) antes de cerrar en Tokio para el vuelo del 16/11.',
@@ -692,6 +708,23 @@ function gmapsFromName(name) {
   return 'https://www.google.com/maps/search/?api=1&query=' +
     encodeURIComponent(name.split('(')[0].split('/')[0].trim());
 }
+// Tarjeta de hospedaje (Airbnb/hotel/ryokan) para el detalle de un destino.
+function lodgingHtml(L) {
+  if (!L) return '';
+  const sub = [L.type, L.guests].filter(Boolean).join(' · ');
+  const meta = [(L.checkIn && L.checkOut) ? (L.checkIn + ' → ' + L.checkOut + (L.nights ? ' · ' + L.nights + ' noches' : '')) : '', 'Ver ↗'].filter(Boolean).join(' · ');
+  return '<div class="card-section-title">🛏️ Hospedaje</div>' +
+    '<a class="lodging-card" href="' + L.url + '" target="_blank" rel="noopener">' +
+      (L.img ? '<img class="lodging-img" src="' + L.img + '" loading="lazy" alt="">' : '') +
+      '<div class="lodging-body">' +
+        '<div class="lodging-name">' + L.name + (L.rating ? ' · ' + L.rating : '') + '</div>' +
+        (sub ? '<div class="lodging-sub">' + sub + '</div>' : '') +
+        (L.area ? '<div class="lodging-area">' + L.area + '</div>' : '') +
+        '<div class="lodging-meta">' + meta + '</div>' +
+      '</div>' +
+    '</a>';
+}
+
 function miniPopup(img, title, sub, mapsUrl) {
   return '<div class="mini-pop">' +
     (img ? '<img class="mini-pop-img" src="' + img + '" loading="lazy" alt="">' : '') +
@@ -872,6 +905,7 @@ destinations.forEach((d, idx) => {
       galleryHtml +
       tempsHtml +
       '<p class="card-intro">' + d.intro + '</p>' +
+      lodgingHtml(d.lodging) +
       (d.activities.length > 0
         ? '<button type="button" class="qh-toggle open"><span class="card-section-title">Qué hacer · ' + d.activities.length + '</span><span class="qh-caret">▸</span></button>' +
           '<div class="qh-body open">' +
