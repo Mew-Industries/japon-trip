@@ -380,7 +380,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg/500px-%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Night_in_Ginzan_Onsen_town_January_2022_C.jpg/500px-Night_in_Ginzan_Onsen_town_January_2022_C.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Ginzan_Onsen_in_autumn_2018c.jpg/500px-Ginzan_Onsen_in_autumn_2018c.jpg'],
     dates: '14-15 oct', nights: 1,
     arrival: '14 oct tarde (vía Geibikei; llega de Hiraizumi)', departure: '15 oct (a Sendai, vuelo a Sapporo)', lodging: null,
-    leg: { mode: '🚄🚌', time: '~3 h 30', detail: 'Geibikei a la mañana → Hiraizumi → Sendai → Yamagata → Ōishida + bus a Ginzan.', via: [[38.2602, 140.8821], [38.2554, 140.3396], [38.5969, 140.37]] },
+    leg: { mode: '🚄🚌', time: '~3 h 30', detail: 'Geibikei a la mañana → Hiraizumi → Sendai → Yamagata → Ōishida + bus a Ginzan.', via: [[38.2602, 140.8821], [38.2554, 140.3396], [38.5969, 140.37]], path: [{ m: 'train', to: [38.2602, 140.8821] }, { m: 'train', to: [38.2554, 140.3396] }, { m: 'train', to: [38.5969, 140.37] }, { m: 'bus', to: [38.5704, 140.5301] }] },
     tempMax: '14-20', tempMin: '6-11', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Base norte 2 (Yamagata) y la joya del tramo: pueblo onsen de la era Taisho sobre un río, con ryokan de madera de varios pisos y faroles de gas. La magia es de noche, con la calle iluminada (vibra Spirited Away) — por eso se pernocta. Llegás a la tarde justo para el atardecer + onsen. Noches frescas (~6-11°), ideal para el baño.',
     activities: [
@@ -398,7 +398,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Odori_Park_in_Sapporo_1936.jpg/500px-Odori_Park_in_Sapporo_1936.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Sapporo_TV_tower-20091013-RM-162316.jpg/500px-Sapporo_TV_tower-20091013-RM-162316.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Sapporo_Clock_Tower_Hokkaido_Japan_2.jpg/500px-Sapporo_Clock_Tower_Hokkaido_Japan_2.jpg'],
     dates: '15-17 oct', nights: 2,
     arrival: '15 oct (vuelo desde Sendai)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
-    leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Ginzan → aeropuerto de Sendai + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗', via: [[38.1397, 140.9171], [42.7752, 141.6923]] },
+    leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Ginzan → aeropuerto de Sendai + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗', via: [[38.1397, 140.9171], [42.7752, 141.6923]], path: [{ m: 'bus', to: [38.1397, 140.9171] }, { m: 'air', to: [42.7752, 141.6923] }, { m: 'train', to: [43.0618, 141.3545] }] },
     tempMax: '9-21', tempMin: '2-15', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
@@ -420,7 +420,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG/500px-Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg/500px-Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/20190705_Kanazawa_Castle-14.jpg/500px-20190705_Kanazawa_Castle-14.jpg'],
     dates: '17-19 oct', nights: 2,
     arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Kioto)', lodging: null,
-    leg: { mode: '✈️🚆', time: '~1 h 40 (vuelo)', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sapporo%20to%20Komatsu', dirLabel: 'ver vuelos ↗', via: [[42.7752, 141.6923], [36.3946, 136.4076]] },
+    leg: { mode: '✈️🚆', time: '~1 h 40 (vuelo)', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sapporo%20to%20Komatsu', dirLabel: 'ver vuelos ↗', via: [[42.7752, 141.6923], [36.3946, 136.4076]], path: [{ m: 'train', to: [42.7752, 141.6923] }, { m: 'air', to: [36.3946, 136.4076] }, { m: 'train', to: [36.5613, 136.6562] }] },
     tempMax: '15-27', tempMin: '8-17', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
     activities: [
@@ -461,7 +461,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg/500px-Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine%2C_Kyoto%2C_Japan.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Bamboo_Forest%2C_Arashiyama%2C_Kyoto%2C_Japan.jpg/500px-Bamboo_Forest%2C_Arashiyama%2C_Kyoto%2C_Japan.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Kiyomizu-dera%2C_Kyoto%2C_November_2016_-07.jpg/500px-Kiyomizu-dera%2C_Kyoto%2C_November_2016_-07.jpg'],
     dates: '19-25 oct', nights: 6,
     arrival: '19 oct (llega de Shirakawa-go, primera noche acá)', departure: '25 oct (sigue a Koyasan)', lodging: null,
-    leg: { mode: '🚌🚄', time: '~3 h 40', detail: 'Bus Shirakawa-go → Kanazawa/Takayama + tren/Shinkansen a Kioto.' },
+    leg: { mode: '🚌🚄', time: '~3 h 40', detail: 'Bus Shirakawa-go → Kanazawa/Takayama + tren/Shinkansen a Kioto.', path: [{ m: 'bus', to: [36.1408, 137.2519] }, { m: 'train', to: [35.0116, 135.7681] }] },
     tempMax: '14-25', tempMin: '5-20', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Capital cultural. Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
     activities: [
@@ -640,7 +640,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/LakeAshi_and_MtFuji_Hakone.JPG/500px-LakeAshi_and_MtFuji_Hakone.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Torii_of_Kuzuryu_Shrine_in_Hakone_Shrine.jpg/500px-Torii_of_Kuzuryu_Shrine_in_Hakone_Shrine.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Owakudani_%40_Hakone_%2810621374853%29.jpg/500px-Owakudani_%40_Hakone_%2810621374853%29.jpg'],
     dates: '10-12 nov', nights: 2,
     arrival: '10 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '12 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
-    leg: { mode: '✈️🚆', time: '~4 h (vuelo+tren)', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Seoul%20to%20Tokyo', dirLabel: 'ver vuelos ↗', via: [[37.5583, 126.7906], [35.5494, 139.7798]] },
+    leg: { mode: '✈️🚆', time: '~4 h (vuelo+tren)', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Seoul%20to%20Tokyo', dirLabel: 'ver vuelos ↗', via: [[37.5583, 126.7906], [35.5494, 139.7798]], path: [{ m: 'train', to: [37.5583, 126.7906] }, { m: 'air', to: [35.5494, 139.7798] }, { m: 'train', to: [35.2324, 139.1069] }] },
     tempMax: '13-20', tempMin: '8-15', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
     activities: [
@@ -747,26 +747,45 @@ function legSegsHtml(leg) {
 const legSegments = {};
 const routeLayer = L.layerGroup().addTo(map);   // transporte terrestre (tren/bus/ferry)
 const flightLayer = L.layerGroup().addTo(map);  // vuelos
+function styleFor(mode) {
+  const st = MODE_STYLE[mode];
+  return { color: st.color, weight: st.weight, opacity: mode === 'air' ? 0.65 : 0.82, dashArray: st.dash };
+}
 for (let i = 0; i < destinations.length - 1; i++) {
   const a = destinations[i], b = destinations[i + 1];
-  const t = legType(b.leg);
-  const st = MODE_STYLE[t];
-  const base = { color: st.color, weight: st.weight, opacity: t === 'air' ? 0.6 : 0.8, dashArray: st.dash };
-  const pts = [a.coords].concat((b.leg && b.leg.via) || []).concat([b.coords]);
-  const pl = L.polyline(pts, base).addTo(t === 'air' ? flightLayer : routeLayer);
-  pl.on('click', () => { focusTrip(b.id); highlightSegment(b.id); });  // mapa → panel
-  legSegments[b.id] = { pl: pl, base: base };
+  // Sub-tramos por modo real: si el leg tiene `path` (multi-modal), cada paso se
+  // dibuja con su modo (así los buses aparecen y los vuelos sólo en la parte aérea).
+  // Si no, una sola línea del modo primario (con waypoints `via` si los hay).
+  let subsegs;
+  if (b.leg && b.leg.path) {
+    let from = a.coords;
+    subsegs = b.leg.path.map(step => { const seg = { pts: [from, step.to], mode: step.m }; from = step.to; return seg; });
+  } else {
+    const pts = [a.coords].concat((b.leg && b.leg.via) || []).concat([b.coords]);
+    subsegs = [{ pts: pts, mode: legType(b.leg) }];
+  }
+  const pls = subsegs.map(seg => {
+    const base = styleFor(seg.mode);
+    const pl = L.polyline(seg.pts, base).addTo(seg.mode === 'air' ? flightLayer : routeLayer);
+    pl.on('click', () => { focusTrip(b.id); highlightSegment(b.id); });  // mapa → panel
+    return { pl: pl, base: base };
+  });
+  legSegments[b.id] = pls;
 }
 
 // Resaltar un tramo en el mapa (flash + encuadre). Usado por el click en la fila
-// de transporte del panel y por focusTrip.
+// de transporte del panel y por focusTrip. Resalta TODOS los sub-tramos del leg.
 function highlightSegment(id) {
-  const s = legSegments[id];
-  if (!s) return;
-  s.pl.setStyle({ color: '#D85A30', weight: 6, opacity: 1, dashArray: null });
-  s.pl.bringToFront();
-  try { map.fitBounds(s.pl.getBounds(), { padding: [50, 50], maxZoom: 8 }); } catch (e) {}
-  setTimeout(() => s.pl.setStyle(s.base), 1800);
+  const arr = legSegments[id];
+  if (!arr || !arr.length) return;
+  const bounds = L.latLngBounds([]);
+  arr.forEach(s => {
+    s.pl.setStyle({ color: '#D85A30', weight: 6, opacity: 1, dashArray: null });
+    s.pl.bringToFront();
+    bounds.extend(s.pl.getBounds());
+  });
+  try { map.fitBounds(bounds, { padding: [50, 50], maxZoom: 8 }); } catch (e) {}
+  setTimeout(() => arr.forEach(s => s.pl.setStyle(s.base)), 1800);
 }
 
 // Aeropuertos usados en el viaje (markers ✈).
@@ -777,8 +796,11 @@ const airports = [
   { code: 'CTS', name: 'New Chitose · Sapporo', coords: [42.7752, 141.6923] },
   { code: 'KMQ', name: 'Komatsu · Kanazawa', coords: [36.3946, 136.4076] },
   { code: 'GMP', name: 'Seúl Gimpo', coords: [37.5583, 126.7906] },
-  { code: 'IAH', name: 'Houston (escala)', coords: [29.9844, -95.3414] },
-  { code: 'EZE', name: 'Buenos Aires Ezeiza', coords: [-34.8222, -58.5358] }
+  // Américas plotadas con lng+360 para que el vuelo cruce el Pacífico por la DERECHA
+  // (en un mapa centrado en Asia, las Américas quedan al este). Si no, la línea daba
+  // la vuelta al mundo por el lado equivocado (Europa/África).
+  { code: 'IAH', name: 'Houston (escala)', coords: [29.9844, 264.6586] },
+  { code: 'EZE', name: 'Buenos Aires Ezeiza', coords: [-34.8222, 301.4642] }
 ];
 // Aeropuertos en la MISMA capa que las líneas de vuelo (toggle "Vuelos" agrupa ambos).
 airports.forEach(ap => {
@@ -789,7 +811,7 @@ airports.forEach(ap => {
 
 // Vuelos internacionales de IDA y VUELTA graficados (en flightLayer). NO entran al
 // fitBounds para no achicar Japón; se ven al alejar el zoom.
-const _EZE = [-34.8222, -58.5358], _IAH = [29.9844, -95.3414], _HND = [35.5494, 139.7798], _NRT = [35.7720, 140.3929];
+const _EZE = [-34.8222, 301.4642], _IAH = [29.9844, 264.6586], _HND = [35.5494, 139.7798], _NRT = [35.7720, 140.3929];
 const _intlStyle = { color: MODE_STYLE.air.color, weight: 2, opacity: 0.6, dashArray: '1, 7' };
 L.polyline([_EZE, _IAH, _HND, destinations[0].coords], _intlStyle).addTo(flightLayer)
   .bindPopup('<div class="popup-title">✈ Ida · EZE → IAH → Tokio (6–8 oct)</div>');
