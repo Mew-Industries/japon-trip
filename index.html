@@ -129,9 +129,16 @@
   .qh-body.open { display: block; }
   .seg-date { background: rgba(255,255,255,0.92); border: 1px solid #cfe3db; color: #0F6E56; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 8px; white-space: nowrap; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.12); cursor: pointer; transition: background 0.12s, color 0.12s; }
   .seg-date:hover { background: #0F6E56; color: #fff; border-color: #0F6E56; }
-  .leg-row { display: flex; align-items: center; gap: 8px; margin: 3px 0 3px 16px; padding: 3px 0 3px 12px; border-left: 2px dashed #d3cdbf; font-size: 11px; color: #888; }
+  .leg-row { display: flex; align-items: center; gap: 7px; margin: 3px 0 3px 16px; padding: 4px 6px 4px 12px; border-left: 3px solid #d3cdbf; border-radius: 0 6px 6px 0; font-size: 11px; color: #888; cursor: pointer; transition: background 0.12s; }
+  .leg-row:hover { background: rgba(0,0,0,0.03); }
+  .leg-air { border-left-color: #2E6FB5; } .leg-ferry { border-left-color: #1F8F9E; }
+  .leg-train { border-left-color: #0F6E56; } .leg-bus { border-left-color: #C77A2E; }
   .leg-mode { font-size: 14px; line-height: 1; flex-shrink: 0; }
+  .leg-type { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
   .leg-text { flex: 1; }
+  .route-legend { background: rgba(255,255,255,0.92); border-radius: 6px; padding: 4px 7px; font-size: 9px; color: #555; box-shadow: 0 1px 3px rgba(0,0,0,0.2); line-height: 1.6; }
+  .route-legend .rl-item { display: inline-flex; align-items: center; gap: 3px; margin-right: 8px; white-space: nowrap; }
+  .route-legend .rl-line { display: inline-block; width: 16px; border-top: 2px dashed #999; }
   .leg-text strong { color: #555; font-weight: 600; }
   .leg-dir { margin-left: 6px; font-size: 10px; color: #0F6E56; text-decoration: none; white-space: nowrap; border-bottom: 1px dotted rgba(15,110,86,0.4); flex-shrink: 0; }
   .leg-dir:hover { color: #1D9E75; border-bottom-color: #1D9E75; }
@@ -703,17 +710,48 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const routeCoords = destinations.map(d => d.coords);
-// Líneas de ruta POR TRAMO, siguiendo el transporte real: cada segmento va de un
-// nodo al siguiente pasando por los waypoints de leg.via (hubs/aeropuertos). Los
-// tramos de vuelo van punteado fino; los terrestres (tren/bus/ferry), con guiones.
+
+// Modo de transporte de un tramo → estilo de línea + etiqueta. El modo primario
+// se deduce de los emojis del leg (prioridad vuelo > ferry > tren > bus).
+const MODE_STYLE = {
+  air:   { color: '#2E6FB5', dash: '3, 8',        label: 'Vuelo', icon: '✈️' },
+  ferry: { color: '#1F8F9E', dash: '12, 5, 2, 5', label: 'Ferry', icon: '⛴️' },
+  train: { color: '#0F6E56', dash: '9, 8',        label: 'Tren',  icon: '🚆' },
+  bus:   { color: '#C77A2E', dash: '5, 6',        label: 'Bus',   icon: '🚌' },
+};
+function legType(leg) {
+  const m = (leg && leg.mode) || '';
+  if (m.indexOf('✈️') !== -1) return 'air';
+  if (m.indexOf('⛴️') !== -1) return 'ferry';
+  if (m.indexOf('🚄') !== -1 || m.indexOf('🚆') !== -1) return 'train';
+  if (m.indexOf('🚌') !== -1) return 'bus';
+  return 'train';
+}
+
+// Líneas de ruta POR TRAMO, siguiendo el transporte real (waypoints en leg.via),
+// con color/trazo según el modo. Cada segmento es clickeable (→ resalta el tramo
+// en el panel) y queda referenciado por id del nodo destino para el link inverso.
+const legSegments = {};
 for (let i = 0; i < destinations.length - 1; i++) {
   const a = destinations[i], b = destinations[i + 1];
-  const isFlight = !!(b.leg && b.leg.mode && b.leg.mode.indexOf('✈️') !== -1);
+  const t = legType(b.leg);
+  const st = MODE_STYLE[t];
+  const base = { color: st.color, weight: t === 'air' ? 2 : 3, opacity: t === 'air' ? 0.55 : 0.72, dashArray: st.dash };
   const pts = [a.coords].concat((b.leg && b.leg.via) || []).concat([b.coords]);
-  L.polyline(pts, isFlight
-    ? { color: '#0F6E56', weight: 2, opacity: 0.5, dashArray: '2, 7' }
-    : { color: '#0F6E56', weight: 3, opacity: 0.7, dashArray: '8, 8' }
-  ).addTo(map);
+  const pl = L.polyline(pts, base).addTo(map);
+  pl.on('click', () => { focusTrip(b.id); highlightSegment(b.id); });  // mapa → panel
+  legSegments[b.id] = { pl: pl, base: base };
+}
+
+// Resaltar un tramo en el mapa (flash + encuadre). Usado por el click en la fila
+// de transporte del panel y por focusTrip.
+function highlightSegment(id) {
+  const s = legSegments[id];
+  if (!s) return;
+  s.pl.setStyle({ color: '#D85A30', weight: 6, opacity: 1, dashArray: null });
+  s.pl.bringToFront();
+  try { map.fitBounds(s.pl.getBounds(), { padding: [50, 50], maxZoom: 8 }); } catch (e) {}
+  setTimeout(() => s.pl.setStyle(s.base), 1800);
 }
 
 // Aeropuertos usados en el viaje (markers ✈).
@@ -731,6 +769,18 @@ airports.forEach(ap => {
   L.marker(ap.coords, { icon }).addTo(airportLayer)
     .bindPopup('<div class="popup-title">✈ ' + ap.name + ' (' + ap.code + ')</div>');
 });
+
+// Leyenda de modos de transporte (colores de las líneas).
+const routeLegend = L.control({ position: 'bottomleft' });
+routeLegend.onAdd = function () {
+  const div = L.DomUtil.create('div', 'route-legend');
+  div.innerHTML = ['air', 'train', 'bus', 'ferry'].map(k => {
+    const s = MODE_STYLE[k];
+    return '<span class="rl-item"><span class="rl-line" style="border-top-color:' + s.color + '"></span>' + s.icon + ' ' + s.label + '</span>';
+  }).join('');
+  return div;
+};
+routeLegend.addTo(map);
 
 // Popup estilo "mini Google Maps": foto (si hay) + nombre + sub + link a Maps.
 function gmapsFromName(name) {
@@ -923,8 +973,18 @@ destinations.forEach((d, idx) => {
       ? '<a class="leg-dir" target="_blank" rel="noopener" href="' + dirHref + '">' +
         (d.leg.dirLabel || 'cómo llegar ↗') + '</a>'
       : '';
-    legRow.innerHTML = '<span class="leg-mode">' + d.leg.mode + '</span>' +
+    const lt = MODE_STYLE[legType(d.leg)];
+    legRow.classList.add('leg-' + legType(d.leg));
+    legRow.innerHTML =
+      '<span class="leg-mode">' + d.leg.mode + '</span>' +
+      '<span class="leg-type" style="color:' + lt.color + '">' + lt.label + '</span>' +
       '<span class="leg-text"><strong>' + d.leg.time + '</strong> · ' + d.leg.detail + '</span>' + dirLink;
+    // Click en la fila (menos el link) → resalta el tramo en el mapa (panel → mapa).
+    legRow.addEventListener('click', (e) => {
+      if (e.target.closest('.leg-dir')) return;
+      highlightSegment(d.id);
+      flash(legRow);
+    });
     detailsList.appendChild(legRow);
     legRows[d.id] = legRow;
   }
