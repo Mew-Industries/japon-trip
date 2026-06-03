@@ -490,7 +490,14 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg/500px-Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg/500px-Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Danj%C3%B4-garan_%28Wakayama_K%C5%8Dyasan%29_Temple_hdsr_S5_st01.jpg/500px-Danj%C3%B4-garan_%28Wakayama_K%C5%8Dyasan%29_Temple_hdsr_S5_st01.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Nyoirinji_%28Wakayama_Koyasan%29_Temple_hdsr_S5_04.jpg/500px-Nyoirinji_%28Wakayama_Koyasan%29_Temple_hdsr_S5_04.jpg'],
     dates: '25-26 oct', nights: 1,
-    arrival: '25 oct', departure: '26 oct', lodging: null,
+    arrival: '25 oct', departure: '26 oct',
+    lodging: {
+      name: 'Shukubo en Koyasan', type: 'Booking · alojamiento en templo (shukubo)', booked: true,
+      guests: '2 personas', area: 'Monte Koya (Wakayama)',
+      coords: [34.2129, 135.5836],
+      checkIn: '25 oct', checkOut: '26 oct', nights: 1,
+      note: 'Reserva confirmada vía Booking · falta nombre del shukubo + foto'
+    },
     leg: { mode: '🚆🚠', time: '~3 h 20', detail: 'Tren Kioto → Namba + Nankai línea Koya + funicular a Koyasan.' },
     tempMax: '11-20', tempMin: '4-13', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Monte sagrado del budismo Shingon, 800m altura. Shukubo: dormís 1 noche en un templo con cena vegetariana y ceremonia matutina opcional. Con una sola noche, el plan ideal es llegar a la tarde para Okunoin al atardecer y madrugar para la ceremonia + Okunoin vacío antes de seguir a Osaka.',
@@ -808,17 +815,21 @@ function gmapsFromName(name) {
 function lodgingHtml(L) {
   if (!L) return '';
   const sub = [L.type, L.guests].filter(Boolean).join(' · ');
-  const meta = [(L.checkIn && L.checkOut) ? (L.checkIn + ' → ' + L.checkOut + (L.nights ? ' · ' + L.nights + ' noches' : '')) : '', 'Ver ↗'].filter(Boolean).join(' · ');
-  return '<div class="card-section-title">🛏️ Hospedaje</div>' +
-    '<a class="lodging-card" href="' + L.url + '" target="_blank" rel="noopener">' +
-      (L.img ? '<img class="lodging-img" src="' + L.img + '" loading="lazy" alt="">' : '') +
-      '<div class="lodging-body">' +
-        '<div class="lodging-name">' + L.name + (L.rating ? ' · ' + L.rating : '') + '</div>' +
-        (sub ? '<div class="lodging-sub">' + sub + '</div>' : '') +
-        (L.area ? '<div class="lodging-area">' + L.area + '</div>' : '') +
-        '<div class="lodging-meta">' + meta + '</div>' +
-      '</div>' +
-    '</a>';
+  const dateStr = (L.checkIn && L.checkOut) ? (L.checkIn + ' → ' + L.checkOut + (L.nights ? ' · ' + L.nights + ' noches' : '')) : '';
+  const meta = [dateStr, L.url ? 'Ver ↗' : (L.booked ? '✓ Reservado' : '')].filter(Boolean).join(' · ');
+  const inner =
+    (L.img ? '<img class="lodging-img" src="' + L.img + '" loading="lazy" alt="">' : '') +
+    '<div class="lodging-body">' +
+      '<div class="lodging-name">' + L.name + (L.rating ? ' · ' + L.rating : '') + '</div>' +
+      (sub ? '<div class="lodging-sub">' + sub + '</div>' : '') +
+      (L.area ? '<div class="lodging-area">' + L.area + '</div>' : '') +
+      (L.note ? '<div class="lodging-area" style="font-style:italic">' + L.note + '</div>' : '') +
+      '<div class="lodging-meta">' + meta + '</div>' +
+    '</div>';
+  const card = L.url
+    ? '<a class="lodging-card" href="' + L.url + '" target="_blank" rel="noopener">' + inner + '</a>'
+    : '<div class="lodging-card">' + inner + '</div>';
+  return '<div class="card-section-title">🛏️ Hospedaje</div>' + card;
 }
 
 function miniPopup(img, title, sub, mapsUrl) {
