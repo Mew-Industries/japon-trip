@@ -35,7 +35,12 @@
   }
 
   .map-pane { height: 100%; overflow: hidden; position: relative; border-right: 1px solid rgba(0,0,0,0.08); }
-  #map { height: 100%; width: 100%; }
+  #map { height: 100%; width: 100%; position: relative; }
+  .map-toggles { position: absolute; left: 50%; transform: translateX(-50%); bottom: 12px; z-index: 1000; display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; max-width: 92%; }
+  .map-toggles .mt { font-size: 11px; font-weight: 600; padding: 5px 11px; border-radius: 15px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.94); color: #9a9a9a; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.14); display: inline-flex; align-items: center; gap: 4px; transition: background 0.12s, color 0.12s, border-color 0.12s; backdrop-filter: blur(2px); }
+  .map-toggles .mt.active { background: #0F6E56; color: #fff; border-color: #0F6E56; }
+  .map-toggles .mt:not(.active) { opacity: 0.92; }
+  .map-toggles .mt-ic { font-size: 12px; line-height: 1; }
 
   .content-pane { display: flex; flex-direction: column; overflow: hidden; background: #f5f4f0; }
 
@@ -762,7 +767,9 @@ const airports = [
   { code: 'SDJ', name: 'Sendai', coords: [38.1397, 140.9171] },
   { code: 'CTS', name: 'New Chitose · Sapporo', coords: [42.7752, 141.6923] },
   { code: 'KMQ', name: 'Komatsu · Kanazawa', coords: [36.3946, 136.4076] },
-  { code: 'GMP', name: 'Seúl Gimpo', coords: [37.5583, 126.7906] }
+  { code: 'GMP', name: 'Seúl Gimpo', coords: [37.5583, 126.7906] },
+  { code: 'IAH', name: 'Houston (escala)', coords: [29.9844, -95.3414] },
+  { code: 'EZE', name: 'Buenos Aires Ezeiza', coords: [-34.8222, -58.5358] }
 ];
 // Aeropuertos en la MISMA capa que las líneas de vuelo (toggle "Vuelos" agrupa ambos).
 airports.forEach(ap => {
@@ -771,8 +778,17 @@ airports.forEach(ap => {
     .bindPopup('<div class="popup-title">✈ ' + ap.name + ' (' + ap.code + ')</div>');
 });
 
+// Vuelos internacionales de IDA y VUELTA graficados (en flightLayer). NO entran al
+// fitBounds para no achicar Japón; se ven al alejar el zoom.
+const _EZE = [-34.8222, -58.5358], _IAH = [29.9844, -95.3414], _HND = [35.5494, 139.7798], _NRT = [35.7720, 140.3929];
+const _intlStyle = { color: MODE_STYLE.air.color, weight: 2, opacity: 0.6, dashArray: '1, 7' };
+L.polyline([_EZE, _IAH, _HND, destinations[0].coords], _intlStyle).addTo(flightLayer)
+  .bindPopup('<div class="popup-title">✈ Ida · EZE → IAH → Tokio (6–8 oct)</div>');
+L.polyline([destinations[destinations.length - 1].coords, _NRT, _IAH, _EZE], _intlStyle).addTo(flightLayer)
+  .bindPopup('<div class="popup-title">✈ Vuelta · Tokio → IAH → EZE (17–18 nov)</div>');
+
 // Leyenda de modos de transporte (colores de las líneas).
-const routeLegend = L.control({ position: 'bottomleft' });
+const routeLegend = L.control({ position: 'topright' });
 routeLegend.onAdd = function () {
   const div = L.DomUtil.create('div', 'route-legend');
   div.innerHTML = ['air', 'train', 'bus', 'ferry'].map(k => {
@@ -1186,15 +1202,30 @@ for (let i = 0; i < destinations.length - 1; i++) {
 }
 
 // Toggles de capas — directos en el mapa (expandidos), ocultar/mostrar cada tipo.
-L.control.layers(null, {
-  '① Destinos': destLayer,
-  '🚆 Transporte': routeLayer,
-  '✈ Vuelos': flightLayer,
-  '🔵 Day trips': dtLayer,
-  '🟢 Actividades': savedPlaceLayer,
-  '🛏️ Hospedajes': lodgingLayer,
-  '🟠 Guardados': orphanPlaceLayer,
-}, { collapsed: false, position: 'topright' }).addTo(map);
+// Barra de toggles propia (abajo, pills). "Lugares" unifica actividades + day trips + guardados.
+const TOGGLES = [
+  { label: 'Destinos',   icon: '📍', layers: [destLayer] },
+  { label: 'Transporte', icon: '🚆', layers: [routeLayer] },
+  { label: 'Vuelos',     icon: '✈️', layers: [flightLayer] },
+  { label: 'Hospedajes', icon: '🛏️', layers: [lodgingLayer] },
+  { label: 'Lugares',    icon: '⭐', layers: [savedPlaceLayer, dtLayer, orphanPlaceLayer] },
+];
+const togglesBar = document.createElement('div');
+togglesBar.className = 'map-toggles';
+TOGGLES.forEach(t => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'mt active';
+  btn.innerHTML = '<span class="mt-ic">' + t.icon + '</span>' + t.label;
+  btn.addEventListener('click', () => {
+    const on = btn.classList.toggle('active');
+    t.layers.forEach(l => on ? map.addLayer(l) : map.removeLayer(l));
+  });
+  togglesBar.appendChild(btn);
+});
+map.getContainer().appendChild(togglesBar);
+L.DomEvent.disableClickPropagation(togglesBar);
+L.DomEvent.disableScrollPropagation(togglesBar);
 
 // Lightbox para las galerías de fotos (click en una miniatura → se expande).
 (function () {
