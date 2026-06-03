@@ -51,6 +51,7 @@
   .chart-title { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
   .chart-wrap { height: 200px; position: relative; display: none; }
   .chart-wrap.open { display: block; }
+  .airport-marker { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 1.5px solid #4A6FA5; color: #4A6FA5; display: flex; align-items: center; justify-content: center; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
   .lodging-marker { width: 28px; height: 28px; border-radius: 50% 50% 50% 2px; background: #fff; border: 2px solid #7A4FB0; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); cursor: pointer; }
   .mini-pop { min-width: 150px; max-width: 210px; }
   .mini-pop-img { width: 100%; height: 92px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; display: block; background: #ece9e2; }
@@ -364,7 +365,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chuson-ji_Konjiki-do_02.JPG/500px-Chuson-ji_Konjiki-do_02.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Iris_garden_-_Motsuji%2C_Hiraizumi%2C_Iwate_-_DSC04425.jpg/500px-Iris_garden_-_Motsuji%2C_Hiraizumi%2C_Iwate_-_DSC04425.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Ichinoseki_gg_1.jpg'],
     dates: '13-14 oct', nights: 1,
     arrival: '13 oct (llega de Nikko, primera noche acá)', departure: '14 oct (Geibikei a la mañana, sigue a Ginzan)', lodging: null,
-    leg: { mode: '🚄', time: '~3 h', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Ichinoseki → Hiraizumi.' },
+    leg: { mode: '🚄', time: '~3 h', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Ichinoseki → Hiraizumi.', via: [[36.5551, 139.898], [38.2602, 140.8821], [38.927, 141.1265]] },
     tempMax: '16-21', tempMin: '8-12', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Base norte 1 (Iwate). Pueblo UNESCO chico y tranquilo, ex-capital del clan Fujiwara: su joya es el Chūson-ji con el Konjikidō (pabellón cubierto en pan de oro). Base para el paseo en bote por la garganta de Geibikei (al día siguiente). Otoño arrancando, calmo y precioso.',
     activities: [
@@ -384,7 +385,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg/500px-%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Night_in_Ginzan_Onsen_town_January_2022_C.jpg/500px-Night_in_Ginzan_Onsen_town_January_2022_C.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Ginzan_Onsen_in_autumn_2018c.jpg/500px-Ginzan_Onsen_in_autumn_2018c.jpg'],
     dates: '14-15 oct', nights: 1,
     arrival: '14 oct tarde (vía Geibikei; llega de Hiraizumi)', departure: '15 oct (a Sendai, vuelo a Sapporo)', lodging: null,
-    leg: { mode: '🚄🚌', time: '~3 h 30', detail: 'Geibikei a la mañana → Hiraizumi → Sendai → Yamagata → Ōishida + bus a Ginzan.' },
+    leg: { mode: '🚄🚌', time: '~3 h 30', detail: 'Geibikei a la mañana → Hiraizumi → Sendai → Yamagata → Ōishida + bus a Ginzan.', via: [[38.2602, 140.8821], [38.2554, 140.3396], [38.5969, 140.37]] },
     tempMax: '14-20', tempMin: '6-11', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Base norte 2 (Yamagata) y la joya del tramo: pueblo onsen de la era Taisho sobre un río, con ryokan de madera de varios pisos y faroles de gas. La magia es de noche, con la calle iluminada (vibra Spirited Away) — por eso se pernocta. Llegás a la tarde justo para el atardecer + onsen. Noches frescas (~6-11°), ideal para el baño.',
     activities: [
@@ -402,7 +403,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Odori_Park_in_Sapporo_1936.jpg/500px-Odori_Park_in_Sapporo_1936.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Sapporo_TV_tower-20091013-RM-162316.jpg/500px-Sapporo_TV_tower-20091013-RM-162316.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Sapporo_Clock_Tower_Hokkaido_Japan_2.jpg/500px-Sapporo_Clock_Tower_Hokkaido_Japan_2.jpg'],
     dates: '15-17 oct', nights: 2,
     arrival: '15 oct (vuelo desde Sendai)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
-    leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Ginzan → aeropuerto de Sendai + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗' },
+    leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Ginzan → aeropuerto de Sendai + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗', via: [[38.1397, 140.9171], [42.7752, 141.6923]] },
     tempMax: '9-21', tempMin: '2-15', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
@@ -424,7 +425,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG/500px-Fountain_Kenrokuen_Garden_Kanazawa_Japan.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg/500px-Higashi_Chaya_district%2C_Kanazawa_%283810723944%29.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/20190705_Kanazawa_Castle-14.jpg/500px-20190705_Kanazawa_Castle-14.jpg'],
     dates: '17-19 oct', nights: 2,
     arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Kioto)', lodging: null,
-    leg: { mode: '✈️🚆', time: '~1 h 40 (vuelo)', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sapporo%20to%20Komatsu', dirLabel: 'ver vuelos ↗' },
+    leg: { mode: '✈️🚆', time: '~1 h 40 (vuelo)', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sapporo%20to%20Komatsu', dirLabel: 'ver vuelos ↗', via: [[42.7752, 141.6923], [36.3946, 136.4076]] },
     tempMax: '15-27', tempMin: '8-17', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
     activities: [
@@ -635,7 +636,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/LakeAshi_and_MtFuji_Hakone.JPG/500px-LakeAshi_and_MtFuji_Hakone.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Torii_of_Kuzuryu_Shrine_in_Hakone_Shrine.jpg/500px-Torii_of_Kuzuryu_Shrine_in_Hakone_Shrine.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Owakudani_%40_Hakone_%2810621374853%29.jpg/500px-Owakudani_%40_Hakone_%2810621374853%29.jpg'],
     dates: '10-12 nov', nights: 2,
     arrival: '10 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '12 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
-    leg: { mode: '✈️🚆', time: '~4 h (vuelo+tren)', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Seoul%20to%20Tokyo', dirLabel: 'ver vuelos ↗' },
+    leg: { mode: '✈️🚆', time: '~4 h (vuelo+tren)', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Seoul%20to%20Tokyo', dirLabel: 'ver vuelos ↗', via: [[37.5583, 126.7906], [35.5494, 139.7798]] },
     tempMax: '13-20', tempMin: '8-15', weatherUpdated: '2026-06-03', weatherMode: 'climatología',
     intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
     activities: [
@@ -702,9 +703,34 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const routeCoords = destinations.map(d => d.coords);
-L.polyline(routeCoords, {
-  color: '#0F6E56', weight: 3, opacity: 0.75, dashArray: '8, 8',
-}).addTo(map);
+// Líneas de ruta POR TRAMO, siguiendo el transporte real: cada segmento va de un
+// nodo al siguiente pasando por los waypoints de leg.via (hubs/aeropuertos). Los
+// tramos de vuelo van punteado fino; los terrestres (tren/bus/ferry), con guiones.
+for (let i = 0; i < destinations.length - 1; i++) {
+  const a = destinations[i], b = destinations[i + 1];
+  const isFlight = !!(b.leg && b.leg.mode && b.leg.mode.indexOf('✈️') !== -1);
+  const pts = [a.coords].concat((b.leg && b.leg.via) || []).concat([b.coords]);
+  L.polyline(pts, isFlight
+    ? { color: '#0F6E56', weight: 2, opacity: 0.5, dashArray: '2, 7' }
+    : { color: '#0F6E56', weight: 3, opacity: 0.7, dashArray: '8, 8' }
+  ).addTo(map);
+}
+
+// Aeropuertos usados en el viaje (markers ✈).
+const airports = [
+  { code: 'HND', name: 'Tokio Haneda', coords: [35.5494, 139.7798] },
+  { code: 'NRT', name: 'Tokio Narita', coords: [35.7720, 140.3929] },
+  { code: 'SDJ', name: 'Sendai', coords: [38.1397, 140.9171] },
+  { code: 'CTS', name: 'New Chitose · Sapporo', coords: [42.7752, 141.6923] },
+  { code: 'KMQ', name: 'Komatsu · Kanazawa', coords: [36.3946, 136.4076] },
+  { code: 'GMP', name: 'Seúl Gimpo', coords: [37.5583, 126.7906] }
+];
+const airportLayer = L.layerGroup().addTo(map);
+airports.forEach(ap => {
+  const icon = L.divIcon({ html: '<div class="airport-marker">✈</div>', className: '', iconSize: [20, 20], iconAnchor: [10, 10] });
+  L.marker(ap.coords, { icon }).addTo(airportLayer)
+    .bindPopup('<div class="popup-title">✈ ' + ap.name + ' (' + ap.code + ')</div>');
+});
 
 // Popup estilo "mini Google Maps": foto (si hay) + nombre + sub + link a Maps.
 function gmapsFromName(name) {
