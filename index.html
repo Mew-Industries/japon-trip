@@ -51,6 +51,7 @@
   .chart-title { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
   .chart-wrap { height: 200px; position: relative; display: none; }
   .chart-wrap.open { display: block; }
+  .lodging-marker { width: 28px; height: 28px; border-radius: 50% 50% 50% 2px; background: #fff; border: 2px solid #7A4FB0; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); cursor: pointer; }
   .mini-pop { min-width: 150px; max-width: 210px; }
   .mini-pop-img { width: 100%; height: 92px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; display: block; background: #ece9e2; }
   .mini-pop-maps { display: inline-block; margin-top: 6px; font-size: 11px; color: #0F6E56; text-decoration: none; font-weight: 600; }
@@ -594,6 +595,7 @@ const destinations = [
       name: 'Hanok premium en Bukchon (Gahoe-dong)', type: 'Airbnb · hanok premium', rating: '★4.95',
       guests: '2 dormitorios · 2 camas · 1 baño compartido',
       area: 'Gahoe-dong, Jongno — el corazón de la aldea hanok de Bukchon',
+      coords: [37.5823, 126.9858],
       checkIn: '6 nov', checkOut: '10 nov', nights: 4,
       img: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MjI3MjQxMzM%3D/original/5498d161-c2fb-462c-8f3b-d7eae180fd8e.jpeg?im_w=720',
       url: 'https://www.airbnb.com/rooms/22724133?check_in=2026-11-06&check_out=2026-11-10&adults=2'
@@ -804,6 +806,26 @@ destinations.forEach(d => {
   });
 });
 
+// Hospedajes: pin propio (cama) por destino que tenga lodging con coords.
+const lodgingLayer = L.layerGroup().addTo(map);
+destinations.forEach(d => {
+  const lodg = d.lodging;
+  if (!lodg || !lodg.coords) return;
+  const icon = L.divIcon({
+    html: '<div class="lodging-marker">🛏️</div>',
+    className: '', iconSize: [28, 28], iconAnchor: [14, 14],
+  });
+  L.marker(lodg.coords, { icon }).addTo(lodgingLayer).bindPopup(
+    '<div class="mini-pop">' +
+      (lodg.img ? '<img class="mini-pop-img" src="' + lodg.img + '" loading="lazy" alt="">' : '') +
+      '<div class="popup-title">🛏️ ' + lodg.name + (lodg.rating ? ' · ' + lodg.rating : '') + '</div>' +
+      '<div class="popup-dates">' + d.short + ' · ' + (lodg.checkIn || '') + ' → ' + (lodg.checkOut || '') +
+        (lodg.nights ? ' · ' + lodg.nights + ' noches' : '') + '</div>' +
+      (lodg.url ? '<a class="mini-pop-maps" href="' + lodg.url + '" target="_blank" rel="noopener">Ver en Airbnb →</a>' : '') +
+    '</div>'
+  );
+});
+
 const orphanPlaceLayer = L.layerGroup().addTo(map);
 orphanPlaces.forEach(p => {
   if (p.lat == null || p.lon == null) return;
@@ -818,6 +840,7 @@ const placeCoords = destinations
   .concat(orphanPlaces.filter(p => p.lat != null).map(p => [p.lat, p.lon]));
 const allCoords = routeCoords
   .concat(destinations.flatMap(d => d.daytrips.map(dt => dt.coords)))
+  .concat(destinations.filter(d => d.lodging && d.lodging.coords).map(d => d.lodging.coords))
   .concat(placeCoords);
 map.fitBounds(L.latLngBounds(allCoords), { padding: [40, 40] });
 
