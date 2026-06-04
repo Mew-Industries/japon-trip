@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Japón + Corea · oct-nov 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='54' font-size='76' text-anchor='middle' dominant-baseline='central'>%E2%9C%88%EF%B8%8F</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   * { box-sizing: border-box; }
@@ -188,6 +189,11 @@
   .dest-flag { width: 28px; height: 19px; object-fit: cover; border-radius: 3px; margin-left: auto; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
   .itin-caret { font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
   .dest-card.open .itin-caret { transform: rotate(90deg); }
+  .itin-share { flex-shrink: 0; border: none; background: transparent; cursor: pointer; font-size: 13px; line-height: 1; padding: 3px; border-radius: 6px; opacity: 0.45; transition: opacity 0.15s, background 0.15s; }
+  .itin-head:hover .itin-share { opacity: 0.8; }
+  .itin-share:hover { opacity: 1; background: #ece9e2; }
+  .itin-share.copied { opacity: 1; }
+  .itin-share.copied::after { content: ' copiado'; font-size: 10px; color: #0F6E56; }
   .card-detail { display: none; margin-top: 10px; }
   .dest-card.open .card-detail { display: block; }
   .detail-temps { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
@@ -1076,6 +1082,7 @@ destinations.forEach((d, idx) => {
         metaHtml +
       '</div>' +
       flagImgHtml +
+      '<button type="button" class="itin-share" title="Copiar link a esta parada" aria-label="Compartir esta parada">🔗</button>' +
       '<span class="itin-caret">▸</span>' +
     '</div>' +
     '<div class="card-detail">' +
@@ -1110,7 +1117,19 @@ destinations.forEach((d, idx) => {
 
   card.querySelector('.itin-head').addEventListener('click', () => {
     const open = card.classList.toggle('open');
-    if (open) { markers[d.id].openPopup(); map.flyTo(d.coords, 8, { duration: 0.8 }); }
+    if (open) { markers[d.id].openPopup(); map.flyTo(d.coords, 8, { duration: 0.8 }); setStopParam(d.id); }
+    else if (currentStopParam() === d.id) { setStopParam(null); }
+  });
+
+  card.querySelector('.itin-share').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const link = shareUrl(d.id);
+    const done = () => { btn.classList.add('copied'); setTimeout(() => btn.classList.remove('copied'), 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(done).catch(() => { prompt('Copiá el link:', link); });
+    } else { prompt('Copiá el link:', link); }
+    setStopParam(d.id);
   });
 
   const qhToggle = card.querySelector('.qh-toggle');
@@ -1196,6 +1215,35 @@ function flash(el) {
   el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
   setTimeout(() => el.classList.remove('flash'), 1500);
 }
+// --- Deep-linking: ?stop=<id> abre y enfoca una parada (para compartir una vista). ---
+function shareUrl(id) {
+  return location.origin + location.pathname + '?stop=' + encodeURIComponent(id);
+}
+function currentStopParam() {
+  return new URLSearchParams(location.search).get('stop');
+}
+function setStopParam(id) {
+  const u = new URL(location.href);
+  if (id) u.searchParams.set('stop', id); else u.searchParams.delete('stop');
+  history.replaceState(null, '', u);
+}
+// Abre la parada compartida: expande la card, vuela el mapa y encuadra sus elementos (pin + tramo + lugares).
+function openSharedStop(id) {
+  const d = destinations.find(x => x.id === id);
+  if (!d || !cards[id]) return;
+  Object.values(cards).forEach(c => c.classList.remove('open'));  // foco: dejá sólo esta abierta
+  cards[id].classList.add('open');
+  if (legRows[id]) legRows[id].classList.add('open');
+  const pts = [d.coords];
+  if (legRows[id]) { const p = destinations[destinations.findIndex(x => x.id === id) - 1]; if (p) pts.push(p.coords); }
+  (d.activities || []).forEach(a => a.coords && pts.push(a.coords));
+  (d.daytrips || []).forEach(t => t.coords && pts.push(t.coords));
+  if (d.lodging && d.lodging.coords) pts.push(d.lodging.coords);
+  try { map.fitBounds(L.latLngBounds(pts), { padding: [60, 60], maxZoom: 11 }); } catch (e) { map.setView(d.coords, 9); }
+  if (markers[id]) markers[id].openPopup();
+  const anchor = cards[id];
+  setTimeout(() => { anchor.scrollIntoView({ behavior: 'smooth', block: 'start' }); flash(legRows[id]); flash(cards[id]); }, 120);
+}
 function focusTrip(id) {
   const card = cards[id];
   if (!card) return;
@@ -1262,6 +1310,12 @@ TOGGLES.forEach(t => {
 map.getContainer().appendChild(togglesBar);
 L.DomEvent.disableClickPropagation(togglesBar);
 L.DomEvent.disableScrollPropagation(togglesBar);
+
+// Si la URL trae ?stop=<id>, abrir y enfocar esa parada (vista compartible).
+(function () {
+  const id = currentStopParam();
+  if (id && destinations.some(d => d.id === id)) setTimeout(() => openSharedStop(id), 350);
+})();
 
 // Lightbox para las galerías de fotos (click en una miniatura → se expande).
 (function () {
