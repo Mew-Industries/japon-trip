@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Japón + Corea · oct-nov 2026</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='54' font-size='76' text-anchor='middle' dominant-baseline='central'>%E2%9C%88%EF%B8%8F</text></svg>">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="favicon-64.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
   * { box-sizing: border-box; }
@@ -189,9 +192,6 @@
   .dest-flag { width: 28px; height: 19px; object-fit: cover; border-radius: 3px; margin-left: auto; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
   .itin-caret { font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
   .dest-card.open .itin-caret { transform: rotate(90deg); }
-  .itin-expand { flex-shrink: 0; border: none; background: transparent; cursor: pointer; font-size: 15px; line-height: 1; padding: 2px 4px; border-radius: 6px; color: #888; opacity: 0.5; transition: opacity 0.15s, background 0.15s; }
-  .itin-head:hover .itin-expand { opacity: 0.85; }
-  .itin-expand:hover { opacity: 1; background: #ece9e2; color: #0F6E56; }
   /* Modal de ficha individual por parada */
   .stop-modal { position: fixed; inset: 0; z-index: 4000; display: flex; align-items: center; justify-content: center; padding: 20px; }
   .stop-modal[hidden] { display: none; }
@@ -219,6 +219,12 @@
   .sm-act:hover { text-decoration: underline; }
   .sm-dt-desc { font-size: 12px; color: #8a8478; line-height: 1.4; margin: 2px 0 6px; }
   body.sm-open { overflow: hidden; }
+  .sm-leg-badge { width: 40px; height: 40px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .ficha-btn { width: 100%; border: 1px solid #cfe4db; background: #eef6f2; color: #0F6E56; cursor: pointer; font-size: 12.5px; font-weight: 600; padding: 8px; border-radius: 8px; margin-bottom: 10px; transition: background 0.15s; }
+  .ficha-btn:hover { background: #ddeee6; }
+  .leg-ficha { flex-shrink: 0; border: none; background: transparent; cursor: pointer; font-size: 14px; line-height: 1; padding: 2px 4px; border-radius: 5px; color: #999; opacity: 0.6; transition: opacity 0.15s, background 0.15s; }
+  .leg-head:hover .leg-ficha { opacity: 0.9; }
+  .leg-ficha:hover { opacity: 1; background: rgba(0,0,0,0.07); color: #444; }
   .card-detail { display: none; margin-top: 10px; }
   .dest-card.open .card-detail { display: block; }
   .detail-temps { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
@@ -1070,15 +1076,17 @@ destinations.forEach((d, idx) => {
         '<span class="leg-mode">' + d.leg.mode + '</span>' +
         '<span class="leg-type" style="color:' + lt.color + '">' + lt.label + '</span>' +
         '<span class="leg-text"><strong>' + d.leg.time + '</strong> · ' + d.leg.detail + '</span>' +
+        '<button type="button" class="leg-ficha" title="Ver ficha del tramo" aria-label="Ver ficha del tramo">⤢</button>' +
         (bodyHtml ? '<span class="leg-chevron">▸</span>' : '') +
       '</div>' +
       (bodyHtml ? '<div class="leg-body">' + bodyHtml + '</div>' : '');
     // Click en el header → expande/colapsa + resalta el tramo en el mapa (panel → mapa).
     legRow.querySelector('.leg-head').addEventListener('click', (e) => {
-      if (e.target.closest('.leg-dir') || e.target.closest('.leg-seg')) return;
+      if (e.target.closest('.leg-dir') || e.target.closest('.leg-seg') || e.target.closest('.leg-ficha')) return;
       legRow.classList.toggle('open');
       highlightSegment(d.id);
     });
+    legRow.querySelector('.leg-ficha').addEventListener('click', (e) => { e.stopPropagation(); openLegModal(d.id); });
     detailsList.appendChild(legRow);
     legRows[d.id] = legRow;
   }
@@ -1107,11 +1115,11 @@ destinations.forEach((d, idx) => {
         metaHtml +
       '</div>' +
       flagImgHtml +
-      '<button type="button" class="itin-expand" title="Abrir ficha de la parada" aria-label="Abrir ficha">⤢</button>' +
       '<span class="itin-caret">▸</span>' +
     '</div>' +
     '<div class="card-detail">' +
       galleryHtml +
+      '<button type="button" class="ficha-btn">⤢ Ver ficha completa</button>' +
       tempsHtml +
       '<p class="card-intro">' + d.intro + '</p>' +
       lodgingHtml(d.lodging) +
@@ -1145,7 +1153,7 @@ destinations.forEach((d, idx) => {
     if (open) { markers[d.id].openPopup(); map.flyTo(d.coords, 8, { duration: 0.8 }); }
   });
 
-  card.querySelector('.itin-expand').addEventListener('click', (e) => {
+  card.querySelector('.ficha-btn').addEventListener('click', (e) => {
     e.stopPropagation();
     openStopModal(d.id);
   });
@@ -1234,16 +1242,18 @@ function flash(el) {
   setTimeout(() => el.classList.remove('flash'), 1500);
 }
 // --- Deep-linking: ?stop=<id> abre y enfoca una parada (para compartir una vista). ---
-function shareUrl(id) {
-  return location.origin + location.pathname + '?stop=' + encodeURIComponent(id);
+function shareUrl(kind, id) {
+  return location.origin + location.pathname + '?' + kind + '=' + encodeURIComponent(id);
 }
-function currentStopParam() {
-  return new URLSearchParams(location.search).get('stop');
-}
-function setStopParam(id) {
+function setView(kind, id) {  // kind: 'stop' | 'leg' | null
   const u = new URL(location.href);
-  if (id) u.searchParams.set('stop', id); else u.searchParams.delete('stop');
+  u.searchParams.delete('stop'); u.searchParams.delete('leg');
+  if (kind && id) u.searchParams.set(kind, id);
   history.replaceState(null, '', u);
+}
+function hasViewParam() {
+  const s = new URLSearchParams(location.search);
+  return s.get('stop') || s.get('leg');
 }
 // --- Ficha individual por parada (modal): info condensada + mini-mapa con sus pines/rutas. ---
 let _smMap = null, _smLayer = null;
@@ -1273,7 +1283,7 @@ function closeStopModal() {
   if (!el || el.hidden) return;
   el.hidden = true;
   document.body.classList.remove('sm-open');
-  if (currentStopParam()) setStopParam(null);
+  if (hasViewParam()) setView(null);
 }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeStopModal(); });
 
@@ -1331,25 +1341,77 @@ function buildStopMiniMap(d, idx) {
   if (d.lodging && d.lodging.coords) { L.marker(d.lodging.coords, { icon: L.divIcon({ html: '<div class="lodging-marker">🛏️</div>', className: '', iconSize: [28, 28], iconAnchor: [14, 14] }) }).addTo(_smLayer).bindPopup(d.lodging.name); pts.push(d.lodging.coords); }
   setTimeout(() => { _smMap.invalidateSize(); try { _smMap.fitBounds(L.latLngBounds(pts), { padding: [30, 30], maxZoom: 12 }); } catch (e) { _smMap.setView(d.coords, 10); } }, 60);
 }
+function _wireShare(el, kind, id) {
+  const sb = el.querySelector('.sm-share');
+  sb.classList.remove('copied'); sb.innerHTML = '🔗 Copiar link';
+  sb.onclick = () => {
+    const link = shareUrl(kind, id);
+    const done = () => { sb.classList.add('copied'); sb.innerHTML = '✓ Link copiado'; setTimeout(() => { sb.classList.remove('copied'); sb.innerHTML = '🔗 Copiar link'; }, 1700); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done).catch(() => prompt('Copiá el link:', link));
+    else prompt('Copiá el link:', link);
+  };
+}
+function _showModal(el) { el.hidden = false; document.body.classList.add('sm-open'); el.querySelector('.sm-dialog').scrollTop = 0; }
+
 function openStopModal(id) {
   const idx = destinations.findIndex(x => x.id === id);
   if (idx < 0) return;
   const d = destinations[idx];
   const el = ensureStopModal();
   el.querySelector('.sm-content').innerHTML = smBodyHtml(d);
-  const sb = el.querySelector('.sm-share');
-  sb.classList.remove('copied'); sb.innerHTML = '🔗 Copiar link';
-  sb.onclick = () => {
-    const link = shareUrl(d.id);
-    const done = () => { sb.classList.add('copied'); sb.innerHTML = '✓ Link copiado'; setTimeout(() => { sb.classList.remove('copied'); sb.innerHTML = '🔗 Copiar link'; }, 1700); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done).catch(() => prompt('Copiá el link:', link));
-    else prompt('Copiá el link:', link);
-  };
-  el.hidden = false;
-  document.body.classList.add('sm-open');
-  setStopParam(id);
-  el.querySelector('.sm-dialog').scrollTop = 0;
+  _wireShare(el, 'stop', d.id);
+  _showModal(el);
+  setView('stop', id);
   buildStopMiniMap(d, idx);
+}
+
+// Ficha de un TRAMO de transporte: modo, duración, segmentos + mini-mapa de la ruta real.
+function legBodyHtml(d, idx) {
+  const prev = idx > 0 ? destinations[idx - 1] : null;
+  const t = legType(d.leg), lt = MODE_STYLE[t];
+  const origin = prev ? prev.short : 'Buenos Aires';
+  const dirHref = d.leg.dirUrl || ((prev && prev.coords && d.coords)
+    ? 'https://www.google.com/maps/dir/?api=1&origin=' + prev.coords[0] + ',' + prev.coords[1] + '&destination=' + d.coords[0] + ',' + d.coords[1] + '&travelmode=transit'
+    : '');
+  const dir = dirHref ? '<a class="sm-act" href="' + dirHref + '" target="_blank" rel="noopener">' + (d.leg.dirLabel || 'Cómo llegar en Maps ↗') + '</a>' : '';
+  return (
+    '<div class="sm-head"><div class="sm-leg-badge" style="background:' + lt.color + '">' + d.leg.mode + '</div>' +
+      '<div><h2 class="sm-title">' + origin + ' → ' + d.short + '</h2>' +
+      '<div class="sm-meta">' + lt.label + ' · ' + d.leg.time + ' · llega ' + segStartDate(d.dates) + '</div></div></div>' +
+    '<div id="sm-map" class="sm-map"></div>' +
+    '<p class="sm-intro">' + d.leg.detail + '</p>' +
+    (d.leg.segments ? '<div class="sm-sec"><div class="card-section-title">Segmentos</div>' + legSegsHtml(d.leg) + '</div>' : '') +
+    (dir ? '<div class="sm-sec">' + dir + '</div>' : '')
+  );
+}
+function buildLegMiniMap(d, idx) {
+  const c = document.getElementById('sm-map'); if (!c) return;
+  if (_smMap) { _smMap.remove(); _smMap = null; }
+  _smMap = L.map(c, { zoomControl: false, attributionControl: false, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { subdomains: 'abcd', maxZoom: 19 }).addTo(_smMap);
+  _smLayer = L.layerGroup().addTo(_smMap);
+  const prev = idx > 0 ? destinations[idx - 1] : null, pts = [];
+  if (prev) {
+    let subsegs;
+    if (d.leg.path) { let from = prev.coords; subsegs = d.leg.path.map(s => { const seg = { pts: [from, s.to], mode: s.m }; from = s.to; return seg; }); }
+    else { subsegs = [{ pts: [prev.coords].concat(d.leg.via || []).concat([d.coords]), mode: legType(d.leg) }]; }
+    subsegs.forEach(seg => { L.polyline(seg.pts, styleFor(seg.mode)).addTo(_smLayer); seg.pts.forEach(p => pts.push(p)); });
+    [prev, d].forEach(node => { L.marker(node.coords, { icon: L.divIcon({ html: '<div class="marker-num">' + node.n + '</div>', className: '', iconSize: [30, 30], iconAnchor: [15, 15] }) }).addTo(_smLayer).bindPopup(node.short); pts.push(node.coords); });
+  } else {
+    L.marker(d.coords, { icon: L.divIcon({ html: '<div class="marker-num">' + d.n + '</div>', className: '', iconSize: [30, 30], iconAnchor: [15, 15] }) }).addTo(_smLayer).bindPopup(d.short); pts.push(d.coords);
+  }
+  setTimeout(() => { _smMap.invalidateSize(); try { _smMap.fitBounds(L.latLngBounds(pts), { padding: [35, 35], maxZoom: 11 }); } catch (e) { _smMap.setView(d.coords, 8); } }, 60);
+}
+function openLegModal(id) {
+  const idx = destinations.findIndex(x => x.id === id);
+  if (idx < 0 || !destinations[idx].leg) return;
+  const d = destinations[idx];
+  const el = ensureStopModal();
+  el.querySelector('.sm-content').innerHTML = legBodyHtml(d, idx);
+  _wireShare(el, 'leg', d.id);
+  _showModal(el);
+  setView('leg', id);
+  buildLegMiniMap(d, idx);
 }
 function focusTrip(id) {
   const card = cards[id];
@@ -1418,10 +1480,12 @@ map.getContainer().appendChild(togglesBar);
 L.DomEvent.disableClickPropagation(togglesBar);
 L.DomEvent.disableScrollPropagation(togglesBar);
 
-// Si la URL trae ?stop=<id>, abrir la ficha (modal) de esa parada (vista compartible).
+// Si la URL trae ?stop=<id> o ?leg=<id>, abrir la ficha (modal) correspondiente (vista compartible).
 (function () {
-  const id = currentStopParam();
-  if (id && destinations.some(d => d.id === id)) setTimeout(() => openStopModal(id), 300);
+  const s = new URLSearchParams(location.search);
+  const stop = s.get('stop'), leg = s.get('leg');
+  if (stop && destinations.some(d => d.id === stop)) setTimeout(() => openStopModal(stop), 300);
+  else if (leg && destinations.some(d => d.id === leg)) setTimeout(() => openLegModal(leg), 300);
 })();
 
 // Lightbox para las galerías de fotos (click en una miniatura → se expande).
