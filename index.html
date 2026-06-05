@@ -189,11 +189,36 @@
   .dest-flag { width: 28px; height: 19px; object-fit: cover; border-radius: 3px; margin-left: auto; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
   .itin-caret { font-size: 11px; color: #aaa; transition: transform 0.15s; flex-shrink: 0; }
   .dest-card.open .itin-caret { transform: rotate(90deg); }
-  .itin-share { flex-shrink: 0; border: none; background: transparent; cursor: pointer; font-size: 13px; line-height: 1; padding: 3px; border-radius: 6px; opacity: 0.45; transition: opacity 0.15s, background 0.15s; }
-  .itin-head:hover .itin-share { opacity: 0.8; }
-  .itin-share:hover { opacity: 1; background: #ece9e2; }
-  .itin-share.copied { opacity: 1; }
-  .itin-share.copied::after { content: ' copiado'; font-size: 10px; color: #0F6E56; }
+  .itin-expand { flex-shrink: 0; border: none; background: transparent; cursor: pointer; font-size: 15px; line-height: 1; padding: 2px 4px; border-radius: 6px; color: #888; opacity: 0.5; transition: opacity 0.15s, background 0.15s; }
+  .itin-head:hover .itin-expand { opacity: 0.85; }
+  .itin-expand:hover { opacity: 1; background: #ece9e2; color: #0F6E56; }
+  /* Modal de ficha individual por parada */
+  .stop-modal { position: fixed; inset: 0; z-index: 4000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .stop-modal[hidden] { display: none; }
+  .sm-backdrop { position: absolute; inset: 0; background: rgba(20,18,15,0.55); backdrop-filter: blur(2px); }
+  .sm-dialog { position: relative; background: #fbf9f5; width: min(560px, 100%); max-height: 90vh; overflow-y: auto; border-radius: 14px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); }
+  .sm-topbar { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; background: linear-gradient(#fbf9f5, rgba(251,249,245,0.85)); }
+  .sm-share { border: 1px solid #d8d3c8; background: #fff; color: #0F6E56; cursor: pointer; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; transition: background 0.15s; }
+  .sm-share:hover { background: #eef6f2; }
+  .sm-share.copied { background: #0F6E56; color: #fff; border-color: #0F6E56; }
+  .sm-close { border: none; background: transparent; cursor: pointer; font-size: 24px; line-height: 1; color: #999; padding: 0 6px; }
+  .sm-close:hover { color: #333; }
+  .sm-content { padding: 0 18px 20px; }
+  .sm-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .sm-flag { width: 34px; height: 23px; object-fit: cover; border-radius: 3px; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); flex-shrink: 0; }
+  .sm-title { font-size: 20px; font-weight: 700; margin: 0; line-height: 1.15; }
+  .sm-meta { font-size: 12px; color: #8a8478; margin-top: 2px; }
+  .sm-hero { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+  .sm-hero img { width: 100%; height: 120px; object-fit: cover; display: block; }
+  .sm-map { width: 100%; height: 220px; border-radius: 10px; margin-bottom: 12px; background: #ece9e2; }
+  .sm-intro { font-size: 13.5px; line-height: 1.5; color: #3a372f; margin: 0 0 12px; }
+  .sm-sec { margin-bottom: 12px; }
+  .sm-leg { font-size: 13px; line-height: 1.45; color: #3a372f; }
+  .sm-leg-mode { font-size: 15px; }
+  .sm-act { color: #0F6E56; text-decoration: none; }
+  .sm-act:hover { text-decoration: underline; }
+  .sm-dt-desc { font-size: 12px; color: #8a8478; line-height: 1.4; margin: 2px 0 6px; }
+  body.sm-open { overflow: hidden; }
   .card-detail { display: none; margin-top: 10px; }
   .dest-card.open .card-detail { display: block; }
   .detail-temps { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
@@ -1082,7 +1107,7 @@ destinations.forEach((d, idx) => {
         metaHtml +
       '</div>' +
       flagImgHtml +
-      '<button type="button" class="itin-share" title="Copiar link a esta parada" aria-label="Compartir esta parada">🔗</button>' +
+      '<button type="button" class="itin-expand" title="Abrir ficha de la parada" aria-label="Abrir ficha">⤢</button>' +
       '<span class="itin-caret">▸</span>' +
     '</div>' +
     '<div class="card-detail">' +
@@ -1117,19 +1142,12 @@ destinations.forEach((d, idx) => {
 
   card.querySelector('.itin-head').addEventListener('click', () => {
     const open = card.classList.toggle('open');
-    if (open) { markers[d.id].openPopup(); map.flyTo(d.coords, 8, { duration: 0.8 }); setStopParam(d.id); }
-    else if (currentStopParam() === d.id) { setStopParam(null); }
+    if (open) { markers[d.id].openPopup(); map.flyTo(d.coords, 8, { duration: 0.8 }); }
   });
 
-  card.querySelector('.itin-share').addEventListener('click', (e) => {
+  card.querySelector('.itin-expand').addEventListener('click', (e) => {
     e.stopPropagation();
-    const btn = e.currentTarget;
-    const link = shareUrl(d.id);
-    const done = () => { btn.classList.add('copied'); setTimeout(() => btn.classList.remove('copied'), 1600); };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(link).then(done).catch(() => { prompt('Copiá el link:', link); });
-    } else { prompt('Copiá el link:', link); }
-    setStopParam(d.id);
+    openStopModal(d.id);
   });
 
   const qhToggle = card.querySelector('.qh-toggle');
@@ -1227,22 +1245,111 @@ function setStopParam(id) {
   if (id) u.searchParams.set('stop', id); else u.searchParams.delete('stop');
   history.replaceState(null, '', u);
 }
-// Abre la parada compartida: expande la card, vuela el mapa y encuadra sus elementos (pin + tramo + lugares).
-function openSharedStop(id) {
-  const d = destinations.find(x => x.id === id);
-  if (!d || !cards[id]) return;
-  Object.values(cards).forEach(c => c.classList.remove('open'));  // foco: dejá sólo esta abierta
-  cards[id].classList.add('open');
-  if (legRows[id]) legRows[id].classList.add('open');
-  const pts = [d.coords];
-  if (legRows[id]) { const p = destinations[destinations.findIndex(x => x.id === id) - 1]; if (p) pts.push(p.coords); }
-  (d.activities || []).forEach(a => a.coords && pts.push(a.coords));
-  (d.daytrips || []).forEach(t => t.coords && pts.push(t.coords));
-  if (d.lodging && d.lodging.coords) pts.push(d.lodging.coords);
-  try { map.fitBounds(L.latLngBounds(pts), { padding: [60, 60], maxZoom: 11 }); } catch (e) { map.setView(d.coords, 9); }
-  if (markers[id]) markers[id].openPopup();
-  const anchor = cards[id];
-  setTimeout(() => { anchor.scrollIntoView({ behavior: 'smooth', block: 'start' }); flash(legRows[id]); flash(cards[id]); }, 120);
+// --- Ficha individual por parada (modal): info condensada + mini-mapa con sus pines/rutas. ---
+let _smMap = null, _smLayer = null;
+function ensureStopModal() {
+  let el = document.getElementById('stop-modal');
+  if (el) return el;
+  el = document.createElement('div');
+  el.id = 'stop-modal';
+  el.className = 'stop-modal';
+  el.hidden = true;
+  el.innerHTML =
+    '<div class="sm-backdrop"></div>' +
+    '<div class="sm-dialog" role="dialog" aria-modal="true">' +
+      '<div class="sm-topbar">' +
+        '<button type="button" class="sm-share" title="Copiar link a esta parada">🔗 Copiar link</button>' +
+        '<button type="button" class="sm-close" aria-label="Cerrar">×</button>' +
+      '</div>' +
+      '<div class="sm-content"></div>' +
+    '</div>';
+  document.body.appendChild(el);
+  el.querySelector('.sm-backdrop').addEventListener('click', closeStopModal);
+  el.querySelector('.sm-close').addEventListener('click', closeStopModal);
+  return el;
+}
+function closeStopModal() {
+  const el = document.getElementById('stop-modal');
+  if (!el || el.hidden) return;
+  el.hidden = true;
+  document.body.classList.remove('sm-open');
+  if (currentStopParam()) setStopParam(null);
+}
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeStopModal(); });
+
+function smBodyHtml(d) {
+  const cc = { '🇯🇵': 'jp', '🇰🇷': 'kr' };
+  const gal = (d.imgs && d.imgs.length) ? d.imgs : (d.img ? [d.img] : []);
+  const flag = (d.flag && cc[d.flag]) ? '<img class="sm-flag" src="https://flagcdn.com/' + cc[d.flag] + '.svg" alt="">' : '';
+  const meta = d.type === 'fullday' ? (d.dates + ' · pasar el día') : (d.dates + ' · ' + d.nights + ' noches');
+  const hero = gal.length ? '<div class="sm-hero">' + gal.slice(0, 3).map(u => '<img src="' + u + '" loading="lazy" alt="">').join('') + '</div>' : '';
+  const leg = d.leg ? '<div class="sm-sec"><div class="card-section-title">Cómo se llega</div><div class="sm-leg"><span class="sm-leg-mode">' + (d.leg.mode || '') + '</span> ' + (d.leg.time ? '<b>' + d.leg.time + '</b> · ' : '') + (d.leg.detail || '') + '</div>' + legSegsHtml(d.leg) + '</div>' : '';
+  const acts = (d.activities && d.activities.length)
+    ? '<div class="sm-sec"><div class="card-section-title">Qué hacer · ' + d.activities.length + '</div>' +
+        CAT_ORDER.filter(c => d.activities.some(a => a.cat === c)).map(c =>
+          '<div class="cat-group"><div class="cat-head">' + (CAT_LABELS[c] || c) + '</div><ul class="card-list">' +
+            d.activities.filter(a => a.cat === c).map(a =>
+              a.url ? '<li><a class="sm-act" href="' + a.url + '" target="_blank" rel="noopener">' + a.text + ' ↗</a></li>'
+                    : '<li class="act-row-plain">' + a.text + '</li>'
+            ).join('') +
+          '</ul></div>'
+        ).join('') +
+      '</div>'
+    : '';
+  const dts = (d.daytrips && d.daytrips.length)
+    ? '<div class="sm-sec"><div class="card-section-title">Day trips</div><ul class="card-list">' +
+        d.daytrips.map(t => '<li>' + (t.url ? '<a class="sm-act" href="' + t.url + '" target="_blank" rel="noopener">' + t.name + ' ↗</a>' : t.name) + (t.desc ? '<div class="sm-dt-desc">' + t.desc + '</div>' : '') + '</li>').join('') +
+      '</ul></div>'
+    : '';
+  return (
+    '<div class="sm-head">' + flag + '<div><h2 class="sm-title">' + d.name + '</h2><div class="sm-meta">' + meta + '</div></div></div>' +
+    hero +
+    '<div id="sm-map" class="sm-map"></div>' +
+    (d.intro ? '<p class="sm-intro">' + d.intro + '</p>' : '') +
+    lodgingHtml(d.lodging) + leg + acts + dts
+  );
+}
+function buildStopMiniMap(d, idx) {
+  const c = document.getElementById('sm-map');
+  if (!c) return;
+  if (_smMap) { _smMap.remove(); _smMap = null; }  // el contenedor se recrea en cada apertura
+  _smMap = L.map(c, { zoomControl: false, attributionControl: false, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', { subdomains: 'abcd', maxZoom: 19 }).addTo(_smMap);
+  _smLayer = L.layerGroup().addTo(_smMap);
+  const pts = [];
+  if (idx > 0 && d.leg) {  // tramo de llegada, por modo real
+    const a = destinations[idx - 1];
+    let subsegs;
+    if (d.leg.path) { let from = a.coords; subsegs = d.leg.path.map(s => { const seg = { pts: [from, s.to], mode: s.m }; from = s.to; return seg; }); }
+    else { subsegs = [{ pts: [a.coords].concat(d.leg.via || []).concat([d.coords]), mode: legType(d.leg) }]; }
+    subsegs.forEach(seg => { L.polyline(seg.pts, styleFor(seg.mode)).addTo(_smLayer); seg.pts.forEach(p => pts.push(p)); });
+  }
+  L.marker(d.coords, { icon: L.divIcon({ html: '<div class="marker-num">' + d.n + '</div>', className: '', iconSize: [30, 30], iconAnchor: [15, 15] }) }).addTo(_smLayer);
+  pts.push(d.coords);
+  (d.activities || []).forEach(a => { if (a.coords) { L.circleMarker(a.coords, { radius: 5, color: '#D85A30', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(_smLayer).bindPopup(a.text); pts.push(a.coords); } });
+  (d.daytrips || []).forEach(t => { if (t.coords) { L.circleMarker(t.coords, { radius: 5, color: '#2563EB', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(_smLayer).bindPopup(t.name); pts.push(t.coords); } });
+  if (d.lodging && d.lodging.coords) { L.marker(d.lodging.coords, { icon: L.divIcon({ html: '<div class="lodging-marker">🛏️</div>', className: '', iconSize: [28, 28], iconAnchor: [14, 14] }) }).addTo(_smLayer).bindPopup(d.lodging.name); pts.push(d.lodging.coords); }
+  setTimeout(() => { _smMap.invalidateSize(); try { _smMap.fitBounds(L.latLngBounds(pts), { padding: [30, 30], maxZoom: 12 }); } catch (e) { _smMap.setView(d.coords, 10); } }, 60);
+}
+function openStopModal(id) {
+  const idx = destinations.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  const d = destinations[idx];
+  const el = ensureStopModal();
+  el.querySelector('.sm-content').innerHTML = smBodyHtml(d);
+  const sb = el.querySelector('.sm-share');
+  sb.classList.remove('copied'); sb.innerHTML = '🔗 Copiar link';
+  sb.onclick = () => {
+    const link = shareUrl(d.id);
+    const done = () => { sb.classList.add('copied'); sb.innerHTML = '✓ Link copiado'; setTimeout(() => { sb.classList.remove('copied'); sb.innerHTML = '🔗 Copiar link'; }, 1700); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done).catch(() => prompt('Copiá el link:', link));
+    else prompt('Copiá el link:', link);
+  };
+  el.hidden = false;
+  document.body.classList.add('sm-open');
+  setStopParam(id);
+  el.querySelector('.sm-dialog').scrollTop = 0;
+  buildStopMiniMap(d, idx);
 }
 function focusTrip(id) {
   const card = cards[id];
@@ -1311,10 +1418,10 @@ map.getContainer().appendChild(togglesBar);
 L.DomEvent.disableClickPropagation(togglesBar);
 L.DomEvent.disableScrollPropagation(togglesBar);
 
-// Si la URL trae ?stop=<id>, abrir y enfocar esa parada (vista compartible).
+// Si la URL trae ?stop=<id>, abrir la ficha (modal) de esa parada (vista compartible).
 (function () {
   const id = currentStopParam();
-  if (id && destinations.some(d => d.id === id)) setTimeout(() => openSharedStop(id), 350);
+  if (id && destinations.some(d => d.id === id)) setTimeout(() => openStopModal(id), 300);
 })();
 
 // Lightbox para las galerías de fotos (click en una miniatura → se expande).
