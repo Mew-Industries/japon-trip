@@ -41,7 +41,7 @@ Antes de pushear cualquier cambio de fechas: recorrer la secuencia día por día
 
 ## Relación con el workspace de Mew
 
-La fuente de verdad operativa del itinerario vive en el workspace de Mew (`projects/japan-trip/itinerary.md` + `data/saved-places.json`, lista de Google Maps auto-sync). **Regla**: cada vez que se actualiza el itinerario en el workspace, hay que reflejarlo en este sitio (es un pedido explícito de Martin, 2026-05-31). Este repo es la cara pública/familiar; el workspace es el planning.
+**Fuente de verdad = ESTE sitio, `index.html` (array `destinations`)** — invertido por Martín 2026-06-13 (antes la regla 2026-05-31 ponía el workspace como fuente; ya NO). El itinerario se edita acá, en `index.html`, y es el único registro autoritativo de paradas/fechas/noches/lodging/transporte. El `projects/japan-trip/itinerary.md` del workspace y el `itinerario-2026.md` de este repo son ahora solo punteros a `index.html` (quedaron deprecados como planes paralelos porque se desincronizaban). `data/saved-places.json` (lista de Google Maps auto-sync) sigue alimentando los puntos del mapa.
 
 ## Stack
 

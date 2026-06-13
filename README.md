@@ -16,7 +16,7 @@ Dashboard único con 3 secciones siempre visibles:
 
 ## Itinerario completo
 
-Ver [`itinerario-2026.md`](./itinerario-2026.md) para el desglose día por día, alertas críticas (Silver Week, tifones), reservas urgentes y tips de transporte.
+El itinerario vivo y canónico es el sitio mismo: **https://mew-industries.github.io/japon-trip/** (desglose día por día, transporte, clima y qué hacer por parada). La fuente de datos es el array `destinations` en [`index.html`](./index.html). El antiguo `itinerario-2026.md` quedó deprecado (era una copia que se desincronizó).
 
 ## Vuelos
 
