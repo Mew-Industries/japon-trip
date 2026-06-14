@@ -396,7 +396,7 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chuson-ji_Konjiki-do_02.JPG/500px-Chuson-ji_Konjiki-do_02.JPG',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chuson-ji_Konjiki-do_02.JPG/500px-Chuson-ji_Konjiki-do_02.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Iris_garden_-_Motsuji%2C_Hiraizumi%2C_Iwate_-_DSC04425.jpg/500px-Iris_garden_-_Motsuji%2C_Hiraizumi%2C_Iwate_-_DSC04425.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Ichinoseki_gg_1.jpg'],
     dates: '13-14 oct', nights: 1,
-    arrival: '13 oct (llega de Nikko, primera noche acá)', departure: '14 oct (Geibikei a la mañana, sigue a Ginzan)', lodging: null,
+    arrival: '13 oct (llega de Nikko, primera noche acá)', departure: '14 oct (Geibikei a la mañana, sigue a Sendai)', lodging: null,
     leg: { mode: '🚄', time: '~3 h', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Ichinoseki → Hiraizumi.', via: [[36.5551, 139.898], [38.2602, 140.8821], [38.927, 141.1265]] },
     tempMax: '18-23', tempMin: '8-13', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
     intro: 'Base norte 1 (Iwate). Pueblo UNESCO chico y tranquilo, ex-capital del clan Fujiwara: su joya es el Chūson-ji con el Konjikidō (pabellón cubierto en pan de oro). Base para el paseo en bote por la garganta de Geibikei (al día siguiente). Otoño arrancando, calmo y precioso.',
@@ -411,22 +411,25 @@ const destinations = [
     ]
   },
   {
-    id: 'ginzan', n: 4, type: 'destino', name: 'Ginzan Onsen', short: 'Ginzan', flag: '🇯🇵',
-    coords: [38.5704, 140.5301],
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg/500px-%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg',
-    imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg/500px-%E3%82%AC%E3%82%B9%E7%81%AF%E3%81%AE%E5%BE%84%EF%BC%88According_to_gaslight%EF%BC%89_-_panoramio.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Night_in_Ginzan_Onsen_town_January_2022_C.jpg/500px-Night_in_Ginzan_Onsen_town_January_2022_C.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Ginzan_Onsen_in_autumn_2018c.jpg/500px-Ginzan_Onsen_in_autumn_2018c.jpg'],
+    id: 'sendai', n: 4, type: 'destino', name: 'Sendai', short: 'Sendai', flag: '🇯🇵',
+    coords: [38.2606, 140.8819],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nehan-mon%2C_Zuihoden.jpg/500px-Nehan-mon%2C_Zuihoden.jpg',
+    imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nehan-mon%2C_Zuihoden.jpg/500px-Nehan-mon%2C_Zuihoden.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/2005_Sendai_Pageant_of_Starlight_in_Jyozenji-dori_Avenue_01.jpg/500px-2005_Sendai_Pageant_of_Starlight_in_Jyozenji-dori_Avenue_01.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Sendai_statue_Date_Masamune.jpg/500px-Sendai_statue_Date_Masamune.jpg'],
     dates: '14-15 oct', nights: 1,
-    arrival: '14 oct tarde (vía Geibikei; llega de Hiraizumi)', departure: '15 oct (a Sendai, vuelo a Sapporo)', lodging: null,
-    leg: { mode: '🚄🚌', time: '~3 h 30', detail: 'Geibikei a la mañana → Hiraizumi → Sendai → Yamagata → Ōishida + bus a Ginzan.', via: [[38.2602, 140.8821], [38.2554, 140.3396], [38.5969, 140.37]], path: [{ m: 'train', to: [38.2602, 140.8821] }, { m: 'train', to: [38.2554, 140.3396] }, { m: 'train', to: [38.5969, 140.37] }, { m: 'bus', to: [38.5704, 140.5301] }] },
-    tempMax: '13-24', tempMin: '8-14', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Base norte 2 (Yamagata) y la joya del tramo: pueblo onsen de la era Taisho sobre un río, con ryokan de madera de varios pisos y faroles de gas. La magia es de noche, con la calle iluminada (vibra Spirited Away) — por eso se pernocta. Llegás a la tarde justo para el atardecer + onsen. Noches frescas (~6-11°), ideal para el baño.',
+    arrival: '14 oct (llega de Hiraizumi; Geibikei a la mañana)', departure: '15 oct (vuelo a Sapporo desde Sendai)', lodging: 'Sendai Kokusai Hotel — Aoba-ku Chūō (centro, cerca de la estación). Reservado: Booking #5769665121, ¥17.100, desayuno incluido, cancelación gratis hasta 11/10.',
+    leg: { mode: '🚄', time: '~45 min', detail: 'Geibikei (paseo en bote) a la mañana; después Ichinoseki → Sendai (Shinkansen Tōhoku).', via: [[38.2601, 140.8821]], path: [{ m: 'train', to: [38.2601, 140.8821] }] },
+    tempMax: '17-21', tempMin: '10-14', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
+    intro: 'Base del tramo norte (reemplaza a Ginzan, decidido 2026-06-14: no conseguían buen hospedaje en Ginzan y era mucho trajín por una noche). Ciudad cómoda y bien conectada: la estación concentra todo — los day-trips (Matsushima al este ~30 min, Yamadera al oeste ~55 min) y la línea directa al aeropuerto. Se hace UN day-trip, gyutan a la noche, y al otro día vuelo a Sapporo sin estrés. El hotel está en Aoba-ku Chūō, en pleno centro.',
     activities: [
-      { text: 'Caminar la calle de faroles al atardecer (el momento mágico)', cat: 'barrios' },
-      { text: 'Onsen en el ryokan + baño público Shōgawa-yu', cat: 'onsen' },
-      { text: 'Cascada Shirogane (Shirogane-no-taki), al fondo del pueblo', cat: 'parques' },
-      { text: 'Cena kaiseki en el ryokan', cat: 'comida' }
+      { text: 'Gyutan (lengua de res a la parrilla) — "Gyutan Street" dentro de la estación', cat: 'comida' },
+      { text: 'Zuihōden — mausoleo dorado de Date Masamune entre cedros', cat: 'templos', coords: [38.2513, 140.8589], url: 'https://www.google.com/maps/search/?api=1&query=Zuihoden' },
+      { text: 'Jōzenji-dōri + arcades Ichibanchō (paseo y compras)', cat: 'barrios' },
+      { text: 'Ruinas del castillo de Aoba + estatua de Date Masamune (vista de la ciudad)', cat: 'miradores', coords: [38.2528, 140.8561], url: 'https://www.google.com/maps/search/?api=1&query=Aoba%20Castle%20Sendai' }
     ],
-    daytrips: []
+    daytrips: [
+      { id: 'matsushima', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Fukuura_Island%2C_Matsushima_Miyagi_Aerial_photograph.2015.jpg/500px-Fukuura_Island%2C_Matsushima_Miyagi_Aerial_photograph.2015.jpg', name: 'Matsushima', coords: [38.3741, 141.0686], time: '~30 min en JR', desc: 'Bahía de las "3 vistas de Japón": islotes con pinos, crucero, templo Zuiganji y ostras. Día escénico y relajado.' },
+      { id: 'yamadera', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/211029_Risshaku-ji_Yamagata_Yamagata_pref_Japan65s3.jpg/500px-211029_Risshaku-ji_Yamagata_Yamagata_pref_Japan65s3.jpg', name: 'Yamadera', coords: [38.3127, 140.4367], time: '~55 min en JR Senzan', desc: 'Templo Risshaku-ji encajado en el acantilado: ~1000 escalones y vista brutal al valle. Famoso por el soba.' }
+    ]
   },
   {
     id: 'sapporo', n: 5, type: 'destino', name: 'Sapporo (Hokkaido)', short: 'Sapporo', flag: '🇯🇵',
@@ -435,7 +438,7 @@ const destinations = [
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Odori_Park_in_Sapporo_1936.jpg/500px-Odori_Park_in_Sapporo_1936.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Sapporo_TV_tower-20091013-RM-162316.jpg/500px-Sapporo_TV_tower-20091013-RM-162316.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Sapporo_Clock_Tower_Hokkaido_Japan_2.jpg/500px-Sapporo_Clock_Tower_Hokkaido_Japan_2.jpg'],
     dates: '15-17 oct', nights: 2,
     arrival: '15 oct (vuelo desde Sendai)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
-    leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Ginzan → aeropuerto de Sendai + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗', via: [[38.1397, 140.9171], [42.7752, 141.6923]], path: [{ m: 'bus', to: [38.1397, 140.9171] }, { m: 'air', to: [42.7752, 141.6923] }, { m: 'train', to: [43.0618, 141.3545] }] },
+    leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Sendai → aeropuerto de Sendai (~25 min, línea Access) + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗', via: [[38.1397, 140.9171], [42.7752, 141.6923]], path: [{ m: 'bus', to: [38.1397, 140.9171] }, { m: 'air', to: [42.7752, 141.6923] }, { m: 'train', to: [43.0618, 141.3545] }] },
     tempMax: '9-21', tempMin: '2-15', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
     intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
