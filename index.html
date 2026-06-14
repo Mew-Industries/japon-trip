@@ -416,7 +416,16 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nehan-mon%2C_Zuihoden.jpg/500px-Nehan-mon%2C_Zuihoden.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nehan-mon%2C_Zuihoden.jpg/500px-Nehan-mon%2C_Zuihoden.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/2005_Sendai_Pageant_of_Starlight_in_Jyozenji-dori_Avenue_01.jpg/500px-2005_Sendai_Pageant_of_Starlight_in_Jyozenji-dori_Avenue_01.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Sendai_statue_Date_Masamune.jpg/500px-Sendai_statue_Date_Masamune.jpg'],
     dates: '14-15 oct', nights: 1,
-    arrival: '14 oct (llega de Hiraizumi; Geibikei a la mañana)', departure: '15 oct (vuelo a Sapporo desde Sendai)', lodging: 'Sendai Kokusai Hotel — Aoba-ku Chūō (centro, cerca de la estación). Reservado: Booking #5769665121, ¥17.100, desayuno incluido, cancelación gratis hasta 11/10.',
+    arrival: '14 oct (llega de Hiraizumi; Geibikei a la mañana)', departure: '15 oct (vuelo a Sapporo desde Sendai)',
+    lodging: {
+      name: 'Sendai Kokusai Hotel', type: 'Hotel · centro de Sendai',
+      guests: '2 personas · desayuno incluido',
+      area: 'Aoba-ku Chūō 4-6-1, Sendai (Miyagi) · a pasos de la estación: day-trips (Matsushima / Yamadera) + línea directa al aeropuerto',
+      coords: [38.2606, 140.8819],
+      checkIn: '14 oct (desde 15 h)', checkOut: '15 oct (hasta 11 h)', nights: 1, booked: true,
+      url: 'https://www.google.com/maps/search/?api=1&query=Sendai%20Kokusai%20Hotel',
+      note: 'Reservado por Booking (#5769665121) · ¥17.100 · cancelación gratis hasta el 11/10.'
+    },
     leg: { mode: '🚄', time: '~45 min', detail: 'Geibikei (paseo en bote) a la mañana; después Ichinoseki → Sendai (Shinkansen Tōhoku).', via: [[38.2601, 140.8821]], path: [{ m: 'train', to: [38.2601, 140.8821] }] },
     tempMax: '17-21', tempMin: '10-14', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
     intro: 'Base del tramo norte (reemplaza a Ginzan, decidido 2026-06-14: no conseguían buen hospedaje en Ginzan y era mucho trajín por una noche). Ciudad cómoda y bien conectada: la estación concentra todo — los day-trips (Matsushima al este ~30 min, Yamadera al oeste ~55 min) y la línea directa al aeropuerto. Se hace UN day-trip, gyutan a la noche, y al otro día vuelo a Sapporo sin estrés. El hotel está en Aoba-ku Chūō, en pleno centro.',
