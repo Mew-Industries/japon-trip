@@ -1034,7 +1034,8 @@ destinations.forEach(d => {
       '<div class="popup-title">🛏️ ' + lodg.name + (lodg.rating ? ' · ' + lodg.rating : '') + '</div>' +
       '<div class="popup-dates">' + d.short + ' · ' + (lodg.checkIn || '') + ' → ' + (lodg.checkOut || '') +
         (lodg.nights ? ' · ' + lodg.nights + ' noches' : '') + '</div>' +
-      (lodg.url ? '<a class="mini-pop-maps" href="' + lodg.url + '" target="_blank" rel="noopener">Ver en Airbnb →</a>' : '') +
+      (lodg.url ? '<a class="mini-pop-maps" href="' + lodg.url + '" target="_blank" rel="noopener">' + (/airbnb/i.test(lodg.url) ? 'Ver en Airbnb' : 'Ver en Google Maps') + ' →</a>' : '') +
+      (lodg.mapsUrl ? ' <a class="mini-pop-maps" href="' + lodg.mapsUrl + '" target="_blank" rel="noopener">Google Maps →</a>' : '') +
     '</div>'
   );
 });
