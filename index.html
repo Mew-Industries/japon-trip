@@ -930,6 +930,15 @@ function lodgingHtml(L) {
   return '<div class="card-section-title">🛏️ Hospedaje</div><div class="lodging-card">' + inner + '</div>';
 }
 
+// Popup del marcador 🛏️ de hospedaje: nombre + links (Airbnb / Google Maps).
+function lodgingPopupHtml(L) {
+  const lnk = (href, label) => '<a class="mini-pop-maps" href="' + href + '" target="_blank" rel="noopener">' + label + ' →</a>';
+  let h = '<div class="popup-title">🛏️ ' + L.name + '</div>';
+  if (L.url) h += /airbnb/i.test(L.url) ? lnk(L.url, 'Ver en Airbnb') : lnk(L.url, 'Ver en Google Maps');
+  if (L.mapsUrl) h += ' ' + lnk(L.mapsUrl, 'Google Maps');
+  return h;
+}
+
 function miniPopup(img, title, sub, mapsUrl) {
   return '<div class="mini-pop">' +
     (img ? '<img class="mini-pop-img" src="' + img + '" loading="lazy" alt="">' : '') +
@@ -1374,7 +1383,7 @@ function buildStopMiniMap(d, idx) {
   pts.push(d.coords);
   (d.activities || []).forEach(a => { if (a.coords) { L.circleMarker(a.coords, { radius: 5, color: '#D85A30', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(_smLayer).bindPopup(a.text); pts.push(a.coords); } });
   (d.daytrips || []).forEach(t => { if (t.coords) { L.circleMarker(t.coords, { radius: 5, color: '#2563EB', weight: 2, fillColor: '#fff', fillOpacity: 1 }).addTo(_smLayer).bindPopup(t.name); pts.push(t.coords); } });
-  if (d.lodging && d.lodging.coords) { L.marker(d.lodging.coords, { icon: L.divIcon({ html: '<div class="lodging-marker">🛏️</div>', className: '', iconSize: [28, 28], iconAnchor: [14, 14] }) }).addTo(_smLayer).bindPopup(d.lodging.name); pts.push(d.lodging.coords); }
+  if (d.lodging && d.lodging.coords) { L.marker(d.lodging.coords, { icon: L.divIcon({ html: '<div class="lodging-marker">🛏️</div>', className: '', iconSize: [28, 28], iconAnchor: [14, 14] }) }).addTo(_smLayer).bindPopup(lodgingPopupHtml(d.lodging)); pts.push(d.lodging.coords); }
   setTimeout(() => { _smMap.invalidateSize(); try { _smMap.fitBounds(L.latLngBounds(pts), { padding: [30, 30], maxZoom: 12 }); } catch (e) { _smMap.setView(d.coords, 10); } }, 60);
 }
 function _wireShare(el, kind, id) {
