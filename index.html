@@ -174,6 +174,8 @@
   .lodging-sub { font-size: 11px; color: #666; }
   .lodging-area { font-size: 11px; color: #777; margin: 2px 0; line-height: 1.35; }
   .lodging-meta { font-size: 11px; color: #0F6E56; font-weight: 600; margin-top: 3px; }
+  .lodging-link { color: #1D9E75; text-decoration: underline; }
+  .lodging-link:hover { color: #0F6E56; }
   .detail-gallery { display: flex; gap: 4px; margin-bottom: 10px; }
   .gallery-thumb { flex: 1; width: 0; height: 84px; object-fit: cover; border-radius: 6px; cursor: pointer; background: #ece9e2; transition: opacity 0.12s; }
   .gallery-thumb:hover { opacity: 0.82; }
@@ -335,6 +337,7 @@ const destinations = [
       coords: [35.69116, 139.70681],
       checkIn: '8 oct', checkOut: '13 oct', nights: 5, booked: true,
       url: 'https://www.airbnb.com/rooms/1105430570374679874',
+      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=5-chome-11-2%20Shinjuku%2C%20Shinjuku%20City%2C%20Tokyo%20160-0022',
       note: 'Airbnb. La dirección exacta solo aparece en la reserva (Airbnb la oculta hasta confirmar). Falta cargar el costo total al sheet de gastos.'
     },
     leg: { mode: '✈️', time: '~30 h · 1 escala', detail: 'Ida EZE → Tokio Haneda · United Polaris business', segments: [
@@ -413,6 +416,7 @@ const destinations = [
       coords: [38.9274, 141.1417],
       checkIn: '13 oct', checkOut: '14 oct', nights: 1, booked: true,
       url: 'https://www.airbnb.com/rooms/1534431699681046944',
+      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=2-1%20Nihongi%2C%20Ichinoseki%2C%20Iwate%20021-0835',
       note: 'Airbnb · US$172.92 · pegado a la estación, ideal para el Geibikei a la mañana y el shinkansen a Sendai.'
     },
     leg: { mode: '🚄', time: '~3 h', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Ichinoseki.', via: [[36.5551, 139.898], [38.2602, 140.8821], [38.9344, 141.1267]] },
@@ -670,7 +674,8 @@ const destinations = [
       coords: [37.5823, 126.9858],
       checkIn: '6 nov', checkOut: '10 nov', nights: 4,
       img: 'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MjI3MjQxMzM%3D/original/5498d161-c2fb-462c-8f3b-d7eae180fd8e.jpeg?im_w=720',
-      url: 'https://www.airbnb.com/rooms/22724133?check_in=2026-11-06&check_out=2026-11-10&adults=2'
+      url: 'https://www.airbnb.com/rooms/22724133?check_in=2026-11-06&check_out=2026-11-10&adults=2',
+      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Bukchon-ro%2012-gil%2035-9%2C%20Gahoe-dong%2C%20Jongno-gu%2C%20Seoul%2003056'
     },
     leg: { mode: '🚄', time: '~2 h 40', detail: 'KTX Busan → Seúl.' },
     tempMax: '6-19', tempMin: '-1-10', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
@@ -907,7 +912,12 @@ function lodgingHtml(L) {
   if (!L) return '';
   const sub = [L.type, L.guests].filter(Boolean).join(' · ');
   const dateStr = (L.checkIn && L.checkOut) ? (L.checkIn + ' → ' + L.checkOut + (L.nights ? ' · ' + L.nights + ' noches' : '')) : '';
-  const meta = [dateStr, L.url ? 'Ver ↗' : (L.booked ? '✓ Reservado' : '')].filter(Boolean).join(' · ');
+  // Links explícitos: Airbnb (si url es de airbnb) y/o Google Maps (url de maps o mapsUrl de la dirección).
+  const lnk = (href, label) => '<a class="lodging-link" href="' + href + '" target="_blank" rel="noopener">' + label + ' ↗</a>';
+  const links = [];
+  if (L.url) links.push(/airbnb/i.test(L.url) ? lnk(L.url, 'Ver en Airbnb') : lnk(L.url, 'Ver en Google Maps'));
+  if (L.mapsUrl) links.push(lnk(L.mapsUrl, 'Google Maps'));
+  const meta = [dateStr].concat(L.booked ? ['✓ Reservado'] : []).concat(links).filter(Boolean).join(' · ');
   const inner =
     (L.img ? '<img class="lodging-img" src="' + L.img + '" loading="lazy" alt="">' : '') +
     '<div class="lodging-body">' +
@@ -917,10 +927,7 @@ function lodgingHtml(L) {
       (L.note ? '<div class="lodging-area" style="font-style:italic">' + L.note + '</div>' : '') +
       '<div class="lodging-meta">' + meta + '</div>' +
     '</div>';
-  const card = L.url
-    ? '<a class="lodging-card" href="' + L.url + '" target="_blank" rel="noopener">' + inner + '</a>'
-    : '<div class="lodging-card">' + inner + '</div>';
-  return '<div class="card-section-title">🛏️ Hospedaje</div>' + card;
+  return '<div class="card-section-title">🛏️ Hospedaje</div><div class="lodging-card">' + inner + '</div>';
 }
 
 function miniPopup(img, title, sub, mapsUrl) {
