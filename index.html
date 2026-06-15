@@ -384,10 +384,10 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/The_Three_Wise_Monkeys%2C_Nikk%C5%8D_T%C5%8Dsh%C5%8D-g%C5%AB%3B_April_2018.jpg/500px-The_Three_Wise_Monkeys%2C_Nikk%C5%8D_T%C5%8Dsh%C5%8D-g%C5%AB%3B_April_2018.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/The_Three_Wise_Monkeys%2C_Nikk%C5%8D_T%C5%8Dsh%C5%8D-g%C5%AB%3B_April_2018.jpg/500px-The_Three_Wise_Monkeys%2C_Nikk%C5%8D_T%C5%8Dsh%C5%8D-g%C5%AB%3B_April_2018.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Shinkyo_bridge_of_Nikko_-_January_2024.jpg/500px-Shinkyo_bridge_of_Nikko_-_January_2024.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Kegon_Falls_Elevator_entrance.jpg/500px-Kegon_Falls_Elevator_entrance.jpg'],
     dates: '13 oct', nights: 0,
-    arrival: '13 oct (de paso desde Tokio, primer salto al norte)', departure: '13 oct tarde (sigue a Hiraizumi; duerme allí esta noche)', lodging: null,
+    arrival: '13 oct (de paso desde Tokio, primer salto al norte)', departure: '13 oct tarde (sigue a Ichinoseki; duerme allí esta noche)', lodging: null,
     leg: { mode: '🚆', time: '~2 h 30', detail: 'Tren Tobu/JR Tokio → Nikkō (Limited Express).' },
     tempMax: '15-22', tempMin: '7-14', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Día de paso, sin pernocte: saliendo de Tokio hacia el norte se baja en Nikko para los santuarios UNESCO de Toshogu y (si da el tiempo) el lago Chuzenji + cataratas Kegon, con los primeros colores de otoño en altura. A la tarde/noche se sigue viaje a Sendai (se duerme allí). Nikko es el pivote del salto al norte: Tokio → Nikko → Sendai → Sapporo, sin backtrack.',
+    intro: 'Día de paso, sin pernocte: saliendo de Tokio hacia el norte se baja en Nikko para los santuarios UNESCO de Toshogu y (si da el tiempo) el lago Chuzenji + cataratas Kegon, con los primeros colores de otoño en altura. A la tarde/noche se sigue viaje a Ichinoseki (se duerme allí). Nikko es el pivote del salto al norte: Tokio → Nikko → Ichinoseki → Sendai → Sapporo, sin backtrack.',
     activities: [
       { text: 'Toshogu shrine (mausoleo Tokugawa Ieyasu)', cat: 'templos' },
       { text: 'Rinno-ji + puente Shinkyo', cat: 'templos' },
@@ -400,24 +400,23 @@ const destinations = [
     ]
   },
   {
-    id: 'hiraizumi', n: 3, type: 'destino', name: 'Hiraizumi', short: 'Hiraizumi', flag: '🇯🇵',
-    coords: [39.0007, 141.1015],
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chuson-ji_Konjiki-do_02.JPG/500px-Chuson-ji_Konjiki-do_02.JPG',
-    imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Chuson-ji_Konjiki-do_02.JPG/500px-Chuson-ji_Konjiki-do_02.JPG', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Iris_garden_-_Motsuji%2C_Hiraizumi%2C_Iwate_-_DSC04425.jpg/500px-Iris_garden_-_Motsuji%2C_Hiraizumi%2C_Iwate_-_DSC04425.jpg', 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Ichinoseki_gg_1.jpg'],
+    id: 'ichinoseki', n: 3, type: 'destino', name: 'Ichinoseki', short: 'Ichinoseki', flag: '🇯🇵',
+    coords: [38.9344, 141.1267],
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/230729_Geibikei_Ichinoseki_Iwate_pref_Japan04s3.jpg/500px-230729_Geibikei_Ichinoseki_Iwate_pref_Japan04s3.jpg',
+    imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/230729_Geibikei_Ichinoseki_Iwate_pref_Japan04s3.jpg/500px-230729_Geibikei_Ichinoseki_Iwate_pref_Japan04s3.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/230727_Genbikei_Ichinoseki_Iwate_pref_Japan01s3.jpg/500px-230727_Genbikei_Ichinoseki_Iwate_pref_Japan01s3.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Konjikido_%28Chusonji%29_01.jpg/500px-Konjikido_%28Chusonji%29_01.jpg'],
     dates: '13-14 oct', nights: 1,
-    arrival: '13 oct (llega de Nikko, primera noche acá)', departure: '14 oct (Geibikei a la mañana, sigue a Sendai)', lodging: null,
-    leg: { mode: '🚄', time: '~3 h', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Ichinoseki → Hiraizumi.', via: [[36.5551, 139.898], [38.2602, 140.8821], [38.927, 141.1265]] },
+    arrival: '13 oct noche (llega de Nikko; día largo Tokio → Nikko de paso → norte)', departure: '14 oct (Geibikei a la mañana en bote; sin horario límite — shinkansen corto ~40 min a Sendai; opcional escaparse a Chūson-ji)', lodging: null,
+    leg: { mode: '🚄', time: '~3 h', detail: 'JR Nikkō → Utsunomiya + Shinkansen Tōhoku → Ichinoseki.', via: [[36.5551, 139.898], [38.2602, 140.8821], [38.9344, 141.1267]] },
     tempMax: '18-23', tempMin: '8-13', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Base norte 1 (Iwate). Pueblo UNESCO chico y tranquilo, ex-capital del clan Fujiwara: su joya es el Chūson-ji con el Konjikidō (pabellón cubierto en pan de oro). Base para el paseo en bote por la garganta de Geibikei (al día siguiente). Otoño arrancando, calmo y precioso.',
+    intro: 'Base cómoda del tramo norte (Iwate): Ichinoseki es el hub del shinkansen, con hoteles y servicios, y queda a 8 min en tren de Hiraizumi. Se llega de Nikko la noche del 13 (día largo Tokio → Nikko de paso → norte) y al otro día se sigue a Sendai sin horario límite (shinkansen corto, ~40 min). El foco es la garganta de Geibikei: paseo en bote chato de fondo plano con el botero que canta. Cerca está Genbikei (rápidos turquesa + el "dango volador" que llega por un cable). Comida fuerte de la zona: capital de la cocina de mochi (餅本膳) y la carne de Maesawa (前沢牛), un wagyu premium. Hiraizumi (Chūson-ji + el Pabellón Dorado/Konjikidō, Tesoro Nacional UNESCO) queda a 8 min y es un opcional lindo si el día da.',
     activities: [
-      { text: 'Chūson-ji + Konjikidō (pabellón dorado, UNESCO)', cat: 'templos', coords: [39.0009, 141.0989], url: "https://www.google.com/maps/search/?api=1&query=Ch%C5%ABson-ji" },
-      { text: 'Jardín de Motsū-ji (jardín del Paraíso, era Heian)', cat: 'parques', coords: [38.9869, 141.1006], url: "https://www.google.com/maps/search/?api=1&query=M%C5%8Dts%C5%AB-ji" },
-      { text: 'Gyutan (lengua de res, especialidad de la región)', cat: 'comida' }
+      { text: 'Geibikei (paseo en bote por la garganta)', cat: 'parques', coords: [38.989448, 141.255452], url: "https://www.google.com/maps/search/?api=1&query=Geibikei%20Gorge" },
+      { text: 'Genbikei (rápidos + "dango volador" por el cable)', cat: 'comida', coords: [38.9469, 141.0556], url: "https://www.google.com/maps/search/?api=1&query=Genbikei" },
+      { text: 'Chūson-ji + Konjikidō (Pabellón Dorado, Tesoro Nacional UNESCO) — opcional, 8 min en Hiraizumi', cat: 'templos', coords: [38.9939, 141.0989], url: "https://www.google.com/maps/search/?api=1&query=Chusonji" },
+      { text: 'Mōtsū-ji (jardín Jōdo de la era Heian) — opcional, en Hiraizumi', cat: 'parques', coords: [38.9869, 141.1006], url: "https://www.google.com/maps/search/?api=1&query=M%C5%8Dts%C5%AB-ji" },
+      { text: 'Cena de carne de Maesawa (前沢牛) / cocina de mochi (餅本膳)', cat: 'comida' }
     ],
-    daytrips: [
-      { id: 'geibikei', name: 'Geibikei (paseo en bote)', coords: [38.989448, 141.255452], time: '~30 min a Ichinoseki', url: "https://www.google.com/maps/search/?api=1&query=Geibikei%20Gorge", desc: 'Bote chato de fondo plano por la garganta, con el barquero cantando; acantilados de 100m + dango volador. ~1h30. La actividad estrella del tramo norte.' },
-      { id: 'genbikei', name: 'Genbikei (rápidos + dango)', coords: [38.9469, 141.0556], time: '~15 min de Ichinoseki', url: "https://www.google.com/maps/search/?api=1&query=Genbikei", desc: 'Garganta distinta (no confundir con Geibikei): rápidos turquesa + el famoso kakkō dango que llega por una tirolesa.' }
-    ]
+    daytrips: []
   },
   {
     id: 'sendai', n: 4, type: 'destino', name: 'Sendai', short: 'Sendai', flag: '🇯🇵',
@@ -425,7 +424,7 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nehan-mon%2C_Zuihoden.jpg/500px-Nehan-mon%2C_Zuihoden.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Nehan-mon%2C_Zuihoden.jpg/500px-Nehan-mon%2C_Zuihoden.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/2005_Sendai_Pageant_of_Starlight_in_Jyozenji-dori_Avenue_01.jpg/500px-2005_Sendai_Pageant_of_Starlight_in_Jyozenji-dori_Avenue_01.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Sendai_statue_Date_Masamune.jpg/500px-Sendai_statue_Date_Masamune.jpg'],
     dates: '14-15 oct', nights: 1,
-    arrival: '14 oct (llega de Hiraizumi; Geibikei a la mañana)', departure: '15 oct (vuelo a Sapporo desde Sendai)',
+    arrival: '14 oct (llega de Ichinoseki por Shinkansen ~40 min, tras el Geibikei de la mañana)', departure: '15 oct (al aeropuerto de Sendai ~25 min + vuelo a Sapporo/New Chitose)',
     lodging: {
       name: 'Sendai Kokusai Hotel', type: 'Hotel · centro de Sendai',
       guests: '2 personas · desayuno incluido',
@@ -458,7 +457,7 @@ const destinations = [
     arrival: '15 oct (vuelo desde Sendai)', departure: '17 oct (vuelo New Chitose→Komatsu, sigue a Kanazawa)', lodging: null,
     leg: { mode: '🚌✈️', time: '~3 h 30', detail: 'Sendai → aeropuerto de Sendai (~25 min, línea Access) + vuelo a New Chitose (Sapporo).', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sendai%20to%20Sapporo', dirLabel: 'ver vuelos ↗', via: [[38.1397, 140.9171], [42.7752, 141.6923]], path: [{ m: 'bus', to: [38.1397, 140.9171] }, { m: 'air', to: [42.7752, 141.6923] }, { m: 'train', to: [43.0618, 141.3545] }] },
     tempMax: '9-21', tempMin: '2-15', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
+    intro: 'Salto al norte al arranque del viaje, cuando Hokkaido todavía está templado (~17°/7° a mediados de octubre — chaqueta de otoño, no frío). Se llega de Sendai en avión (aeropuerto de Sendai → New Chitose) y se sigue volando a Komatsu para retomar Kanazawa. Es la parte más fresca del recorrido, pero a esta altura del calendario es disfrutable. Sapporo: comida (sopa de curry, ramen miso, mariscos del mercado), parques de Isamu Noguchi y el monte Moiwa al atardecer. El koyo en la montaña recién empieza.',
     activities: [
       { text: 'Mercado Nijo + ramen miso + sopa de curry (sopa curry)', cat: 'comida' },
       { text: 'Parque Odori + torre de TV', cat: 'parques' },
@@ -480,7 +479,7 @@ const destinations = [
     arrival: '17 oct (vuelo Sapporo→Komatsu, primera noche acá)', departure: '19 oct (vía Shirakawa-go de paso, sigue a Kioto)', lodging: null,
     leg: { mode: '✈️🚆', time: '~1 h 40 (vuelo)', detail: 'Vuelo New Chitose → Komatsu + tren a Kanazawa.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Sapporo%20to%20Komatsu', dirLabel: 'ver vuelos ↗', via: [[42.7752, 141.6923], [36.3946, 136.4076]], path: [{ m: 'train', to: [42.7752, 141.6923] }, { m: 'air', to: [36.3946, 136.4076] }, { m: 'train', to: [36.5613, 136.6562] }] },
     tempMax: '15-27', tempMin: '8-17', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo (vuelo a Komatsu) el 16/10. Día de paso por Shirakawa-go al salir hacia Koyasan.',
+    intro: 'Sobre el Mar de Japón. Evitó los bombardeos de la WW2 — conserva barrios geisha y samurái. Se llega desde Sapporo el 17/10 (vuelo New Chitose → Komatsu + tren), y se sigue a Kioto haciendo escala de paso por Shirakawa-go (bus directo, ~1h15).',
     activities: [
       { text: 'Jardín Kenroku-en (top 3 de Japón)', cat: 'parques' },
       { text: 'Castillo de Kanazawa', cat: 'miradores' },
@@ -504,7 +503,7 @@ const destinations = [
     arrival: '19 oct (de paso desde Kanazawa hacia Kioto)', departure: '19 oct tarde (sigue a Kioto; duerme allí esta noche)', lodging: null,
     leg: { mode: '🚌', time: '~1 h 15', detail: 'Bus directo Kanazawa → Shirakawa-go (de paso).', dirUrl: 'https://japanbusonline.com/en', dirLabel: 'reservar bus ↗' },
     tempMax: '14-24', tempMin: '6-15', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Día completo de paso entre Kanazawa y Koyasan. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue al sur. No se pernocta acá — la noche se duerme en Koyasan.',
+    intro: 'Día completo de paso entre Kanazawa y Kioto. Pueblo UNESCO con casas gassho-zukuri (techos de paja a dos aguas). Bus directo desde Kanazawa (~1h15), unas horas en el pueblo + mirador de Ogimachi, y se sigue a Kioto (bus + tren/Shinkansen). No se pernocta acá — la noche se duerme en Kioto.',
     activities: [
       { text: 'Mirador de Ogimachi (vista panorámica del valle de casas)', cat: 'parques' },
       { text: 'Caminar el pueblo + casas gassho-zukuri abiertas a visita (Wada-ke)', cat: 'otros' },
@@ -521,7 +520,7 @@ const destinations = [
     arrival: '19 oct (llega de Shirakawa-go, primera noche acá)', departure: '25 oct (sigue a Koyasan)', lodging: null,
     leg: { mode: '🚌🚄', time: '~3 h 40', detail: 'Bus Shirakawa-go → Kanazawa/Takayama + tren/Shinkansen a Kioto.', path: [{ m: 'bus', to: [36.1408, 137.2519] }, { m: 'train', to: [35.0116, 135.7681] }] },
     tempMax: '14-25', tempMin: '5-20', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Capital cultural. Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
+    intro: 'Capital cultural. Se llega de Shirakawa-go (de paso) vía Kanazawa/Takayama en bus + tren, y al final se baja a Koyasan (tren a Namba + Nankai + funicular). Mediados/fines de octubre: clima templado y los primeros tonos de otoño. 6 noches dan tiempo a cada zona sin atropello.',
     activities: [
       { text: 'Arashiyama al amanecer: bambú, Tenryu-ji, Otagi Nenbutsuji', cat: 'templos' },
       { text: 'Templos del este: Kiyomizu, Yasaka, paseo de filósofos, Ginkaku-ji', cat: 'templos' },
@@ -548,7 +547,7 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg/500px-Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg/500px-Choishi_Path_-_Okunoin_Cemetery_-_Koyasan_-_Japan_-_18_%2847949824357%29.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Danj%C3%B4-garan_%28Wakayama_K%C5%8Dyasan%29_Temple_hdsr_S5_st01.jpg/500px-Danj%C3%B4-garan_%28Wakayama_K%C5%8Dyasan%29_Temple_hdsr_S5_st01.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Nyoirinji_%28Wakayama_Koyasan%29_Temple_hdsr_S5_04.jpg/500px-Nyoirinji_%28Wakayama_Koyasan%29_Temple_hdsr_S5_04.jpg'],
     dates: '25-26 oct', nights: 1,
-    arrival: '25 oct', departure: '26 oct',
+    arrival: '25 oct (de Kioto: tren a Namba + Nankai línea Koya + funicular, ~3h20)', departure: '26 oct (baja a Osaka/Namba por funicular + Nankai, ~2h30)',
     lodging: {
       name: 'Koyasan Shukubo Hōjō-in (宝城院)', type: 'Shukubo · alojamiento en templo ★★★',
       guests: 'Habitación Familiar Deluxe · 2 personas · desayuno + cena (shojin ryori) incluidos',
@@ -581,7 +580,7 @@ const destinations = [
     arrival: '26 oct (llega de Koyasan)', departure: '31 oct (Shinkansen a Fukuoka)', lodging: null,
     leg: { mode: '🚠🚆', time: '~2 h 30', detail: 'Funicular + Nankai Koyasan → Osaka (Namba).' },
     tempMax: '15-25', tempMin: '6-18', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. 5 noches (subió de 3): da aire para Naoshima, un día de Kobe y recorrer barrios de Osaka sin apuro.',
+    intro: 'Base para Naoshima + comida callejera. La energía contraria de Kioto. Se baja de Koyasan (funicular + Nankai a Namba, ~2h30) y se sigue a Fukuoka en Shinkansen (~2h30). 5 noches (subió de 3): da aire para Naoshima, un día de Kobe y recorrer barrios de Osaka sin apuro.',
     activities: [
       { text: '国境を越えて・祈り', cat: 'museos', coords: [34.468246, 134.069626], url: "https://www.google.com/maps/search/?api=1&query=%E5%9B%BD%E5%A2%83%E3%82%92%E8%B6%8A%E3%81%88%E3%81%A6%E3%83%BB%E7%A5%88%E3%82%8A" },
       { text: 'Oretachino-curry ya', cat: 'comida', coords: [34.663269, 135.503521], url: "https://www.google.com/maps/search/?api=1&query=Oretachino-curry%20ya" },
@@ -612,7 +611,7 @@ const destinations = [
     arrival: '31 oct (Shinkansen desde Osaka)', departure: '3 nov (ferry Beetle a Busan)', lodging: null,
     leg: { mode: '🚄', time: '~2 h 30', detail: 'Shinkansen Shin-Osaka → Hakata (Nozomi).' },
     tempMax: '16-25', tempMin: '9-18', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Cuna del ramen tonkotsu. Última parada en Japón (en esta tanda) antes del cruce a Corea por ferry.',
+    intro: 'Cuna del ramen tonkotsu. Se llega de Osaka en Shinkansen (Shin-Osaka → Hakata, ~2h30) y es la última parada en Japón (en esta tanda) antes de cruzar a Corea: el 3/11 se toma el ferry rápido Beetle de Hakata a Busan (~3h20).',
     activities: [
       { text: 'Yatais (puestos callejeros) en Nakasu y Tenjin', cat: 'comida' },
       { text: 'Ramen tonkotsu en Ichiran original o Hakata Issou', cat: 'comida' },
@@ -635,7 +634,7 @@ const destinations = [
     arrival: '3 nov (ferry Beetle desde Fukuoka)', departure: '6 nov (KTX a Seúl)', lodging: null,
     leg: { mode: '⛴️', time: '~3 h 20 (ferry)', detail: 'Ferry rápido Hakata → Busan (Beetle/Kobee; alt: Camellia overnight).' },
     tempMax: '10-24', tempMin: '0-16', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Cruce desde Fukuoka por Beetle ferry (3h). Costa coreana, mariscos. Gyeongju como day trip.',
+    intro: 'Cruce desde Fukuoka por Beetle ferry (~3h20). Costa coreana, mariscos. Gyeongju como day trip (~30 min en KTX). Después se sube a Seúl en KTX (~2h40).',
     activities: [
       { text: 'Gamcheon Culture Village (favela artística colorida)', cat: 'barrios' },
       { text: 'Mercado Jagalchi (pescado más grande de Corea)', cat: 'comida' },
@@ -666,7 +665,7 @@ const destinations = [
     },
     leg: { mode: '🚄', time: '~2 h 40', detail: 'KTX Busan → Seúl.' },
     tempMax: '6-19', tempMin: '-1-10', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Tramo coreano. KTX desde Busan, ~2h30. Principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Japón: una última escala en Hakone (parada 11, onsen + Fuji) antes de cerrar en Tokio para el vuelo del 16/11.',
+    intro: 'Tramo coreano. KTX desde Busan, ~2h40. Principios de noviembre = peak de otoño coreano. Después se vuela de vuelta a Japón (Seúl → Tokio Haneda/Narita + Romancecar): una última escala en Hakone (parada 14, onsen + Fuji) antes de cerrar en Tokio para el vuelo del 17/11.',
     activities: [
       { text: 'Palacio Gyeongbokgung (con hanbok gratis)', cat: 'templos' },
       { text: 'Bukchon Hanok Village + Insadong', cat: 'compras' },
@@ -701,7 +700,7 @@ const destinations = [
     arrival: '10 nov (vuelo Seúl→Tokio + Romancecar a Hakone)', departure: '12 nov (Romancecar/Shinkansen a Tokio)', lodging: null,
     leg: { mode: '✈️🚆', time: '~4 h (vuelo+tren)', detail: 'Vuelo Seúl → Tokio (Haneda/Narita) + Odakyu Romancecar a Hakone.', dirUrl: 'https://www.google.com/travel/flights?q=flights%20from%20Seoul%20to%20Tokyo', dirLabel: 'ver vuelos ↗', via: [[37.5583, 126.7906], [35.5494, 139.7798]], path: [{ m: 'train', to: [37.5583, 126.7906] }, { m: 'air', to: [35.5494, 139.7798] }, { m: 'train', to: [35.2324, 139.1069] }] },
     tempMax: '13-20', tempMin: '8-15', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
+    intro: 'Última escala antes de Tokio: onsen + Fuji + otoño. Se llega de Seúl (vuelo a Tokio + Odakyu Romancecar a Hakone) y se cierra subiendo a Tokio en Romancecar/Shinkansen (~1h45). Hace frío (~10°/2°), pero el frío es justo lo que pide el onsen. Ryokan con baños termales, valle volcánico de Owakudani y vistas al monte Fuji desde el lago Ashi. El koyo de noviembre en su punto.',
     activities: [
       { text: 'Museo al Aire Libre de Hakone (Hakone Open-Air Museum)', cat: 'museos', coords: [35.24516, 139.050727], url: "https://www.google.com/maps/search/?api=1&query=Museo%20al%20Aire%20Libre%20de%20Hakone" },
       { text: 'Owakudani (valle volcánico, huevos negros del azufre)', cat: 'parques' },
@@ -728,7 +727,7 @@ const destinations = [
       { route: 'IAH → EZE', no: 'UA831', when: '17 nov 18:30 → 18 nov 7:20', aircraft: 'B777-200 · 9h50', tracker: 'https://flightaware.com/live/flight/UAL831' }
     ] },
     tempMax: '11-24', tempMin: '4-14', weatherUpdated: '2026-06-14', weatherMode: 'climatología',
-    intro: 'Cierre del viaje: 5 noches de vuelta en Tokio (última noche 16/11; el 17 es el día previo al vuelo de la tarde), como buffer pre-vuelo. A mediados de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
+    intro: 'Cierre del viaje: 5 noches de vuelta en Tokio (llega de Hakone en Romancecar/Shinkansen, ~1h45; última noche 16/11; el 17 es el día previo al vuelo de la tarde), como buffer pre-vuelo antes del UA6 que sale de Narita el 17/11 17:45. A mediados de noviembre Tokio entra en pico de ginkgo amarillo y koyo (Meiji Jingu Gaien, Rikugien, Koishikawa). Acá van los que quedaron del arranque: teamLab, museos, Yanaka y compras sin apuro.',
     activities: [
       { text: 'Ginkgos de Meiji Jingu Gaien + koyo en Rikugien / Koishikawa Korakuen', cat: 'parques' },
       { text: 'TeamLab Planets/Borderless (reservar online)', cat: 'museos' },
