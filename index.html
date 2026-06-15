@@ -327,7 +327,16 @@ const destinations = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg/500px-Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg',
     imgs: ['https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg/500px-Tokyo_Shibuya_Scramble_Crossing_2018-10-09.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Five-storied_Pagoda_of_Sensoji_Temple_in_Tokyo%2C_20240824_1103_5615.jpg/500px-Five-storied_Pagoda_of_Sensoji_Temple_in_Tokyo%2C_20240824_1103_5615.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Tokyo_Tower%2C_Minato_City.jpg/500px-Tokyo_Tower%2C_Minato_City.jpg'],
     dates: '8-13 oct', nights: 5,
-    arrival: '8 oct (HANEDA/HND, llegada del vuelo desde Houston)', departure: '13 oct (día en Nikko de paso, sigue al norte)', lodging: null,
+    arrival: '8 oct (HANEDA/HND, llegada del vuelo desde Houston)', departure: '13 oct (día en Nikko de paso, sigue al norte)',
+    lodging: {
+      name: 'Shinoka c08 — studio en Shinjuku', type: 'Airbnb · studio (unidad entera)',
+      guests: '2 huéspedes · 1 cama · 1 baño',
+      area: 'Shinjuku, Tokio · a 3 min a pie de la estación Shinjuku-sanchome (centro, zona comercial)',
+      coords: [35.69116, 139.70681],
+      checkIn: '8 oct', checkOut: '13 oct', nights: 5, booked: true,
+      url: 'https://www.airbnb.com/rooms/1105430570374679874',
+      note: 'Airbnb. La dirección exacta solo aparece en la reserva (Airbnb la oculta hasta confirmar). Falta cargar el costo total al sheet de gastos.'
+    },
     leg: { mode: '✈️', time: '~30 h · 1 escala', detail: 'Ida EZE → Tokio Haneda · United Polaris business', segments: [
       { route: 'EZE → IAH', no: 'UA818', when: '6 oct 21:00 → 7 oct 5:15', aircraft: 'B777-200 · 10h15', tracker: 'https://flightaware.com/live/flight/UAL818' },
       { layover: 'escala Houston · 6 h 20' },
